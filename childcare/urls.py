@@ -14,6 +14,7 @@ urlpatterns = patterns('',
                        url(r'^diary/create/', classroom_views.diary_create),
                        url(r'^diary/(?P<diary_id>\d+)/$', classroom_views.diary_detail),
                        url(r'^diary/$', classroom_views.diary_section),
+                       url(r'^diary/(?P<diary_id>\d+)/images/$', classroom_views.add_diary_images),
 
                        # newsboard
                        url(r'^newsboard/create/', newsboard_views.childcare_news_create),

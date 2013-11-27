@@ -1,6 +1,6 @@
 import datetime
 from django.forms.extras.widgets import SelectDateWidget
-from classroom.models import Classroom, Diary
+from classroom.models import Classroom, Diary, DiaryImage
 from django.forms import ModelForm, DateField
 
 
@@ -23,3 +23,9 @@ class DiaryCreateForm(ModelForm):
             'content',
             'classroom',
         )
+
+
+class AddDiaryImageForm(ModelForm):
+    class Meta:
+        model = DiaryImage
+        fields = ('image',)

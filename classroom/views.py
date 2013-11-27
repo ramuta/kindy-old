@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
-from classroom.forms import ClassroomCreateForm, DiaryCreateForm
+from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm
 from classroom.models import Classroom, Diary
 from django.db import IntegrityError
 
@@ -63,3 +64,27 @@ def diary_detail(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
     return render(request, 'classroom/diary_detail.html', {'childcare': childcare, 'diary': diary})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def add_diary_images(request, childcare_slug, diary_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    diary = get_object_or_404(Diary, pk=diary_id)
+    ImageFormSet = formset_factory(AddDiaryImageForm)
+    if request.method == 'POST':
+        formset = ImageFormSet(request.POST)
+        if formset.is_valid():
+            try:
+                for form_image in formset:
+                    img = form_image.save(commit=False)
+                    img.diary = diary
+                    img.save()
+                    form_image.save(commit=True)
+                return HttpResponseRedirect('/%s/dashboard/diary/%s' % (childcare_slug, diary.pk))
+            except IntegrityError:
+                return render(request, 'classroom/error_diary_already_written.html', {'childcare': childcare})
+    else:
+        formset = ImageFormSet()
+    return render(request, 'classroom/add_diary_image.html', {'formset': formset,
+                                                           'childcare': childcare})
