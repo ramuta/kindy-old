@@ -1,0 +1,20 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Edit first page{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/website/">Website</a></li>
+    <li>First page</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Edit first page description for {{ childcare }} website</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Edit">
+    </form>
+{% endblock content %}

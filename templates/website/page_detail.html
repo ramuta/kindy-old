@@ -1,0 +1,8 @@
+{% extends theme_path %}
+
+{% block title %}{{ childcare }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ page }}</h1>
+    <p>{{ page.content|linebreaks }}</p>
+{% endblock content %}

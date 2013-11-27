@@ -26,6 +26,9 @@ urlpatterns = patterns('',
     #childcare
     url(r'^childcare/create/$', childcare_views.childcare_create),
     url(r'^(?P<childcare_slug>[\w\-]+)/dashboard/', include('childcare.urls', namespace="childcare")),
+
+    #website
+    url(r'^(?P<childcare_slug>[\w\-]+)/', include('website.urls', namespace="website")),
 )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

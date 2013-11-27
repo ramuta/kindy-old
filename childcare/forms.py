@@ -3,6 +3,7 @@ from django.forms import ModelForm, ModelMultipleChoiceField
 from .models import Childcare
 import autocomplete_light
 from utils import autocomplete_light_registry
+from website.models import Page
 
 
 class ChildcareCreateForm(ModelForm):
@@ -18,3 +19,27 @@ class ChildcareCreateForm(ModelForm):
                   'city',
                   'managers',)
         exclude = ('disabled',)
+
+
+class FirstPageForm(ModelForm):
+    class Meta:
+        model = Childcare
+        fields = (
+            'description',
+        )
+
+
+class WebsitePageCreateForm(ModelForm):
+    class Meta:
+        model = Page
+        fields = ('title',
+                  'content',
+                  'order',)
+
+
+class ChooseThemeForm(ModelForm):
+    class Meta:
+        model = Childcare
+        fields = (
+            'theme',
+        )
