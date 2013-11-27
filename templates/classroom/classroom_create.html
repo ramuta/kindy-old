@@ -1,0 +1,15 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Create a class{% endblock title %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Add a class in your childcare</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create">
+    </form>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'kindy/base.html' %}
+{% load guardian_tags %}
+
+{% block sidebar-title %}
+	<a href="/{{ childcare.slug }}/dashboard/">Dashboard</a>
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ childcare }}
+{% endblock %}
+
+{% block sidebar %}
+    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/">Newsboard</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/website/">Website</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/gallery/">Gallery</a></li>
+{% endblock %}

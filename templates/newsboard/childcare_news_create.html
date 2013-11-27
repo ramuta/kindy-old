@@ -1,0 +1,20 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Create newsboard post{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/newsboard">Newsboard</a></li>
+    <li>Create</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Create newsboard post</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create">
+    </form>
+{% endblock content %}

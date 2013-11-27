@@ -1,0 +1,30 @@
+{% extends 'kindy/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block sidebar-title %}
+	<a href="/">Home dashboard</a>
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ user.first_name }} {{ user.last_name }}
+{% endblock %}
+
+{% block action %}
+    <li><a href="/childcare/create/"><span class="glyphicon glyphicon-plus"></span> Create a childcare site</a></li>
+    <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-pencil"></span> Edit profile</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Hello{% if user.first_name == '' %} {{ user }}{% else %} {{ user.first_name }} {{ user.last_name }}{% endif %}!</h1>
+
+    {% if childcare_list %}
+        <p>Your childcare sites:</p>
+        <ul>
+        {% for childcare in childcare_list %}
+            <li><a href="/{{ childcare.slug }}/dashboard">{{ childcare }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

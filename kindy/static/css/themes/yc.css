@@ -1,0 +1,21 @@
+.wrapper {
+	max-width:500px;
+	padding:40px 0;
+}
+
+.nav {
+	background:#fafaf0;
+	border-top:4px #ff6600 solid;
+}
+
+.nav p {
+	color:#222222;
+	font-size:12px;
+	margin:20px;
+}
+
+.nav p a { color:#222222; }
+
+.text-center {
+    text-align: center;
+}

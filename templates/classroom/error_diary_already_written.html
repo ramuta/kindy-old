@@ -1,0 +1,14 @@
+{% extends 'childcare/childcare_base.html' %}
+{% block title %}{{ classroom }} | Daily diary{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+<h1>Ooops!</h1>
+<p>A diary for the selected day has already been written.</p>
+{% endblock content %}

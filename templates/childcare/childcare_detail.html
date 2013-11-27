@@ -1,0 +1,34 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}{{ childcare.name }}{% endblock title %}
+
+{% block breadcrumb %}
+    <li>{{ childcare.name }}</li>
+{% endblock %}
+
+{% block action %}
+    <li><a href="classroom/create/"><span class="glyphicon glyphicon-plus"></span> Create classroom</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ childcare.name }}</h1>
+    <p>Address: {{ childcare.street_address }}, {{ childcare.city }}</p>
+
+    {% if classroom_list %}
+        <p>Classrooms:</p>
+        <ul>
+        {% for classroom in classroom_list %}
+            <li>{{ classroom }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if manager_list %}
+        <p>Manager(s):</p>
+        <ul>
+        {% for manager in manager_list %}
+            <li>{{ manager }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}

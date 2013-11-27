@@ -1,0 +1,22 @@
+{% extends 'themes/theme_base.html' %}
+
+{% block theme_body %}
+    <div class="container wrapper">
+		<a href="/{{ childcare.slug }}/"><img src="{{ STATIC_URL }}tmp/yc.gif" alt="{{ childcare }}"></a>
+        <img src="{{ STATIC_URL }}tmp/yc-front.jpg" width="500">
+
+        <div id="content">
+			{% block content %}{% endblock %}
+		</div>
+
+        <div id="nav">
+            <p class="text-center">
+                {% for page in pages_list %}
+                    <a href="/{{ childcare.slug }}/{{ page.slug }}">{{ page }}</a> |
+                {% endfor %}
+                <a href="/{{ childcare.slug }}/news">News</a> |
+                <a href="/{{ childcare.slug }}/enroll">Enroll your child</a>
+            </p>
+		</div>
+	</div>
+{% endblock theme_body %}
