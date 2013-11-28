@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
 from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm
 from childcare.models import Childcare
-from classroom.models import Classroom
+from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News
 from website.models import Page
 
@@ -98,3 +98,15 @@ def website_choose_theme(request, childcare_slug):
     else:
         form = ChooseThemeForm(instance=childcare)
     return render(request, 'childcare/website_choose_theme.html', {'form': form, 'childcare': childcare})
+
+
+@login_required()
+@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
+def gallery_section(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    #news_image_list = News.objects.filter(childcare=childcare)
+    classroom_list = Classroom.objects.filter(childcare=childcare)
+    diary_list = Diary.objects.filter(classroom_id__in=classroom_list)
+    diary_image_list = DiaryImage.objects.filter(diary_id__in=diary_list)
+    return render(request, 'childcare/gallery_section.html', {'childcare': childcare,
+                                                              'diary_image_list': diary_image_list})

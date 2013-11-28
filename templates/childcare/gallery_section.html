@@ -1,0 +1,20 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Edit website{% endblock title %}
+
+{% block breadcrumb %}
+    <li>Gallery</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock %}
+
+{% block content %}
+    {% if diary_image_list %}
+        {% for diary_image in diary_image_list %}
+            <img src="{{ diary_image.image.url }}" height="150" width="150">
+        {% endfor %}
+    {% else %}
+        <p>No photos were taken yet.</p>
+    {% endif %}
+{% endblock content %}

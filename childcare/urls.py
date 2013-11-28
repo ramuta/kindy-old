@@ -26,4 +26,7 @@ urlpatterns = patterns('',
                        url(r'^website/$', views.website_section),
                        url(r'^first-page/edit/', views.website_first_page_edit),
                        url(r'^theme/', views.website_choose_theme),
+
+                       # gallery
+                       url(r'^gallery/$', views.gallery_section),
                        )
