@@ -6,7 +6,7 @@ staticfiles/*
 *.db
 *.sqlite3
 kindy/media/images/child/*
-kindy/media/images/childcare/*
+kindy/media/images/diary/*
 kindy/media/images/logos/*
 kindy/media/images/news/*
 kindy/media/images/user/*

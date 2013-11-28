@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
-from classroom.forms import ClassroomCreateForm, DiaryCreateForm
-from classroom.models import Classroom, Diary
+from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm
+from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
 
 
@@ -62,4 +63,29 @@ def diary_section(request, childcare_slug):
 def diary_detail(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
-    return render(request, 'classroom/diary_detail.html', {'childcare': childcare, 'diary': diary})
+    diary_image_list = DiaryImage.objects.filter(diary=diary)
+    return render(request, 'classroom/diary_detail.html', {'childcare': childcare,
+                                                           'diary': diary,
+                                                           'diary_image_list': diary_image_list})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def add_diary_images(request, childcare_slug, diary_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    diary = get_object_or_404(Diary, pk=diary_id)
+    ImageFormSet = formset_factory(AddDiaryImageForm, extra=5)
+    if request.method == 'POST':
+        formset = ImageFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            for form_image in formset:
+                obj = form_image.save(commit=False)
+                if obj.image:  # save only forms with images
+                    obj.diary = diary
+                    obj.save()
+                    form_image.save(commit=True)
+            return HttpResponseRedirect('/%s/dashboard/diary/%s' % (childcare_slug, diary.pk))
+    else:
+        formset = ImageFormSet()
+    return render(request, 'classroom/add_diary_image.html', {'formset': formset,
+                                                           'childcare': childcare})

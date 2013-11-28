@@ -1,0 +1,28 @@
+{% extends 'childcare/childcare_base.html' %}
+{% block title %}{{ classroom }} | Daily diary{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
+    <li>Create</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Add diary images</h1>
+    <form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <table>
+        {% for form in formset.forms %}
+          <tr>
+            <td>
+              {{ form.as_p }}
+            </td>
+          </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" />
+  </form>
+{% endblock content %}
