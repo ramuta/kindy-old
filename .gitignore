@@ -7,6 +7,7 @@ staticfiles/*
 *.sqlite3
 kindy/media/images/child/*
 kindy/media/images/diary/*
+kindy/media/images/themes/*
 kindy/media/images/logos/*
 kindy/media/images/news/*
 kindy/media/images/user/*

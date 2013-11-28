@@ -6,10 +6,20 @@ from utils.slugify import unique_slugify
 from localflavor.us import models as usmodels
 
 
-THEME_CHOICES = (
-    ('default', 'Default'),
-    ('yc', 'Y Combinator'),
-)
+# create default theme in admin when syncdb
+class Theme(models.Model):
+    title = models.CharField(max_length=255, unique=True)
+    computer_name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True)
+    preview = models.ImageField(upload_to='images/themes/', blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.title
+
+    def get_computer_name(self):
+        return self.computer_name
 
 
 class Childcare(models.Model):
@@ -24,8 +34,8 @@ class Childcare(models.Model):
     managers = models.ManyToManyField(User, related_name='childcare_managers', null=True)
     employees = models.ManyToManyField(User, related_name='childcare_employees', blank=True)
     parents = models.ManyToManyField(User, related_name='childcare_parents', blank=True)
-    theme = models.CharField(max_length=255, choices=THEME_CHOICES, default='default')
-    theme_image = models.CharField(max_length=100, blank=True, default='default')
+    theme = models.ForeignKey(Theme, null=True)
+    website_image = models.CharField(max_length=100, blank=True, default='default')
     email = models.CharField(max_length=100, blank=True, null=True)
     phone_number = models.CharField(max_length=100, blank=True, null=True)
     disabled = models.BooleanField(default=False)

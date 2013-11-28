@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
 from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm
-from childcare.models import Childcare
+from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News
 from website.models import Page
@@ -16,6 +16,19 @@ def childcare_create(request):
         form = ChildcareCreateForm(request.POST)
         if form.is_valid():
             managers = form.cleaned_data['managers']
+            childcare = form.save(commit=False)
+            # check if there is a default theme
+            try:
+                theme = get_object_or_404(Theme, pk=1)
+                theme_exist = True
+            except:
+                theme_exist = False
+            if theme_exist:
+                childcare.theme = get_object_or_404(Theme, pk=1)  # set 1st theme as default
+            else:
+                theme = Theme(title='Default theme', computer_name='default', description='Default theme')
+                theme.save()
+                childcare.theme = theme
             childcare = form.save(commit=True)
             # add manager permissions
             group = Group.objects.get(name='Childcare %s: Manager' % childcare.pk)
@@ -90,10 +103,7 @@ def website_choose_theme(request, childcare_slug):
     if request.method == 'POST':
         form = ChooseThemeForm(request.POST, instance=childcare)
         if form.is_valid():
-            obj = form.save(commit=False)
-            obj.theme_image = form.cleaned_data['theme']
-            obj.save
-            form.save(commit=True)
+            form.save()
             return HttpResponseRedirect('/%s/dashboard/website/' % childcare.slug)
     else:
         form = ChooseThemeForm(instance=childcare)
