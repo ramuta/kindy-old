@@ -11,11 +11,7 @@
 
 {% block content %}
     <h1>Add diary images</h1>
-<<<<<<< HEAD
     <form method="post" action="" enctype="multipart/form-data">
-=======
-    <form method="post" action="">
->>>>>>> 70cadb3021ee82ad921443c53a5b2685a45995d2
     {% csrf_token %}
     {{ formset.management_form }}
     <table>
