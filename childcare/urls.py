@@ -29,4 +29,8 @@ urlpatterns = patterns('',
 
                        # gallery
                        url(r'^gallery/$', views.gallery_section),
+
+                       # add users
+                       url(r'^managers/add/$', views.managers_add_remove),
+                       url(r'^employees/add/$', views.employees_add_remove),
                        )

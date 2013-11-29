@@ -47,3 +47,31 @@ class ChooseThemeForm(ModelForm):
         fields = (
             'theme',
         )
+
+
+class ManagersAddForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ManagersAddForm, self).__init__(*args, **kwargs)
+        self.fields['managers'] = ModelMultipleChoiceField(
+            queryset=User.objects.all(),
+            widget=autocomplete_light.MultipleChoiceWidget('UserAutocomplete'))
+
+    class Meta:
+        model = Childcare
+        fields = (
+            'managers',
+        )
+
+
+class EmployeesAddForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EmployeesAddForm, self).__init__(*args, **kwargs)
+        self.fields['employees'] = ModelMultipleChoiceField(
+            queryset=User.objects.all(),
+            widget=autocomplete_light.MultipleChoiceWidget('UserAutocomplete'))
+
+    class Meta:
+        model = Childcare
+        fields = (
+            'employees',
+        )
