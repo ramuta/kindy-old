@@ -52,9 +52,11 @@ def childcare(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     classroom_list = Classroom.objects.filter(childcare=childcare)
     manager_list = User.objects.filter(childcare_managers__id=childcare.pk)
+    employee_list = User.objects.filter(childcare_employees__id=childcare.pk)
     return render(request, 'childcare/childcare_detail.html', {'childcare': childcare,
                                                                'classroom_list': classroom_list,
-                                                               'manager_list': manager_list})
+                                                               'manager_list': manager_list,
+                                                               'employee_list': employee_list})
 
 
 @login_required()
@@ -174,3 +176,10 @@ def employees_add_remove(request, childcare_slug):
 def managers_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     return render(request, 'childcare/managers_list.html', {'childcare': childcare})
+
+
+@login_required()
+@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
+def employees_list(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    return render(request, 'childcare/employees_list.html', {'childcare': childcare})

@@ -7,18 +7,18 @@
 {% endblock %}
 
 {% block action %}
-    <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add managers</a></li>
+    <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add employees</a></li>
 {% endblock %}
 
 {% block content %}
-    <h1>{{ childcare }} managers</h1>
-    {% if childcare.managers.all %}
+    <h1>{{ childcare }} employees</h1>
+    {% if childcare.employees.all %}
         <ul>
-        {% for manager in childcare.managers.all %}
-            <li>{{ manager }}</li>
+        {% for employee in childcare.employees.all %}
+            <li>{{ employee }}</li>
         {% endfor %}
         </ul>
     {% else %}
-        <p>No managers.</p>
+        <p>No employees added yet.</p>
     {% endif %}
 {% endblock content %}

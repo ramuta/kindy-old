@@ -7,6 +7,7 @@ urlpatterns = patterns('',
                        #childcare
                        url(r'^$', views.childcare),
                        url(r'^managers/$', views.managers_list),
+                       url(r'^employees/$', views.employees_list),
 
                        # classroom
                        url(r'^classroom/create/', classroom_views.classroom_create),

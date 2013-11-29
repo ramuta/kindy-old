@@ -34,4 +34,14 @@
         </ul>
         <p><a href="managers/">List of managers</a></p>
     {% endif %}
+
+    {% if employee_list %}
+        <p>Employees:</p>
+        <ul>
+        {% for employee in employee_list %}
+            <li>{{ employee }}</li>
+        {% endfor %}
+        </ul>
+        <p><a href="employees/">List of employees</a></p>
+    {% endif %}
 {% endblock content %}
