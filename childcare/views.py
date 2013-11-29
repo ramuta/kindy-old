@@ -15,7 +15,7 @@ def childcare_create(request):
     if request.method == 'POST':
         form = ChildcareCreateForm(request.POST)
         if form.is_valid():
-            managers = form.cleaned_data['managers']
+            #managers = form.cleaned_data['managers']
             childcare = form.save(commit=False)
             # check if there is a default theme
             try:
@@ -30,11 +30,14 @@ def childcare_create(request):
                 theme.save()
                 childcare.theme = theme
             childcare = form.save(commit=True)
+            # automatically add current user as manager and give him permissions
+            childcare.managers.add(request.user)
+            managers = list(childcare.managers.all())
             # add manager permissions
             group = Group.objects.get(name='Childcare %s: Manager' % childcare.pk)
             for manager in managers:
                 manager.groups.add(group)
-            # add default classroom
+            # create default classroom
             classroom = Classroom(name='%s classroom' % childcare, childcare=childcare)
             classroom.save()
             return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
