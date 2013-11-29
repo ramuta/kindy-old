@@ -6,6 +6,7 @@ from newsboard import views as newsboard_views
 urlpatterns = patterns('',
                        #childcare
                        url(r'^$', views.childcare),
+                       url(r'^managers/$', views.managers_list),
 
                        # classroom
                        url(r'^classroom/create/', classroom_views.classroom_create),

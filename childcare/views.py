@@ -167,3 +167,10 @@ def employees_add_remove(request, childcare_slug):
     else:
         form = EmployeesAddForm(instance=childcare)
     return render(request, 'childcare/employees_add.html', {'form': form, 'childcare': childcare})
+
+
+@login_required()
+@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
+def managers_list(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    return render(request, 'childcare/managers_list.html', {'childcare': childcare})
