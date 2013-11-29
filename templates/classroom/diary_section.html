@@ -11,9 +11,13 @@
 
 {% block content %}
     <h1>Daily diary list</h1>
+    {% if diary_list %}
     <ul>
-    {% for diary in diary_list %}
-        <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}">{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</a></li>
-    {% endfor %}
+        {% for diary in diary_list %}
+            <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}">{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</a></li>
+        {% endfor %}
     </ul>
+    {% else %}
+        <p>No diaries yet. <a href="/{{ childcare.slug }}/dashboard/diary/create/">Write your first e-diary</a></p>
+    {% endif %}
 {% endblock content %}

@@ -19,25 +19,33 @@
 
     <h2>First Page (child care description):</h2>
     {% if childcare.description == '' %}
-        <p><a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add a description</a></p>
+        <p><a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a></p>
     {% else %}
         <p>{{ childcare.description }} <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a></p>
     {% endif %}
 
 
     <h2>News:</h2>
-    <ul>
-    {% for news in website_news_list %}
-        <li><a href="/{{ childcare.slug }}/news/{{ news.slug }}">{{ news }}</a></li>
-    {% endfor %}
-    </ul>
+    {% if website_news_list %}
+        <ul>
+        {% for news in website_news_list %}
+            <li><a href="/{{ childcare.slug }}/news/{{ news.slug }}">{{ news }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No public news yet. <a href="/{{ childcare.slug }}/dashboard/newsboard/create/">Write your first website news.</a></p>
+    {% endif %}
 
     <h2>Pages:</h2>
-    <ul>
-    {% for page in pages_list %}
-        <li><a href="/{{ childcare.slug }}/{{ page.slug }}">{{ page }}</a></li>
-    {% endfor %}
-    </ul>
+    {% if pages_list %}
+        <ul>
+        {% for page in pages_list %}
+            <li><a href="/{{ childcare.slug }}/{{ page.slug }}">{{ page }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pages yet. <a href="/{{ childcare.slug }}/dashboard/page/create/">Add your first website page.</a></p>
+    {% endif %}
 
     <h2>Theme:</h2>
     <p>{{ childcare.theme.title }} <a href="/{{ childcare.slug }}/dashboard/theme">(change)</a></p>

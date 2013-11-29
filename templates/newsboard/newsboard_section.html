@@ -11,9 +11,13 @@
 
 {% block content %}
     <h1>Newsboard</h1>
-    <ul>
-    {% for news in news_list %}
-        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}">{{ news }}</a></li>
-    {% endfor %}
-    </ul>
+    {% if news_list %}
+        <ul>
+        {% for news in news_list %}
+            <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}">{{ news }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No news yet. <a href="/{{ childcare.slug }}/dashboard/newsboard/create/">Write your first news.</a></p>
+    {% endif %}
 {% endblock content %}
