@@ -1,0 +1,24 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Add parents{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/">{{ childcare }}</a></li>
+    <li>Add parents</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Add {{ childcare }} parents</h1>
+    <p>Search by username</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add">
+    </form>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    {% include 'autocomplete_light/static.html' %}
+{% endblock content %}

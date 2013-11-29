@@ -1,0 +1,24 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}{{ childcare.name }}{% endblock title %}
+
+{% block breadcrumb %}
+    <li>{{ childcare.name }}</li>
+{% endblock %}
+
+{% block action %}
+    <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add parents</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ childcare }} parents</h1>
+    {% if childcare.parents.all %}
+        <ul>
+        {% for parent in childcare.parents.all %}
+            <li>{{ parent }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No parents added yet.</p>
+    {% endif %}
+{% endblock content %}

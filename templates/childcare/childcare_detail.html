@@ -10,6 +10,7 @@
     <li><a href="classroom/create/"><span class="glyphicon glyphicon-plus"></span> Create classroom</a></li>
     <li><a href="managers/add/"><span class="glyphicon glyphicon-plus"></span> Add managers</a></li>
     <li><a href="employees/add/"><span class="glyphicon glyphicon-plus"></span> Add employees</a></li>
+    <li><a href="parents/add/"><span class="glyphicon glyphicon-plus"></span> Add parents</a></li>
 {% endblock %}
 
 {% block content %}
@@ -43,5 +44,15 @@
         {% endfor %}
         </ul>
         <p><a href="employees/">List of employees</a></p>
+    {% endif %}
+
+    {% if parent_list %}
+        <p>Parents:</p>
+        <ul>
+        {% for parent in parent_list %}
+            <li>{{ parent }}</li>
+        {% endfor %}
+        </ul>
+        <p><a href="parents/">List of parents</a></p>
     {% endif %}
 {% endblock content %}

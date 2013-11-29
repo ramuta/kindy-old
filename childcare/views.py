@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
-from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm
+from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News
@@ -53,10 +53,12 @@ def childcare(request, childcare_slug):
     classroom_list = Classroom.objects.filter(childcare=childcare)
     manager_list = User.objects.filter(childcare_managers__id=childcare.pk)
     employee_list = User.objects.filter(childcare_employees__id=childcare.pk)
+    parent_list = User.objects.filter(childcare_parents__id=childcare.pk)
     return render(request, 'childcare/childcare_detail.html', {'childcare': childcare,
                                                                'classroom_list': classroom_list,
                                                                'manager_list': manager_list,
-                                                               'employee_list': employee_list})
+                                                               'employee_list': employee_list,
+                                                               'parent_list': parent_list})
 
 
 @login_required()
@@ -172,6 +174,28 @@ def employees_add_remove(request, childcare_slug):
 
 
 @login_required()
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def parents_add_remove(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    if request.method == 'POST':
+        form = ParentsAddForm(request.POST, instance=childcare)
+        if form.is_valid():
+            old_parents = list(childcare.parents.all())  # have to convert to list to preserve values in it
+            new_parents = form.cleaned_data['parents']
+            form.save(commit=True)
+            group = Group.objects.get(name='Childcare %s: Parent' % childcare.pk)
+            for user in new_parents:
+                user.groups.add(group)
+            for old_user in old_parents:
+                if old_user not in new_parents:
+                    old_user.groups.remove(group)
+            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+    else:
+        form = ParentsAddForm(instance=childcare)
+    return render(request, 'childcare/parents_add.html', {'form': form, 'childcare': childcare})
+
+
+@login_required()
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def managers_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
@@ -183,3 +207,10 @@ def managers_list(request, childcare_slug):
 def employees_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     return render(request, 'childcare/employees_list.html', {'childcare': childcare})
+
+
+@login_required()
+@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
+def parents_list(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    return render(request, 'childcare/parents_list.html', {'childcare': childcare})

@@ -75,3 +75,17 @@ class EmployeesAddForm(ModelForm):
         fields = (
             'employees',
         )
+
+
+class ParentsAddForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ParentsAddForm, self).__init__(*args, **kwargs)
+        self.fields['parents'] = ModelMultipleChoiceField(
+            queryset=User.objects.all(),
+            widget=autocomplete_light.MultipleChoiceWidget('UserAutocomplete'))
+
+    class Meta:
+        model = Childcare
+        fields = (
+            'parents',
+        )
