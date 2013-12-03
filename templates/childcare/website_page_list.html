@@ -1,0 +1,23 @@
+{% extends 'childcare/childcare_base.html' %}
+{% block title %}{{ childcare }} pages list{% endblock title %}
+
+{% block breadcrumb %}
+    <li>Pages list</li>
+{% endblock %}
+
+{% block action %}
+    <li><a href="/{{ childcare.slug }}/dashboard/page/create/"><span class="glyphicon glyphicon-plus"></span> Add page</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Pages</h1>
+    {% if page_list %}
+        <ul>
+        {% for page in page_list %}
+            <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}">{{ page }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pages yet. <a href="/{{ childcare.slug }}/dashboard/page/create/">Write your first page.</a></p>
+    {% endif %}
+{% endblock content %}

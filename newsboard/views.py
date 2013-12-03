@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
-from newsboard.forms import NewsCreateForm, AddNewsImageForm
-from newsboard.models import News, NewsImage
+from newsboard.forms import NewsCreateForm, AddNewsImageForm, AddNewsFileForm
+from newsboard.models import News, NewsImage, NewsFile
 from django.forms.formsets import formset_factory
 
 
@@ -32,9 +32,11 @@ def childcare_news_detail(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id, childcare=childcare)
     news_image_list = NewsImage.objects.filter(news=news)
+    news_file_list = NewsFile.objects.filter(news=news)
     return render(request, 'newsboard/childcare_news_detail.html', {'childcare': childcare,
                                                                     'news': news,
-                                                                    'news_image_list': news_image_list})
+                                                                    'news_image_list': news_image_list,
+                                                                    'news_file_list': news_file_list})
 
 
 @login_required
@@ -57,6 +59,29 @@ def add_news_images(request, childcare_slug, news_id):
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_image.html', {'formset': formset,
                                                              'childcare': childcare})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def add_news_files(request, childcare_slug, news_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    news = get_object_or_404(News, pk=news_id)
+    ImageFormSet = formset_factory(AddNewsFileForm, extra=5)
+    if request.method == 'POST':
+        formset = ImageFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            for form_file in formset:
+                obj = form_file.save(commit=False)
+                if obj.file:  # save only forms with images
+                    obj.news = news
+                    obj.uploader = request.user
+                    obj.save()
+                    form_file.save(commit=True)
+            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+    else:
+        formset = ImageFormSet()
+    return render(request, 'newsboard/add_news_file.html', {'formset': formset,
+                                                            'childcare': childcare})
 
 
 @login_required()

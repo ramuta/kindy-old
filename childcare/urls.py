@@ -20,10 +20,12 @@ urlpatterns = patterns('',
                        url(r'^newsboard/create/$', newsboard_views.childcare_news_create),
                        url(r'^newsboard/(?P<news_id>\d+)/$', newsboard_views.childcare_news_detail),
                        url(r'^newsboard/(?P<news_id>\d+)/images/$', newsboard_views.add_news_images),
+                       url(r'^newsboard/(?P<news_id>\d+)/files/$', newsboard_views.add_news_files),
                        url(r'^newsboard/$', newsboard_views.newsboard_section),
 
                        # website
                        url(r'^page/create/$', views.website_page_create),
+                       url(r'^pages/$', views.website_pages_list),
                        url(r'^page/(?P<page_id>\d+)/$', views.website_page_detail),
                        url(r'^page/(?P<page_id>\d+)/files/$', views.add_page_files),
                        url(r'^website/$', views.website_section),

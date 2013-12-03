@@ -102,6 +102,15 @@ def website_page_detail(request, childcare_slug, page_id):
 
 
 @login_required
+@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
+def website_pages_list(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    page_list = Page.objects.filter(childcare=childcare)
+    return render(request, 'childcare/website_page_list.html', {'childcare': childcare,
+                                                                'page_list': page_list})
+
+
+@login_required
 @permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
 def add_page_files(request, childcare_slug, page_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)

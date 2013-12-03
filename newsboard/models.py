@@ -30,6 +30,7 @@ class NewsImage(models.Model):
     image = models.ImageField(upload_to='images/news/', blank=True)
     news = models.ForeignKey(News)
     #TODO: thumbnail = GalleryThumbnail(source='image')
+    #created
 
 
 class NewsFile(models.Model):
@@ -37,3 +38,4 @@ class NewsFile(models.Model):
     description = models.CharField(max_length=500, blank=True)
     uploader = models.ForeignKey(User)
     news = models.ForeignKey(News)
+    #created
