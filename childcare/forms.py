@@ -3,7 +3,7 @@ from django.forms import ModelForm, ModelMultipleChoiceField
 from .models import Childcare
 import autocomplete_light
 from utils import autocomplete_light_registry
-from website.models import Page
+from website.models import Page, PageFile
 
 
 class ChildcareCreateForm(ModelForm):
@@ -89,3 +89,9 @@ class ParentsAddForm(ModelForm):
         fields = (
             'parents',
         )
+
+
+class AddPageFileForm(ModelForm):
+    class Meta:
+        model = PageFile
+        fields = ('file', 'description',)

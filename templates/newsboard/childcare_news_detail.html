@@ -7,10 +7,21 @@
     <li>News</li>
 {% endblock %}
 
-{% block action_header %}
-{% endblock action_header %}
+{% block action %}
+    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
+{% endblock action %}
 
 {% block content %}
     <h1>{{ news }}</h1>
     <p>{{ news.content|linebreaks }}</p>
+
+    {% if news_image_list %}
+        {% for image in news_image_list %}
+            {% if image.image %}
+                <img src="{{ image.image.url }}" height="100" width="100">
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/">Add images</a></p>
+    {% endif %}
 {% endblock content %}

@@ -3,11 +3,12 @@ from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
-from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm
+from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News
-from website.models import Page
+from website.models import Page, PageFile
+from django.forms.formsets import formset_factory
 
 
 @login_required
@@ -89,6 +90,40 @@ def website_page_create(request, childcare_slug):
     return render(request, 'childcare/website_page_create.html', {'form': form, 'childcare': childcare})
 
 
+@login_required
+@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
+def website_page_detail(request, childcare_slug, page_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    page = get_object_or_404(Page, pk=page_id, childcare=childcare)
+    page_file_list = PageFile.objects.filter(page=page)
+    return render(request, 'childcare/website_page_detail.html', {'childcare': childcare,
+                                                                  'page': page,
+                                                                  'page_file_list': page_file_list})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def add_page_files(request, childcare_slug, page_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    page = get_object_or_404(Page, pk=page_id)
+    FileFormSet = formset_factory(AddPageFileForm, extra=5)
+    if request.method == 'POST':
+        formset = FileFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            for form_file in formset:
+                obj = form_file.save(commit=False)
+                if obj.file:  # save only forms with files
+                    obj.page = page
+                    obj.uploader = request.user
+                    obj.save()
+                    form_file.save(commit=True)
+            return HttpResponseRedirect('/%s/dashboard/page/%s' % (childcare_slug, page.pk))
+    else:
+        formset = FileFormSet()
+    return render(request, 'childcare/add_page_file.html', {'formset': formset,
+                                                            'childcare': childcare})
+
+
 @login_required()
 @permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
 def website_first_page_edit(request, childcare_slug):
@@ -121,7 +156,7 @@ def website_choose_theme(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def gallery_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    #news_image_list = News.objects.filter(childcare=childcare)
+    #news_list = News.objects.filter(childcare=childcare)
     classroom_list = Classroom.objects.filter(childcare=childcare)
     diary_list = Diary.objects.filter(classroom_id__in=classroom_list)
     diary_image_list = DiaryImage.objects.filter(diary_id__in=diary_list)

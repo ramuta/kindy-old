@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from childcare.models import Childcare
 from newsboard.models import News
-from website.models import Page
+from website.models import Page, PageFile
 
 
 def website(request, childcare_slug):
@@ -42,7 +42,9 @@ def page_detail(request, childcare_slug, page_slug):
     page = get_object_or_404(Page, childcare=childcare.pk, slug=page_slug)
     pages_list = Page.objects.filter(childcare=childcare)
     theme_path = 'themes/'+childcare.theme.computer_name+'.html'
+    page_file_list = PageFile.objects.filter(page=page)
     return render(request, 'website/page_detail.html', {'childcare': childcare,
                                                         'page': page,
                                                         'pages_list': pages_list,
+                                                        'page_file_list': page_file_list,
                                                         'theme_path': theme_path})

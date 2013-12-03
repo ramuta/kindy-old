@@ -40,7 +40,7 @@
     {% if pages_list %}
         <ul>
         {% for page in pages_list %}
-            <li><a href="/{{ childcare.slug }}/{{ page.slug }}">{{ page }}</a></li>
+            <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/">{{ page }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
