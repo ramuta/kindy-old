@@ -6,7 +6,7 @@ from guardian.decorators import permission_required_or_403
 from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
-from newsboard.models import News
+from newsboard.models import News, NewsImage
 from website.models import Page, PageFile
 from django.forms.formsets import formset_factory
 
@@ -165,12 +165,14 @@ def website_choose_theme(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def gallery_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    #news_list = News.objects.filter(childcare=childcare)
     classroom_list = Classroom.objects.filter(childcare=childcare)
     diary_list = Diary.objects.filter(classroom_id__in=classroom_list)
+    news_list = News.objects.filter(childcare=childcare)
     diary_image_list = DiaryImage.objects.filter(diary_id__in=diary_list)
+    news_image_list = NewsImage.objects.filter(news_id__in=news_list)
     return render(request, 'childcare/gallery_section.html', {'childcare': childcare,
-                                                              'diary_image_list': diary_image_list})
+                                                              'diary_image_list': diary_image_list,
+                                                              'news_image_list': news_image_list})
 
 
 @login_required()

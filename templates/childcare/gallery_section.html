@@ -10,9 +10,19 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Diary images:</h1>
     {% if diary_image_list %}
         {% for diary_image in diary_image_list %}
             <img src="{{ diary_image.image.url }}" height="150" width="150">
+        {% endfor %}
+    {% else %}
+        <p>No photos were taken yet.</p>
+    {% endif %}
+
+    <h1>News images:</h1>
+    {% if news_image_list %}
+        {% for news_image in news_image_list %}
+            <img src="{{ news_image.image.url }}" height="150" width="150">
         {% endfor %}
     {% else %}
         <p>No photos were taken yet.</p>
