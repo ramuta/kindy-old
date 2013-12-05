@@ -118,3 +118,6 @@ class DiaryUpdate(UpdateView):
         context = super(DiaryUpdate, self).get_context_data(**kwargs)
         context['childcare'] = self.object.classroom.childcare
         return context
+
+    def get_success_url(self):
+        return '/%s/dashboard/diary/%s/' % (self.object.classroom.childcare.slug, self.object.pk)
