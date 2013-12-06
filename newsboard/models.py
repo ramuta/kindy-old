@@ -23,7 +23,7 @@ class News(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.title)
-            super(News, self).save(*args, **kwargs)
+        super(News, self).save(*args, **kwargs)
 
 
 class NewsImage(models.Model):

@@ -22,7 +22,7 @@ class Page(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.title)
-            super(Page, self).save(*args, **kwargs)
+        super(Page, self).save(*args, **kwargs)
 
 
 class PageFile(models.Model):

@@ -84,7 +84,7 @@ def website_page_create(request, childcare_slug):
             obj.childcare = childcare
             obj.save
             form.save(commit=True)
-            return HttpResponseRedirect('/%s/dashboard/website/' % childcare.slug)
+            return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, obj.pk))
     else:
         form = WebsitePageCreateForm()
     return render(request, 'childcare/website_page_create.html', {'form': form, 'childcare': childcare})
@@ -99,6 +99,35 @@ def website_page_detail(request, childcare_slug, page_id):
     return render(request, 'childcare/website_page_detail.html', {'childcare': childcare,
                                                                   'page': page,
                                                                   'page_file_list': page_file_list})
+
+
+@login_required()
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def website_page_update(request, childcare_slug, page_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    page = get_object_or_404(Page, pk=page_id, childcare=childcare)
+    if request.method == 'POST':
+        form = WebsitePageCreateForm(data=request.POST, instance=page)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, page.pk))
+    else:
+        form = WebsitePageCreateForm(instance=page)
+    return render(request, 'childcare/website_page_update.html', {'form': form,
+                                                                  'childcare': childcare,
+                                                                  'page': page})
+
+
+@login_required()
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def website_page_delete(request, childcare_slug, page_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    page = get_object_or_404(Page, pk=page_id, childcare=childcare)
+    if request.method == 'POST':
+        page.delete()
+        return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
+    return render(request, 'childcare/website_page_delete.html', {'childcare': childcare,
+                                                                  'page': page})
 
 
 @login_required

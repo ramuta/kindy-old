@@ -9,6 +9,8 @@
 
 {% block action %}
     <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/files/"><span class="glyphicon glyphicon-plus"></span> Add files</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
 {% endblock action %}
 
 {% block content %}

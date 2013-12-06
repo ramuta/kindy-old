@@ -1,0 +1,20 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Delete a website page{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/website/">Website</a></li>
+    <li>Delete page</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Delete page {{ page }}?</h1>
+    <p>Are you sure you want to delete page {{ page }}?</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, I'm sure</button>
+    </form>
+{% endblock content %}
