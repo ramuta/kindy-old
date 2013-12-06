@@ -20,3 +20,9 @@ class AddNewsFileForm(ModelForm):
     class Meta:
         model = NewsFile
         fields = ('file', 'description',)
+
+
+class NewsUpdateForm(ModelForm):
+    class Meta:
+        model = News
+        fields = ('content', 'public',)

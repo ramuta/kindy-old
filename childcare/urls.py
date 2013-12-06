@@ -15,8 +15,8 @@ urlpatterns = patterns('',
                        url(r'^diary/(?P<diary_id>\d+)/$', classroom_views.diary_detail),
                        url(r'^diary/$', classroom_views.diary_section),
                        url(r'^diary/(?P<diary_id>\d+)/images/$', classroom_views.add_diary_images),
-                       url(r'^diary/(?P<pk>\d+)/delete/$', classroom_views.DiaryDelete.as_view()),
-                       url(r'^diary/(?P<pk>\d+)/update/$', classroom_views.DiaryUpdate.as_view()),
+                       url(r'^diary/(?P<diary_id>\d+)/delete/$', classroom_views.diary_delete),
+                       url(r'^diary/(?P<diary_id>\d+)/update/$', classroom_views.diary_update),
 
                        # newsboard
                        url(r'^newsboard/create/$', newsboard_views.childcare_news_create),
@@ -24,6 +24,8 @@ urlpatterns = patterns('',
                        url(r'^newsboard/(?P<news_id>\d+)/images/$', newsboard_views.add_news_images),
                        url(r'^newsboard/(?P<news_id>\d+)/files/$', newsboard_views.add_news_files),
                        url(r'^newsboard/$', newsboard_views.newsboard_section),
+                       url(r'^newsboard/(?P<news_id>\d+)/delete/$', newsboard_views.childcare_news_delete),
+                       url(r'^newsboard/(?P<news_id>\d+)/update/$', newsboard_views.childcare_news_update),
 
                        # website
                        url(r'^page/create/$', views.website_page_create),

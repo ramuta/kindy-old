@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.views.generic.edit import DeleteView, UpdateView
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
-from newsboard.forms import NewsCreateForm, AddNewsImageForm, AddNewsFileForm
+from newsboard.forms import NewsCreateForm, AddNewsImageForm, AddNewsFileForm, NewsUpdateForm
 from newsboard.models import News, NewsImage, NewsFile
 from django.forms.formsets import formset_factory
 
@@ -37,6 +38,35 @@ def childcare_news_detail(request, childcare_slug, news_id):
                                                                     'news': news,
                                                                     'news_image_list': news_image_list,
                                                                     'news_file_list': news_file_list})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def childcare_news_update(request, childcare_slug, news_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    news = get_object_or_404(News, pk=news_id, childcare=childcare)
+    if request.method == 'POST':
+        form = NewsUpdateForm(data=request.POST, instance=news)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+    else:
+        form = NewsUpdateForm(instance=news)
+    return render(request, 'newsboard/childcare_news_update.html', {'form': form,
+                                                                    'childcare': childcare,
+                                                                    'news': news})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def childcare_news_delete(request, childcare_slug, news_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    news = get_object_or_404(News, pk=news_id, childcare=childcare)
+    if request.method == 'POST':
+        news.delete()
+        return HttpResponseRedirect('/%s/dashboard/newsboard/' % childcare_slug)
+    return render(request, 'newsboard/childcare_news_delete.html', {'childcare': childcare,
+                                                                    'news': news})
 
 
 @login_required

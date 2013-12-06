@@ -1,8 +1,8 @@
 {% extends 'childcare/childcare_base.html' %}
-{% block title %}Daily diary{% endblock title %}
+{% block title %}Update news{% endblock title %}
 
 {% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/">Newsboard</a></li>
     <li>Update</li>
 {% endblock %}
 
@@ -10,7 +10,7 @@
 {% endblock action_header %}
 
 {% block content %}
-    <h1>Update a diary for {{ diary.date }}</h1>
+    <h1>Update news {{ news }}?</h1>
 
     <form action="" method="post">
         {% csrf_token %}

@@ -73,6 +73,35 @@ def diary_detail(request, childcare_slug, diary_id):
 
 @login_required
 @permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def diary_update(request, childcare_slug, diary_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    diary = get_object_or_404(Diary, pk=diary_id)
+    if request.method == 'POST':
+        form = DiaryUpdateForm(data=request.POST, instance=diary)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/%s/dashboard/diary/%s' % (childcare_slug, diary.pk))
+    else:
+        form = DiaryUpdateForm(instance=diary)
+    return render(request, 'classroom/diary_update.html', {'form': form,
+                                                           'childcare': childcare,
+                                                           'diary': diary})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def diary_delete(request, childcare_slug, diary_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    diary = get_object_or_404(Diary, pk=diary_id)
+    if request.method == 'POST':
+        diary.delete()
+        return HttpResponseRedirect('/%s/dashboard/diary' % childcare_slug)
+    return render(request, 'classroom/diary_delete.html', {'childcare': childcare,
+                                                           'diary': diary})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
 def add_diary_images(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
@@ -91,33 +120,3 @@ def add_diary_images(request, childcare_slug, diary_id):
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,
                                                               'childcare': childcare})
-
-
-'''Delete/update views'''
-
-
-class DiaryDelete(DeleteView):
-    model = Diary
-    template_name = 'classroom/diary_delete.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(DiaryDelete, self).get_context_data(**kwargs)
-        context['childcare'] = self.object.classroom.childcare
-        return context
-
-    def get_success_url(self):
-        return '/%s/dashboard/diary/' % self.object.classroom.childcare.slug
-
-
-class DiaryUpdate(UpdateView):
-    model = Diary
-    form_class = DiaryUpdateForm
-    template_name = 'classroom/diary_update.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(DiaryUpdate, self).get_context_data(**kwargs)
-        context['childcare'] = self.object.classroom.childcare
-        return context
-
-    def get_success_url(self):
-        return '/%s/dashboard/diary/%s/' % (self.object.classroom.childcare.slug, self.object.pk)

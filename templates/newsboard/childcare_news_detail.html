@@ -10,6 +10,8 @@
 {% block action %}
     <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
     <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/"><span class="glyphicon glyphicon-plus"></span> Add files</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
 {% endblock action %}
 
 {% block content %}

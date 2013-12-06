@@ -1,8 +1,8 @@
 {% extends 'childcare/childcare_base.html' %}
-{% block title %}Daily diary{% endblock title %}
+{% block title %}Delete news{% endblock title %}
 
 {% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
+    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/">Newsboard</a></li>
     <li>Delete</li>
 {% endblock %}
 
@@ -10,8 +10,8 @@
 {% endblock action_header %}
 
 {% block content %}
-    <h1>Delete a diary for {{ diary.date }}?</h1>
-    <p>Are you sure you want to delete a diary for {{ diary.date }}?</p>
+    <h1>Delete news {{ news }}?</h1>
+    <p>Are you sure you want to delete news {{ news }}?</p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Yes, I'm sure</button>

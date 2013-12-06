@@ -7,8 +7,8 @@ from django.template.defaultfilters import slugify
 class News(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)  # null=True
+    modified = models.DateTimeField(auto_now=True)  # null=True
     author = models.ForeignKey(User)
     content = models.TextField()
     childcare = models.ForeignKey(Childcare)
