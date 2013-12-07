@@ -93,6 +93,19 @@ def add_news_images(request, childcare_slug, news_id):
 
 @login_required
 @permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def news_image_delete(request, childcare_slug, news_id, image_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    image = get_object_or_404(NewsImage, pk=image_id, news=news_id)
+    news = get_object_or_404(News, pk=news_id)
+    if request.method == 'POST':
+        image.delete()
+        return HttpResponseRedirect('/%s/dashboard/newsboard/%s/' % (childcare_slug, news.pk))
+    return render(request, 'newsboard/news_image_delete.html', {'childcare': childcare,
+                                                                'image': image})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
 def add_news_files(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id)

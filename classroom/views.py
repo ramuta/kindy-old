@@ -133,7 +133,7 @@ def diary_image_delete(request, childcare_slug, diary_id, image_id):
         diary_image.delete()
         return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
     return render(request, 'classroom/diary_image_delete.html', {'childcare': childcare,
-                                                                 'diary_image': diary_image})
+                                                                 'image': diary_image})
 
 
 @login_required

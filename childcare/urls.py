@@ -30,6 +30,7 @@ urlpatterns = patterns('',
                        url(r'^newsboard/$', newsboard_views.newsboard_section),
                        url(r'^newsboard/(?P<news_id>\d+)/delete/$', newsboard_views.childcare_news_delete),
                        url(r'^newsboard/(?P<news_id>\d+)/update/$', newsboard_views.childcare_news_update),
+                       url(r'^newsboard/(?P<news_id>\d+)/image/(?P<image_id>\d+)/delete/$', newsboard_views.news_image_delete),
 
                        # website
                        url(r'^page/create/$', views.website_page_create),
