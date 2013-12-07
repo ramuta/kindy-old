@@ -8,7 +8,10 @@ urlpatterns = patterns('',
                        url(r'^$', views.childcare),
 
                        # classroom
-                       url(r'^classroom/create/', classroom_views.classroom_create),
+                       url(r'^classroom/create/$', classroom_views.classroom_create),
+                       url(r'^classroom/$', classroom_views.classroom_list),
+                       url(r'^classroom/(?P<classroom_id>\d+)/delete/$', classroom_views.classroom_delete),
+                       url(r'^classroom/(?P<classroom_id>\d+)/update/$', classroom_views.classroom_update),
 
                        # diary
                        url(r'^diary/create/$', classroom_views.diary_create),

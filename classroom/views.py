@@ -80,7 +80,7 @@ def diary_update(request, childcare_slug, diary_id):
         form = DiaryUpdateForm(data=request.POST, instance=diary)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/%s/dashboard/diary/%s' % (childcare_slug, diary.pk))
+            return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
     else:
         form = DiaryUpdateForm(instance=diary)
     return render(request, 'classroom/diary_update.html', {'form': form,
@@ -95,7 +95,7 @@ def diary_delete(request, childcare_slug, diary_id):
     diary = get_object_or_404(Diary, pk=diary_id)
     if request.method == 'POST':
         diary.delete()
-        return HttpResponseRedirect('/%s/dashboard/diary' % childcare_slug)
+        return HttpResponseRedirect('/%s/dashboard/diary/' % childcare_slug)
     return render(request, 'classroom/diary_delete.html', {'childcare': childcare,
                                                            'diary': diary})
 
@@ -115,8 +115,46 @@ def add_diary_images(request, childcare_slug, diary_id):
                     obj.diary = diary
                     obj.save()
                     form_image.save(commit=True)
-            return HttpResponseRedirect('/%s/dashboard/diary/%s' % (childcare_slug, diary.pk))
+            return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
     else:
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,
                                                               'childcare': childcare})
+
+
+@login_required
+@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
+def classroom_list(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    classroom_list = Classroom.objects.filter(childcare=childcare)
+    return render(request, 'classroom/classroom_list.html', {'childcare': childcare,
+                                                             'classroom_list': classroom_list})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def classroom_delete(request, childcare_slug, classroom_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    classroom = get_object_or_404(Classroom, pk=classroom_id)
+    if request.method == 'POST':
+        classroom.delete()
+        return HttpResponseRedirect('/%s/dashboard/classroom/' % childcare_slug)
+    return render(request, 'classroom/classroom_delete.html', {'childcare': childcare,
+                                                               'classroom': classroom})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def classroom_update(request, childcare_slug, classroom_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    classroom = get_object_or_404(Classroom, pk=classroom_id)
+    if request.method == 'POST':
+        form = ClassroomCreateForm(data=request.POST, instance=classroom)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/%s/dashboard/classroom' % childcare_slug)
+    else:
+        form = ClassroomCreateForm(instance=classroom)
+    return render(request, 'classroom/classroom_update.html', {'childcare': childcare,
+                                                               'classroom': classroom,
+                                                               'form': form})

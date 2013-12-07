@@ -18,7 +18,7 @@
     <p>Address: {{ childcare.street_address }}, {{ childcare.city }}</p>
 
     {% if classroom_list %}
-        <p>Classrooms:</p>
+        <p><a href="classroom/">Classrooms:</a></p>
         <ul>
         {% for classroom in classroom_list %}
             <li>{{ classroom }}</li>
@@ -27,32 +27,29 @@
     {% endif %}
 
     {% if manager_list %}
-        <p>Manager(s):</p>
+        <p><a href="managers/">Manager(s):</a></p>
         <ul>
         {% for manager in manager_list %}
             <li>{{ manager }}</li>
         {% endfor %}
         </ul>
-        <p><a href="managers/">List of managers</a></p>
     {% endif %}
 
     {% if employee_list %}
-        <p>Employees:</p>
+        <p><a href="employees/">Employees:</a></p>
         <ul>
         {% for employee in employee_list %}
             <li>{{ employee }}</li>
         {% endfor %}
         </ul>
-        <p><a href="employees/">List of employees</a></p>
     {% endif %}
 
     {% if parent_list %}
-        <p>Parents:</p>
+        <p><a href="parents/">Parents:</a></p>
         <ul>
         {% for parent in parent_list %}
             <li>{{ parent }}</li>
         {% endfor %}
         </ul>
-        <p><a href="parents/">List of parents</a></p>
     {% endif %}
 {% endblock content %}

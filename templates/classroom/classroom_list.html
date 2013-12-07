@@ -1,0 +1,15 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Classroom list{% endblock title %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Classrooms:</h1>
+    <ul>
+    {% for classroom in classroom_list %}
+        <li>{{ classroom }} | <a href="{{ classroom.pk }}/update/">Update</a> | <a href="{{ classroom.pk }}/delete/">Delete</a></li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
