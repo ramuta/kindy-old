@@ -1,0 +1,20 @@
+{% extends 'childcare/childcare_base.html' %}
+{% block title %}Daily diary image{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
+    <li>Delete</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Delete diary image?</h1>
+    <p>Are you sure you want to delete this diary image?</p>
+    <p><img src="{{ diary_image.image.url }}" height="100" width="100"></p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, I'm sure</button>
+    </form>
+{% endblock content %}

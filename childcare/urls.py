@@ -20,6 +20,7 @@ urlpatterns = patterns('',
                        url(r'^diary/(?P<diary_id>\d+)/images/$', classroom_views.add_diary_images),
                        url(r'^diary/(?P<diary_id>\d+)/delete/$', classroom_views.diary_delete),
                        url(r'^diary/(?P<diary_id>\d+)/update/$', classroom_views.diary_update),
+                       url(r'^diary/(?P<diary_id>\d+)/image/(?P<image_id>\d+)/delete/$', classroom_views.diary_image_delete),
 
                        # newsboard
                        url(r'^newsboard/create/$', newsboard_views.childcare_news_create),

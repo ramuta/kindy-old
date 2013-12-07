@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import DeleteView, UpdateView
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
-from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm
+from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm, DiaryImageUpdateForm
 from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
 
@@ -76,6 +76,7 @@ def diary_detail(request, childcare_slug, diary_id):
 def diary_update(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
+    #ImageFormSet = formset_factory(DiaryImageUpdateForm, )
     if request.method == 'POST':
         form = DiaryUpdateForm(data=request.POST, instance=diary)
         if form.is_valid():
@@ -120,6 +121,19 @@ def add_diary_images(request, childcare_slug, diary_id):
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,
                                                               'childcare': childcare})
+
+
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def diary_image_delete(request, childcare_slug, diary_id, image_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    diary_image = get_object_or_404(DiaryImage, pk=image_id, diary=diary_id)
+    diary = get_object_or_404(Diary, pk=diary_id)
+    if request.method == 'POST':
+        diary_image.delete()
+        return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
+    return render(request, 'classroom/diary_image_delete.html', {'childcare': childcare,
+                                                                 'diary_image': diary_image})
 
 
 @login_required

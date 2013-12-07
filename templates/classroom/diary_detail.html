@@ -19,7 +19,7 @@
     {% if diary_image_list %}
         {% for image in diary_image_list %}
             {% if image.image %}
-                <img src="{{ image.image.url }}" height="100" width="100">
+                <img src="{{ image.image.url }}" height="100" width="100"> <p><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
             {% endif %}
         {% endfor %}
     {% else %}

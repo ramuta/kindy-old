@@ -39,3 +39,9 @@ class DiaryUpdateForm(ModelForm):
     class Meta:
         model = Diary
         fields = ('content',)
+
+
+class DiaryImageUpdateForm(ModelForm):
+    class Meta:
+        model = DiaryImage
+        fields = ('image',)
