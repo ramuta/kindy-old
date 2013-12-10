@@ -162,6 +162,19 @@ def add_page_files(request, childcare_slug, page_id):
                                                             'childcare': childcare})
 
 
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def page_file_delete(request, childcare_slug, page_id, file_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    file = get_object_or_404(PageFile, pk=file_id, page=page_id)
+    page = get_object_or_404(Page, pk=page_id)
+    if request.method == 'POST':
+        file.delete()
+        return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare_slug, page.pk))
+    return render(request, 'childcare/page_file_delete.html', {'childcare': childcare,
+                                                               'file': file})
+
+
 @login_required()
 @permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
 def website_first_page_edit(request, childcare_slug):

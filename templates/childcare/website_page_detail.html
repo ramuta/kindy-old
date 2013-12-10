@@ -21,7 +21,7 @@
         Files:
         <ul>
         {% for file in page_file_list %}
-            <li><a href="{{ file.file.url }}">{{ file.description }}</a>, {{ file.uploader }} ({{ file.created }})</li>
+            <li><a href="{{ file.file.url }}">{{ file.description }}</a>, {{ file.uploader }} ({{ file.created }}) | <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/file/{{ file.pk }}/delete/">Delete</a></li>
         {% endfor %}
         </ul>
     {% endif %}
