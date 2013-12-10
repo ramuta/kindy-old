@@ -127,6 +127,19 @@ def add_news_files(request, childcare_slug, news_id):
                                                             'childcare': childcare})
 
 
+@login_required
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def news_file_delete(request, childcare_slug, news_id, file_id):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    file = get_object_or_404(NewsFile, pk=file_id, news=news_id)
+    news = get_object_or_404(News, pk=news_id)
+    if request.method == 'POST':
+        file.delete()
+        return HttpResponseRedirect('/%s/dashboard/newsboard/%s/' % (childcare_slug, news.pk))
+    return render(request, 'newsboard/news_file_delete.html', {'childcare': childcare,
+                                                               'file': file})
+
+
 @login_required()
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def newsboard_section(request, childcare_slug):
