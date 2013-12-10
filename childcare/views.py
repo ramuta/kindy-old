@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
-from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm
+from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm, ChildcareUpdateForm
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News, NewsImage
@@ -45,6 +45,21 @@ def childcare_create(request):
     else:
         form = ChildcareCreateForm()
     return render(request, 'childcare/childcare_create.html', {'form': form})
+
+
+@login_required()
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def childcare_update(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    if request.method == 'POST':
+        form = ChildcareUpdateForm(data=request.POST, instance=childcare)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+    else:
+        form = ChildcareUpdateForm(instance=childcare)
+    return render(request, 'childcare/childcare_update.html', {'form': form,
+                                                               'childcare': childcare})
 
 
 @login_required

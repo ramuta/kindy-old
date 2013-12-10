@@ -7,15 +7,6 @@ from website.models import Page, PageFile
 
 
 class ChildcareCreateForm(ModelForm):
-    '''
-    def __init__(self, user=None, *args, **kwargs):
-        super(ChildcareCreateForm, self).__init__(*args, **kwargs)
-        self.managers = user
-
-    managers = ModelMultipleChoiceField(
-        queryset=User.objects.all(),
-        widget=autocomplete_light.MultipleChoiceWidget('UserAutocomplete'))
-    '''
     class Meta:
         model = Childcare
         fields = ('name',
@@ -23,6 +14,19 @@ class ChildcareCreateForm(ModelForm):
                   'street_address',
                   'city',)
         exclude = ('disabled', 'managers',)
+
+
+class ChildcareUpdateForm(ModelForm):
+    class Meta:
+        model = Childcare
+        fields = ('name',
+                  'slug',
+                  'slogan',
+                  'street_address',
+                  'city',
+                  'state',
+                  'email',
+                  'phone_number',)
 
 
 class FirstPageForm(ModelForm):
