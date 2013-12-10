@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'autocomplete_light',
     'localflavor',
+    'ckeditor',
 
     'accounts',
     'childcare',
@@ -187,3 +188,14 @@ AUTH_PROFILE_MODULE = 'accounts.KindyUser'
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
+
+# ck editor
+CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + 'ckeditor/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': 700,
+    },
+}

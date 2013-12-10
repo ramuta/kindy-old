@@ -23,6 +23,9 @@ urlpatterns = patterns('',
     #autocomplete
     url(r'autocomplete/', include('autocomplete_light.urls')),
 
+    #ckeditor
+    url(r'^ckeditor/', include('ckeditor.urls')),
+
     #childcare
     url(r'^childcare/create/$', childcare_views.childcare_create),
     url(r'^(?P<childcare_slug>[\w\-]+)/dashboard/', include('childcare.urls', namespace="childcare")),

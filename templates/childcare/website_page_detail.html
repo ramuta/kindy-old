@@ -15,7 +15,9 @@
 
 {% block content %}
     <h1>{{ page }}</h1>
-    <p>{{ page.content|linebreaks }}</p>
+    {% autoescape off %}
+        <p>{{ page.content|linebreaks }}</p>
+    {% endautoescape %}
 
     {% if page_file_list %}
         Files:

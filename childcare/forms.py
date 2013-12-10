@@ -1,9 +1,10 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, ModelMultipleChoiceField
+from django.forms import ModelForm, ModelMultipleChoiceField, CharField
 from .models import Childcare
 import autocomplete_light
 from utils import autocomplete_light_registry
 from website.models import Page, PageFile
+from ckeditor.widgets import CKEditorWidget
 
 
 class ChildcareCreateForm(ModelForm):
@@ -38,6 +39,8 @@ class FirstPageForm(ModelForm):
 
 
 class WebsitePageCreateForm(ModelForm):
+    content = CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Page
         fields = ('title',
