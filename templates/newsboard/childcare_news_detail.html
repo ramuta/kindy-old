@@ -1,4 +1,5 @@
 {% extends 'childcare/childcare_base.html' %}
+{% load thumbnail %}
 
 {% block title %}{{ news }}{% endblock title %}
 
@@ -21,7 +22,7 @@
     {% if news_image_list %}
         {% for image in news_image_list %}
             {% if image.image %}
-                <img src="{{ image.image.url }}" height="100" width="100"> <p><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
+                <img src="{% thumbnail image.image 100x100 crop %}"> <p><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
             {% endif %}
         {% endfor %}
     {% else %}

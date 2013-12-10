@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from childcare.models import Childcare
-from newsboard.models import News
+from newsboard.models import News, NewsImage, NewsFile
 from website.models import Page, PageFile
 
 
@@ -31,10 +31,14 @@ def news_detail(request, childcare_slug, news_slug):
     news = get_object_or_404(News, childcare=childcare.pk, slug=news_slug)
     pages_list = Page.objects.filter(childcare=childcare)
     theme_path = 'themes/'+childcare.theme.computer_name+'.html'
+    news_image_list = NewsImage.objects.filter(news=news)
+    news_file_list = NewsFile.objects.filter(news=news)
     return render(request, 'website/news_detail.html', {'childcare': childcare,
                                                         'news': news,
                                                         'pages_list': pages_list,
-                                                        'theme_path': theme_path})
+                                                        'theme_path': theme_path,
+                                                        'news_image_list': news_image_list,
+                                                        'news_file_list': news_file_list})
 
 
 def page_detail(request, childcare_slug, page_slug):
