@@ -69,7 +69,7 @@ def childcare_update(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def childcare(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    classroom_list = Classroom.objects.filter(childcare=childcare)
+    classroom_list = Classroom.objects.filter(childcare=childcare, disabled=False)
     manager_list = User.objects.filter(childcare_managers__id=childcare.pk)
     employee_list = User.objects.filter(childcare_employees__id=childcare.pk)
     parent_list = User.objects.filter(childcare_parents__id=childcare.pk)

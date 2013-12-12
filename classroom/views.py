@@ -140,7 +140,7 @@ def diary_image_delete(request, childcare_slug, diary_id, image_id):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def classroom_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    classroom_list = Classroom.objects.filter(childcare=childcare)
+    classroom_list = Classroom.objects.filter(childcare=childcare, disabled=False)
     return render(request, 'classroom/classroom_list.html', {'childcare': childcare,
                                                              'classroom_list': classroom_list})
 
@@ -151,7 +151,8 @@ def classroom_delete(request, childcare_slug, classroom_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     classroom = get_object_or_404(Classroom, pk=classroom_id)
     if request.method == 'POST':
-        classroom.delete()
+        classroom.disabled = True
+        classroom.save()
         return HttpResponseRedirect('/%s/dashboard/classroom/' % childcare_slug)
     return render(request, 'classroom/classroom_delete.html', {'childcare': childcare,
                                                                'classroom': classroom})

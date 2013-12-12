@@ -29,6 +29,9 @@ class Diary(models.Model):
     class Meta:
         unique_together = ['classroom', 'date']
 
+    def __unicode__(self):
+        return str(self.date)
+
 
 class DiaryImage(models.Model):
     image = models.ImageField(upload_to='images/diary/', null=True)

@@ -17,7 +17,8 @@ class DiaryCreateForm(ModelForm):
     def __init__(self, childcare=None, *args, **kwargs):
         super(DiaryCreateForm, self).__init__(*args, **kwargs)
         self._childcare = childcare
-        self.fields['classroom'] = ModelChoiceField(queryset=Classroom.objects.filter(childcare__id=self._childcare.pk))
+        self.fields['classroom'] = ModelChoiceField(queryset=Classroom.objects.filter(childcare__id=self._childcare.pk,
+                                                                                      disabled=False))
     date = DateField(widget=SelectDateWidget, initial=datetime.date.today)
 
     class Meta:
