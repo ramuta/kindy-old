@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, ModelMultipleChoiceField, CharField
+from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form
+from userena.forms import SignupForm
 from .models import Childcare
 import autocomplete_light
 from utils import autocomplete_light_registry
@@ -102,3 +103,9 @@ class AddPageFileForm(ModelForm):
     class Meta:
         model = PageFile
         fields = ('file', 'description',)
+
+
+class InviteUsersForm(Form):
+    first_name = CharField(max_length=200, required=True)
+    last_name = CharField(max_length=200, required=True)
+    email = EmailField(required=True)

@@ -170,13 +170,18 @@ LOGGING = {
 }
 
 # emailing
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+local = True
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'yourgmailaccount@gmail.com'
-EMAIL_HOST_PASSWORD = 'yourgmailpassword'
+if local:
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = 1025
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'yourgmailaccount@gmail.com'
+    EMAIL_HOST_PASSWORD = 'yourgmailpassword'
 
 # guardian
 ANONYMOUS_USER_ID = -1
@@ -184,7 +189,6 @@ GUARDIAN_RENDER_403 = True
 
 # auth and login
 AUTH_PROFILE_MODULE = 'accounts.KindyUser'
-
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'

@@ -1,0 +1,20 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}Add employees{% endblock title %}
+
+{% block breadcrumb %}
+    <li><a href="/{{ childcare.slug }}/dashboard/">{{ childcare }}</a></li>
+    <li>Add employee</li>
+{% endblock %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content %}
+    <h1>Invite users</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Invite">
+    </form>
+{% endblock content %}

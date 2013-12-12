@@ -53,6 +53,7 @@ urlpatterns = patterns('',
                        url(r'^managers/add/$', views.managers_add_remove),
                        url(r'^employees/add/$', views.employees_add_remove),
                        url(r'^parents/add/$', views.parents_add_remove),
+                       url(r'^users/invite/$', views.invite_users),
 
                        # users lists
                        url(r'^managers/$', views.managers_list),

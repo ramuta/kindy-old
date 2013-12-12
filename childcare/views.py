@@ -1,12 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
-from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm, ChildcareUpdateForm
+from userena.models import UserenaSignup
+from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm, ChildcareUpdateForm, InviteUsersForm
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News, NewsImage
+from utils.clean_username import get_clean_username
 from website.models import Page, PageFile
 from django.forms.formsets import formset_factory
 
@@ -317,3 +320,41 @@ def employees_list(request, childcare_slug):
 def parents_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     return render(request, 'childcare/parents_list.html', {'childcare': childcare})
+
+
+@login_required()
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def invite_users(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    if request.method == 'POST':
+        form = InviteUsersForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data[u'first_name']  # .encode('ascii')
+            last_name = form.cleaned_data[u'last_name']
+            email = form.cleaned_data['email']
+            password = User.objects.make_random_password()
+            username = get_clean_username(first_name, last_name)
+
+            userena_user = UserenaSignup.objects.create_user(email=email,
+                                                             password=password,
+                                                             username=username,
+                                                             active=True,
+                                                             send_email=False)
+            userena_user.save()
+            user = get_object_or_404(User, email=email)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            # email
+            send_invite_email(inviter=request.user, invitee=user, childcare=childcare, password=password)
+            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+    else:
+        form = InviteUsersForm()
+    return render(request, 'childcare/invite_users.html', {'form': form, 'childcare': childcare})
+
+
+def send_invite_email(inviter, invitee, childcare, password):
+    if inviter and invitee and childcare and password:
+        subject = 'I created an account for you at our childcare website'
+        message = 'Hi! I created an account for you at the %s website. Sign up at http://www.kindy.at with your email. Password is: %s. Please change it at the first login. Regards, %s.' % (childcare.name, password, inviter)
+        send_mail(subject=subject, message=message, from_email=inviter.email, recipient_list=[invitee.email,], fail_silently=False)
