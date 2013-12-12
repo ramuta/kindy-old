@@ -18,10 +18,24 @@
 {% block content %}
     <h1>Hello{% if user.first_name == '' %} {{ user }}{% else %} {{ user.first_name }} {{ user.last_name }}{% endif %}!</h1>
 
-    {% if childcare_list %}
-        <p>Your childcare sites:</p>
+    {% if childcare_list_manager %}
+        <p>Manager:</p>
         <ul>
-        {% for childcare in childcare_list %}
+        {% for childcare in childcare_list_manager %}
+            <li><a href="/{{ childcare.slug }}/dashboard">{{ childcare }}</a></li>
+        {% endfor %}
+        </ul>
+    {% elif childcare_list_employee %}
+        <p>Employee:</p>
+        <ul>
+        {% for childcare in childcare_list_employee %}
+            <li><a href="/{{ childcare.slug }}/dashboard">{{ childcare }}</a></li>
+        {% endfor %}
+        </ul>
+    {% elif childcare_list_parent %}
+        <p>Parent:</p>
+        <ul>
+        {% for childcare in childcare_list_parent %}
             <li><a href="/{{ childcare.slug }}/dashboard">{{ childcare }}</a></li>
         {% endfor %}
         </ul>
