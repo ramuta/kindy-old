@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form
+from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField
 from userena.forms import SignupForm
 from .models import Childcare
 import autocomplete_light
@@ -105,7 +105,15 @@ class AddPageFileForm(ModelForm):
         fields = ('file', 'description',)
 
 
+ROLE_CHOICES = (
+    ('Parent', 'Parent'),
+    ('Employee', 'Employee'),
+    ('Manager', 'Manager'),
+)
+
+
 class InviteUsersForm(Form):
     first_name = CharField(max_length=200, required=True)
     last_name = CharField(max_length=200, required=True)
     email = EmailField(required=True)
+    role = ChoiceField(choices=ROLE_CHOICES, required=True)
