@@ -9,8 +9,11 @@
     <li><a href="/{{ childcare.slug }}/dashboard/diary/create/"><span class="glyphicon glyphicon-plus"></span> Add a diary</a></li>
 {% endblock %}
 
+{% block content-title %}
+    Daily diary list
+{% endblock content-title %}
+
 {% block content %}
-    <h1>Daily diary list</h1>
     {% if diary_list %}
     <ul>
         {% for diary in diary_list %}
@@ -18,6 +21,6 @@
         {% endfor %}
     </ul>
     {% else %}
-        <p>No diaries yet. <a href="/{{ childcare.slug }}/dashboard/diary/create/">Write your first e-diary</a></p>
+        <p>No diaries yet. <a href="/{{ childcare.slug }}/dashboard/diary/create/">Write your first e-diary!</a></p>
     {% endif %}
 {% endblock content %}

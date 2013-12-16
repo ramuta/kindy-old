@@ -34,7 +34,7 @@
 		<div id="content">
 			<div class="padding">
 				<div class="nav">
-					<p class="title">Page list</p>
+					<p class="title">{% block content-title %}{% endblock %}</p>
 				{% block action_header %}
 					<ul class="actions">
 					{% block action %}{% endblock action %}
