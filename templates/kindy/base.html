@@ -5,61 +5,44 @@
 		<title>{% block title %}{% endblock %} | Kindy - child care management system</title>
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/kindy.css">
-
-        <!-- Google Tag Manager -->
-        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9D8QZ"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K9D8QZ');</script>
-        <!-- End Google Tag Manager -->
-
+		<!-- Google Tag Manager -->
+		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9D8QZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<script>
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K9D8QZ');
+		</script>
+		<!-- End Google Tag Manager -->
 	</head>
 	<body class="{% block body-class %}{% endblock %}">
-		<div class="navbar navbar-default navbar-static-top main-nav">
-			<div class="container">
-				<div class="navbar-header">
-					<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
-				</div>
-				<p class="navbar-text navbar-right">
-				{% if user.is_authenticated %}
-					<span class="glyphicon glyphicon-user"></span> <a href="/">{% if user.first_name == '' %}{{ user }}{% else %}{{ user.first_name }} {{ user.last_name }}{% endif %}</a> |
-					<span class="glyphicon glyphicon-log-out"></span> <a href="/accounts/signout/">Logout</a>
-				{% else %}
-					<span class="glyphicon glyphicon-log-in"></span> <a href="/accounts/signin/">Login</a>
-				{% endif %}
-				</p>
-			</div>
+		<div id="header">
+			<a href="/"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
+			<span class="name">Vrtec Jana</span>
+			<p class="pull-right">
+			{% if user.is_authenticated %}
+				<span class="glyphicon glyphicon-user"></span> <a href="/">{% if user.first_name == '' %}{{ user }}{% else %}{{ user.first_name }} {{ user.last_name }}{% endif %}</a> |
+				<span class="glyphicon glyphicon-log-out"></span> <a href="/accounts/signout/">Logout</a>
+			{% else %}
+				<span class="glyphicon glyphicon-log-in"></span> <a href="/accounts/signin/">Login</a>
+			{% endif %}
+			</p>
 		</div>
-		<div class="navbar navbar-default navbar-static-top sub-nav">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 home">
-						<p class="navbar-text">{% block sidebar-title %}{% endblock %}</p>
-					</div>
-					<div class="col-md-9">
-						<ol class="navbar-text breadcrumb">{% block breadcrumb %}{% endblock %}</ol>
-					</div>
-				</div>
-			</div>
+		<div id="sidebar">
+			<p class="name">{% block sidebar-title %}{% endblock %}</p>
+			<ul class="nav">
+				{% block sidebar %}{% endblock %}
+			</ul>
 		</div>
-		<div class="container">
-			<div class="row">
-				<ul class="col-md-3 sidebar">
-					{% block sidebar %}{% endblock %}
-				</ul>
-				<div class="col-md-9 content">
-                {% block action_header %}
-					<ul class="action-nav">
-                    {% block action %}{% endblock action %}
-                	</ul>
-                {% endblock action_header %}
-                	<div class="clearfix"></div>
-					{% block content %}{% endblock %}
-					{% block main_content %}{% endblock %}
+		<div id="content">
+			<div class="padding">
+				<div class="nav">
+					<p class="title">Page list</p>
+				{% block action_header %}
+					<ul class="actions">
+					{% block action %}{% endblock action %}
+					</ul>
+				{% endblock action_header %}
 				</div>
+				{% block content %}{% endblock %}
+				{% block main_content %}{% endblock %}
 			</div>
 		</div>
 	</body>
