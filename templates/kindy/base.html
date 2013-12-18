@@ -6,15 +6,17 @@
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/kindy.css">
 		<!-- Google Tag Manager -->
-		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9D8QZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9D8QZ" height="0" width="0" style="display:none; visibility:hidden"></iframe></noscript>
 		<script>
+		// <![CDATA[
 			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K9D8QZ');
+		// ]]>
 		</script>
 		<!-- End Google Tag Manager -->
 	</head>
 	<body class="{% block body-class %}{% endblock %}">
 		<div id="header">
-			<a href="/"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
+			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
 			<span class="name">Vrtec Jana</span>
 			<p class="pull-right">
 			{% if user.is_authenticated %}
@@ -35,11 +37,11 @@
 			<div class="padding">
 				<div class="nav">
 					<p class="title">{% block content-title %}{% endblock %}</p>
-				{% block action_header %}
+					{% block action_header %}
 					<ul class="actions">
-					{% block action %}{% endblock action %}
+						{% block action %}{% endblock action %}
 					</ul>
-				{% endblock action_header %}
+					{% endblock action_header %}
 				</div>
 				{% block content %}{% endblock %}
 				{% block main_content %}{% endblock %}
