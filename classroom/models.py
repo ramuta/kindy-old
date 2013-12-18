@@ -35,5 +35,4 @@ class Diary(models.Model):
 
 class DiaryImage(models.Model):
     image = models.ImageField(upload_to='images/diary/', null=True)
-    #TODO: thumbnail = GalleryThumbnail(source='image')
     diary = models.ForeignKey(Diary, null=True)

@@ -29,7 +29,6 @@ class News(models.Model):
 class NewsImage(models.Model):
     image = models.ImageField(upload_to='images/news/', blank=True)
     news = models.ForeignKey(News)
-    #TODO: thumbnail = GalleryThumbnail(source='image')
     #created
 
 
