@@ -88,6 +88,8 @@ if LOCAL_ENV_BOOL:
     # https://docs.djangoproject.com/en/1.6/howto/static-files/
     STATIC_ROOT = os.path.join(DIRNAME, 'staticfiles/')
     STATIC_URL = '/static/'
+    # ck editor
+    CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + 'ckeditor/'
 else:
     AWS_STORAGE_BUCKET_NAME = 'getkindy'
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
@@ -97,6 +99,7 @@ else:
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL + '/static'
     MEDIA_URL = S3_URL + '/media/'
+    CKEDITOR_UPLOAD_PATH = MEDIA_URL + 'ckeditor/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -233,8 +236,7 @@ LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
 
-# ck editor
-CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + 'ckeditor/'
+
 
 CKEDITOR_CONFIGS = {
     'default': {
