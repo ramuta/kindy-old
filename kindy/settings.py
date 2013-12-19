@@ -179,6 +179,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'south',
     'storages',
+    'boto',
 
     'accounts',
     'childcare',
