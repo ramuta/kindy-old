@@ -1,5 +1,5 @@
 from django.contrib import admin
-from classroom.models import Diary, Classroom
+from classroom.models import Diary, Classroom, DiaryImage
 
 
 class DiaryAdmin(admin.ModelAdmin):
@@ -13,3 +13,4 @@ class ClassroomAdmin(admin.ModelAdmin):
 
 admin.site.register(Diary, DiaryAdmin)
 admin.site.register(Classroom, ClassroomAdmin)
+admin.site.register(DiaryImage)
