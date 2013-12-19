@@ -27,21 +27,24 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'database5.db',                      # Or path to database file if using sqlite3.
-    },
-
-    'heroku': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd654pe0238l5dh',
-        'USER': 'jbjfrmpkbkzixf',
-        'PASSWORD': 'gH9qoFiE1XPhNPw_ztyJA8p9yZ',
-        'HOST': 'ec2-54-204-45-126.compute-1.amazonaws.com',
-        'PORT': '5432',
+if LOCAL_ENV_BOOL:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'database5.db',                      # Or path to database file if using sqlite3.
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd654pe0238l5dh',
+            'USER': 'jbjfrmpkbkzixf',
+            'PASSWORD': 'gH9qoFiE1XPhNPw_ztyJA8p9yZ',
+            'HOST': 'ec2-54-204-45-126.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -232,7 +235,7 @@ CKEDITOR_CONFIGS = {
 if not LOCAL_ENV_BOOL:
     # Parse database configuration from $DATABASE_URL
     import dj_database_url
-    DATABASES['heroku'] = dj_database_url.config()
+    DATABASES['default'] = dj_database_url.config()
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     # Allow all host headers
