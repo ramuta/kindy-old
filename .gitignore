@@ -20,3 +20,4 @@ run.sh
 kindy/media/CACHE
 heroku
 heroku.pub
+utils/secret.py
