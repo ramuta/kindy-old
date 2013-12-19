@@ -77,16 +77,26 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 DIRNAME = os.path.dirname(__file__)
-MEDIA_ROOT = os.path.join(DIRNAME, 'media/')
+if LOCAL_ENV_BOOL:
+    MEDIA_ROOT = os.path.join(DIRNAME, 'media/')
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = '/media/'
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-STATIC_ROOT = os.path.join(DIRNAME, 'staticfiles/')
-STATIC_URL = '/static/'
+    # URL that handles the media served from MEDIA_ROOT. Make sure to use a
+    # trailing slash.
+    # Examples: "http://example.com/media/", "http://media.example.com/"
+    MEDIA_URL = '/media/'
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/1.6/howto/static-files/
+    STATIC_ROOT = os.path.join(DIRNAME, 'staticfiles/')
+    STATIC_URL = '/static/'
+else:
+    AWS_STORAGE_BUCKET_NAME = 'getkindy'
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = S3_URL + '/static'
+    MEDIA_URL = S3_URL + '/media/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -160,6 +170,7 @@ INSTALLED_APPS = (
     'localflavor',
     'ckeditor',
     'south',
+    'storages',
 
     'accounts',
     'childcare',
