@@ -8,6 +8,7 @@ django-autocomplete-light==1.4.2
 django-ckeditor==4.0.2
 django-guardian==1.1.1
 django-localflavor==1.0
+django-storages==1.1.8
 django-toolbelt==0.0.1
 django-userena==1.2.4
 django-widget-tweaks==1.3
