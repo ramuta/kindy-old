@@ -80,7 +80,7 @@ DIRNAME = os.path.dirname(__file__)
 
 '''
 MEDIA_ROOT = ''
-MEDIA_URL = ''
+
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
 '''
@@ -103,11 +103,11 @@ STATICFILES_FINDERS = (
 
 if LOCAL_ENV_BOOL:
     MEDIA_ROOT = os.path.join(DIRNAME, 'media/')
-
+    MEDIA_URL = '/media/'
     # URL that handles the media served from MEDIA_ROOT. Make sure to use a
     # trailing slash.
     # Examples: "http://example.com/media/", "http://media.example.com/"
-    MEDIA_URL = '/media/'
+
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/1.6/howto/static-files/
     STATIC_ROOT = os.path.join(DIRNAME, 'staticfiles/')
@@ -121,7 +121,7 @@ else:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL
-    #MEDIA_URL = S3_URL
+    MEDIA_URL = S3_URL + 'media/'
     CKEDITOR_UPLOAD_PATH = 'ckeditor/'
 
 # Make this unique, and don't share it with anybody.
