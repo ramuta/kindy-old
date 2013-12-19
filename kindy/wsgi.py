@@ -25,8 +25,24 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kindy.settings")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
 
+'''preverimo ali app tece lokalno ali na heroku
+    na Heroku smo nastavili: heroku config:add DJANGO_LOCAL_DEV=0
+'''
+try:
+    LOCAL_ENV = os.environ["DJANGO_LOCAL_DEV"]
+    if LOCAL_ENV == 0 or LOCAL_ENV == '0':
+        LOCAL_ENV_BOOL = False
+    else:
+        LOCAL_ENV_BOOL = True
+except KeyError:
+    LOCAL_ENV_BOOL = True
+
+if LOCAL_ENV_BOOL:
+    application = get_wsgi_application()
+else:
+    from dj_static import Cling
+    application = Cling(get_wsgi_application())
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)

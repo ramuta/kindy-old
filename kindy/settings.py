@@ -1,7 +1,24 @@
 # Django settings for kindy project.
 import os
+from utils.secret import get_secret_key
 
-DEBUG = True
+'''preverimo ali app tece lokalno ali na heroku
+    na Heroku smo nastavili: heroku config:add DJANGO_LOCAL_DEV=0
+'''
+try:
+    LOCAL_ENV = os.environ["DJANGO_LOCAL_DEV"]
+    if LOCAL_ENV == 0 or LOCAL_ENV == '0':
+        LOCAL_ENV_BOOL = False
+    else:
+        LOCAL_ENV_BOOL = True
+except KeyError:
+    LOCAL_ENV_BOOL = True
+
+if LOCAL_ENV_BOOL:
+    DEBUG = True
+else:
+    DEBUG = False
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -14,11 +31,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'database5.db',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+    },
+
+    'heroku': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd654pe0238l5dh',
+        'USER': 'jbjfrmpkbkzixf',
+        'PASSWORD': 'gH9qoFiE1XPhNPw_ztyJA8p9yZ',
+        'HOST': 'ec2-54-204-45-126.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -80,7 +101,11 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'rlx@p)7o*z!sf=cm26aded5^h&5pgfglqq)%c+)mdk2os#$e%1'
+# Nastavi env.variable na Heroku
+if LOCAL_ENV_BOOL:
+    SECRET_KEY = get_secret_key()
+else:
+    SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -171,14 +196,12 @@ LOGGING = {
 }
 
 # emailing
-local = True
-
-if local:
+if LOCAL_ENV_BOOL:
     # run in terminal: python -m smtpd -n -c DebuggingServer localhost:1025
     EMAIL_HOST = 'localhost'
     EMAIL_PORT = 1025
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+else:  # TODO
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
@@ -205,3 +228,21 @@ CKEDITOR_CONFIGS = {
         'width': 700,
     },
 }
+
+if not LOCAL_ENV_BOOL:
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES['heroku'] = dj_database_url.config()
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # Allow all host headers
+    ALLOWED_HOSTS = ['*']
+    # Static asset configuration
+    #import os
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    #STATIC_ROOT = 'staticfiles'
+    #STATIC_ROOT = 'staticfiles'
+    #STATIC_URL = '/static/'
+    '''STATICFILES_DIRS = (
+        os.path.join(STATIC_ROOT, 'static'),
+    )'''
