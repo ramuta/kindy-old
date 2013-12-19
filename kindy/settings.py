@@ -78,10 +78,28 @@ USE_TZ = True
 # Example: "/var/www/example.com/media/"
 DIRNAME = os.path.dirname(__file__)
 
+'''
 MEDIA_ROOT = ''
 MEDIA_URL = ''
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
+'''
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(DIRNAME, "static").replace('\\', '/'),
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
 
 if LOCAL_ENV_BOOL:
     MEDIA_ROOT = os.path.join(DIRNAME, 'media/')
@@ -105,22 +123,6 @@ else:
     STATIC_URL = S3_URL + 'static/'
     MEDIA_URL = S3_URL + 'media/'
     CKEDITOR_UPLOAD_PATH = 'ckeditor/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(DIRNAME, "static").replace('\\', '/'),
-)
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
 
 # Make this unique, and don't share it with anybody.
 # Nastavi env.variable na Heroku
