@@ -104,7 +104,7 @@ else:
     S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL + 'static/'
     MEDIA_URL = S3_URL + 'media/'
-    CKEDITOR_UPLOAD_PATH = MEDIA_URL + 'ckeditor/'
+    CKEDITOR_UPLOAD_PATH = 'ckeditor/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
