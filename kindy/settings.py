@@ -77,6 +77,12 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 DIRNAME = os.path.dirname(__file__)
+
+MEDIA_ROOT = ''
+MEDIA_URL = ''
+STATIC_ROOT = ''
+STATIC_URL = '/static/'
+
 if LOCAL_ENV_BOOL:
     MEDIA_ROOT = os.path.join(DIRNAME, 'media/')
 
@@ -87,7 +93,6 @@ if LOCAL_ENV_BOOL:
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/1.6/howto/static-files/
     STATIC_ROOT = os.path.join(DIRNAME, 'staticfiles/')
-    STATIC_URL = '/static/'
     # ck editor
     CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + 'ckeditor/'
 else:
@@ -97,7 +102,7 @@ else:
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL + '/static'
+    STATIC_URL = S3_URL + 'static'
     MEDIA_URL = S3_URL + '/media/'
     CKEDITOR_UPLOAD_PATH = MEDIA_URL + 'ckeditor/'
 
