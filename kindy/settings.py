@@ -19,6 +19,7 @@ if LOCAL_ENV_BOOL:
 else:
     DEBUG = False
 
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
