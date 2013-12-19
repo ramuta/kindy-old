@@ -1,3 +1,4 @@
+import os
 import autocomplete_light
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
@@ -34,5 +35,26 @@ urlpatterns = patterns('',
     url(r'^(?P<childcare_slug>[\w\-]+)/', include('website.urls', namespace="website")),
 )
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+'''preverimo ali app tece lokalno ali na heroku
+    na Heroku smo nastavili: heroku config:add DJANGO_LOCAL_DEV=0
+'''
+try:
+    LOCAL_ENV = os.environ["DJANGO_LOCAL_DEV"]
+    if LOCAL_ENV == 0 or LOCAL_ENV == '0':
+        LOCAL_ENV_BOOL = False
+    else:
+        LOCAL_ENV_BOOL = True
+except KeyError:
+    LOCAL_ENV_BOOL = True
+
+if LOCAL_ENV_BOOL:
+    DEBUG = True
+else:
+    DEBUG = False
+
+if LOCAL_ENV_BOOL:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)

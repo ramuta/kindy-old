@@ -111,6 +111,7 @@ if LOCAL_ENV_BOOL:
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/1.6/howto/static-files/
     STATIC_ROOT = os.path.join(DIRNAME, 'staticfiles/')
+    STATIC_URL = '/static/'
     # ck editor
     CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + 'ckeditor/'
 else:
