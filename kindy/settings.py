@@ -115,6 +115,7 @@ else:
     STATIC_URL = S3_URL
     #MEDIA_URL = S3_URL + 'media/'
     CKEDITOR_UPLOAD_PATH = 'ckeditor/'
+    THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # Make this unique, and don't share it with anybody.
 # Nastavi env.variable na Heroku
