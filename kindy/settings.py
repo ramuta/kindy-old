@@ -1,18 +1,10 @@
 # Django settings for kindy project.
 import os
+from utils.deployment import is_local_env
 from utils.secret import get_secret_key
 
-'''preverimo ali app tece lokalno ali na heroku
-    na Heroku smo nastavili: heroku config:add DJANGO_LOCAL_DEV=0
-'''
-try:
-    LOCAL_ENV = os.environ["DJANGO_LOCAL_DEV"]
-    if LOCAL_ENV == 0 or LOCAL_ENV == '0':
-        LOCAL_ENV_BOOL = False
-    else:
-        LOCAL_ENV_BOOL = True
-except KeyError:
-    LOCAL_ENV_BOOL = True
+# check if app is local or deployed on server
+LOCAL_ENV_BOOL = is_local_env()
 
 if LOCAL_ENV_BOOL:
     DEBUG = True

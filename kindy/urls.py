@@ -1,10 +1,10 @@
-import os
 import autocomplete_light
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from childcare import views as childcare_views
+from utils.deployment import is_local_env
 
 autocomplete_light.autodiscover()
 admin.autodiscover()
@@ -35,22 +35,8 @@ urlpatterns = patterns('',
     url(r'^(?P<childcare_slug>[\w\-]+)/', include('website.urls', namespace="website")),
 )
 
-'''preverimo ali app tece lokalno ali na heroku
-    na Heroku smo nastavili: heroku config:add DJANGO_LOCAL_DEV=0
-'''
-try:
-    LOCAL_ENV = os.environ["DJANGO_LOCAL_DEV"]
-    if LOCAL_ENV == 0 or LOCAL_ENV == '0':
-        LOCAL_ENV_BOOL = False
-    else:
-        LOCAL_ENV_BOOL = True
-except KeyError:
-    LOCAL_ENV_BOOL = True
-
-if LOCAL_ENV_BOOL:
-    DEBUG = True
-else:
-    DEBUG = False
+# check if app is local or deployed on server
+LOCAL_ENV_BOOL = is_local_env()
 
 if LOCAL_ENV_BOOL:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
