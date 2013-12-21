@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, CharField
 from newsboard.models import News, NewsImage, NewsFile
 
 
@@ -17,6 +17,8 @@ class AddNewsImageForm(ModelForm):
 
 
 class AddNewsFileForm(ModelForm):
+    description = CharField(required=True)
+
     class Meta:
         model = NewsFile
         fields = ('file', 'description',)

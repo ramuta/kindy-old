@@ -100,6 +100,8 @@ class ParentsAddForm(ModelForm):
 
 
 class AddPageFileForm(ModelForm):
+    description = CharField(required=True)
+
     class Meta:
         model = PageFile
         fields = ('file', 'description',)

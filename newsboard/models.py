@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from childcare.models import Childcare
 from django.template.defaultfilters import slugify
+from utils.imagegenerators import get_file_path
 
 
 class News(models.Model):
@@ -27,13 +28,13 @@ class News(models.Model):
 
 
 class NewsImage(models.Model):
-    image = models.ImageField(upload_to='images/news/', blank=True)
+    image = models.ImageField(upload_to=get_file_path, blank=True)
     news = models.ForeignKey(News)
     #created
 
 
 class NewsFile(models.Model):
-    file = models.FileField(upload_to='files/news/')
+    file = models.FileField(upload_to=get_file_path)
     description = models.CharField(max_length=500, blank=True)
     uploader = models.ForeignKey(User)
     news = models.ForeignKey(News)

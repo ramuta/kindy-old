@@ -1,6 +1,7 @@
 from django.db import models
 from childcare.models import Childcare
 from django.contrib.auth.models import User
+from utils.imagegenerators import get_file_path
 
 
 class Classroom(models.Model):
@@ -34,5 +35,5 @@ class Diary(models.Model):
 
 
 class DiaryImage(models.Model):
-    image = models.ImageField(upload_to='images/diary/', null=True)
+    image = models.ImageField(upload_to=get_file_path, null=True)
     diary = models.ForeignKey(Diary, null=True)

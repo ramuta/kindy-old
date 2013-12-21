@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
 from childcare.models import Childcare
+from utils.imagegenerators import get_file_path
 
 
 class Page(models.Model):
@@ -26,7 +27,7 @@ class Page(models.Model):
 
 
 class PageFile(models.Model):
-    file = models.FileField(upload_to='files/page/', null=True)
+    file = models.FileField(upload_to=get_file_path, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     uploader = models.ForeignKey(User, null=True)
     page = models.ForeignKey(Page, null=True)
