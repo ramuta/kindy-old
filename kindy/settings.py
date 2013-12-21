@@ -11,7 +11,6 @@ if LOCAL_ENV_BOOL:
 else:
     DEBUG = False
 
-DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -224,8 +223,8 @@ else:  # TODO
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
-    #EMAIL_HOST_USER = 'info@getkindy.com'
-    #EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD"]
+    EMAIL_HOST_USER = 'info@getkindy.com'
+    EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD"]
 
 # guardian
 ANONYMOUS_USER_ID = -1
@@ -236,8 +235,6 @@ AUTH_PROFILE_MODULE = 'accounts.KindyUser'
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
-
-
 
 CKEDITOR_CONFIGS = {
     'default': {
