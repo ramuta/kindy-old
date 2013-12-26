@@ -65,12 +65,14 @@ body {
 	padding:20px;
 	padding-left:60px;
 	text-decoration:none;
+	transition:background 0.2s, color 0.2s;
+	-moz-transition:background 0.2s, color 0.2s;
+	-webkit-transition:background 0.2s, color 0.2s;
 }
 
-#sidebar ul.nav li a:hover { color:#5bb7e8; }
-
+#sidebar ul.nav li a:hover,
 #sidebar ul.nav li a.active {
-	background:none;
+	background:transparent;
 	color:#5bb7e8;
 }
 
