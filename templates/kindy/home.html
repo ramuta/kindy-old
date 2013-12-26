@@ -10,9 +10,12 @@
     {{ user.first_name }} {{ user.last_name }} {{ user.get_full_name }}
 {% endblock %}
 
+{% block sidebar %}
+    <li><a href="/accounts/{{ user.username }}/">Profile</a></li>
+    <li><a href="/childcare/create/">Create childcare</a></li>
+{% endblock %}
+
 {% block action %}
-    <li><a href="/childcare/create/"><span class="glyphicon glyphicon-plus"></span> Create a childcare site</a></li>
-    <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-pencil"></span> Edit profile</a></li>
 {% endblock %}
 
 {% block content-title %}
@@ -21,26 +24,19 @@
 
 {% block content %}
     {% if childcare_list_manager %}
-        <p>Manager:</p>
-        <ul>
+        <h3>Manager:</h3>
         {% for childcare in childcare_list_manager %}
-            <li><a href="/{{ childcare.slug }}/dashboard">{{ childcare }}</a></li>
+            <a href="/{{ childcare.slug }}/dashboard/" class="btn btn-info btn-lg">{{ childcare }}</a>
         {% endfor %}
-        </ul>
     {% elif childcare_list_employee %}
-        <p>Employee:</p>
-        <ul>
+        <h3>Employee:</h3>
         {% for childcare in childcare_list_employee %}
-            <li><a href="/{{ childcare.slug }}/dashboard">{{ childcare }}</a></li>
+            <a href="/{{ childcare.slug }}/dashboard/" class="btn btn-info btn-lg">{{ childcare }}</a>
         {% endfor %}
-        </ul>
     {% elif childcare_list_parent %}
-        <p>Parent:</p>
-        <ul>
+        <h3>Parent:</h3>
         {% for childcare in childcare_list_parent %}
-            <li><a href="/{{ childcare.slug }}/dashboard">{{ childcare }}</a></li>
+            <a href="/{{ childcare.slug }}/dashboard/" class="btn btn-info btn-lg">{{ childcare }}</a>
         {% endfor %}
-        </ul>
     {% endif %}
-
 {% endblock %}
