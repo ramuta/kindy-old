@@ -3,6 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from childcare.models import Childcare
 from utils.imagegenerators import get_file_path
+from utils.slugify import unique_slugify
 
 
 class Page(models.Model):
@@ -22,7 +23,7 @@ class Page(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = slugify(self.title)
+            self.slug = unique_slugify(self, self.title)
         super(Page, self).save(*args, **kwargs)
 
 
