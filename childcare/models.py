@@ -24,7 +24,7 @@ class Theme(models.Model):
 
 class Childcare(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(verbose_name='URL: kindy.at/', unique=True, max_length=100, null=True)
+    slug = models.SlugField(verbose_name='URL', unique=True, max_length=100, null=True)
     logo = models.ImageField(upload_to='images/logos/', blank=True, null=True)
     slogan = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)

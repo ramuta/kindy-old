@@ -17,7 +17,7 @@
 	<body class="{% block body-class %}{% endblock %}">
 		<div id="header">
 			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
-			<span class="name">Vrtec Jana</span>
+			<span class="name">{{ childcare }}</span>
 			<p class="pull-right">
 			{% if user.is_authenticated %}
 				<span class="glyphicon glyphicon-user"></span> <a href="/">{% if user.first_name == '' %}{{ user }}{% else %}{{ user.first_name }} {{ user.last_name }}{% endif %}</a> |

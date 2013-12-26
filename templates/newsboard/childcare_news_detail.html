@@ -15,8 +15,9 @@
     <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
 {% endblock action %}
 
+{% block content-title %}{{ news }}{% endblock %}
+
 {% block content %}
-    <h1>{{ news }}</h1>
     <p>{{ news.content|linebreaks }}</p>
 
     {% if news_image_list %}

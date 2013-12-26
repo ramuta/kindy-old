@@ -10,8 +10,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Add {{ childcare }} parents{% endblock %}
+
 {% block content %}
-    <h1>Add {{ childcare }} parents</h1>
     <p>Search by username</p>
     <form method="post">
         {% csrf_token %}

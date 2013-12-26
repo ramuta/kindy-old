@@ -13,10 +13,9 @@
     <li class="pull-right"><a href="/{{ childcare.slug }}/" target="_blank"><span class="glyphicon glyphicon-globe"></span> Go to website</a></li>
 {% endblock %}
 
+{% block content-title %}Website{% endblock %}
+
 {% block content %}
-    <h1>Website</h1>
-
-
     <h2>First Page (child care description):</h2>
     {% if childcare.description == '' %}
         <p><a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a></p>

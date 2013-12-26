@@ -10,8 +10,9 @@
 {% block action_header %}
 {% endblock %}
 
+{% block content-title %}Diary images{% endblock %}
+
 {% block content %}
-    <h1>Diary images:</h1>
     {% if diary_image_list %}
         {% for diary_image in diary_image_list %}
             <img src="{% thumbnail diary_image.image 100x100 crop %}">

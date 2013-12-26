@@ -9,9 +9,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
-{% block content %}
-    <h1>Update news {{ news }}?</h1>
+{% block content-title %}Update news {{ news }}{% endblock %}
 
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

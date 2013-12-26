@@ -11,8 +11,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Delete image?{% endblock %}
+
 {% block content %}
-    <h1>Delete image?</h1>
     <p>Are you sure you want to delete this image?</p>
     <p><img src="{% thumbnail image.image 100x100 crop %}"></p>
     <form method="post" enctype="multipart/form-data">

@@ -10,8 +10,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Delete page {{ page }}?{% endblock %}
+
 {% block content %}
-    <h1>Delete page {{ page }}?</h1>
     <p>Are you sure you want to delete page {{ page }}?</p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

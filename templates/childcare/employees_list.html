@@ -10,8 +10,9 @@
     <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add employees</a></li>
 {% endblock %}
 
+{% block content-title %}{{ childcare }} employees{% endblock %}
+
 {% block content %}
-    <h1>{{ childcare }} employees</h1>
     {% if childcare.employees.all %}
         <ul>
         {% for employee in childcare.employees.all %}

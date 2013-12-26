@@ -15,8 +15,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Create a childcare site{% endblock %}
+
 {% block content %}
-    <h1>Create a childcare site</h1>
     <form method="post" class="form-horizontal">
         {% csrf_token %}
         {% for field in form %}
@@ -24,6 +25,8 @@
             <label class="col-md-2 control-label">{{ field.label }}</label>
             <div class="col-md-5">
                 {{ field|add_class:'form-control' }}
+            </div>
+            <div class="col-md-3">
                 {{ field.errors }}
             </div>
         </div>

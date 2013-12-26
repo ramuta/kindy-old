@@ -10,8 +10,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Update a website page {{ page }}{% endblock %}
+
 {% block content %}
-    <h1>Update a website page {{ page }}</h1>
     <form method="post" action="">
         {% csrf_token %}
         {{ form.as_p }}

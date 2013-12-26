@@ -9,8 +9,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Delete file?{% endblock %}
+
 {% block content %}
-    <h1>Delete file?</h1>
     <p>Are you sure you want to delete this file: {{ file.description }}?</p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

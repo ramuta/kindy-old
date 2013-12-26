@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock %}
 
 {% block sidebar-title %}
-	<a href="/">Home dashboard</a>
+	<a href="/">Home</a>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -15,9 +15,11 @@
     <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-pencil"></span> Edit profile</a></li>
 {% endblock %}
 
-{% block content %}
-    <h1>Hello{% if user.first_name == '' %} {{ user }}{% else %} {{ user.first_name }} {{ user.last_name }}{% endif %}!</h1>
+{% block content-title %}
+    Hello{% if user.first_name == '' %} {{ user }}{% else %} {{ user.first_name }} {{ user.last_name }}{% endif %}!
+{% endblock %}
 
+{% block content %}
     {% if childcare_list_manager %}
         <p>Manager:</p>
         <ul>

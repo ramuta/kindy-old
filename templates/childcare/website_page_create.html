@@ -10,9 +10,10 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Create a website page{% endblock %}
+
 {% block content %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
-    <h1>Create a website page</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

@@ -10,8 +10,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Create newsboard post{% endblock %}
+
 {% block content %}
-    <h1>Create newsboard post</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

@@ -13,8 +13,9 @@
     <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
 {% endblock action %}
 
+{% block content-title %}{{ page }}{% endblock %}
+
 {% block content %}
-    <h1>{{ page }}</h1>
     {% autoescape off %}
         <p>{{ page.content|linebreaks }}</p>
     {% endautoescape %}

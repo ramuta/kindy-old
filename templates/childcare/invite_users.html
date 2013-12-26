@@ -10,8 +10,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Invite users{% endblock %}
+
 {% block content %}
-    <h1>Invite users</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

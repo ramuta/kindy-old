@@ -5,8 +5,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Add a class in your childcare{% endblock %}
+
 {% block content %}
-    <h1>Add a class in your childcare</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

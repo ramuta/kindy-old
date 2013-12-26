@@ -10,8 +10,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Choose a theme{% endblock %}
+
 {% block content %}
-    <h1>Choose a theme</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

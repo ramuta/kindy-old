@@ -10,8 +10,9 @@
     <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add managers</a></li>
 {% endblock %}
 
+{% block content-title %}{{ childcare }} managers{% endblock %}
+
 {% block content %}
-    <h1>{{ childcare }} managers</h1>
     {% if childcare.managers.all %}
         <ul>
         {% for manager in childcare.managers.all %}

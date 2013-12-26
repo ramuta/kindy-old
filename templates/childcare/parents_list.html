@@ -10,8 +10,9 @@
     <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add parents</a></li>
 {% endblock %}
 
+{% block content-title %}{{ childcare }} parents{% endblock %}
+
 {% block content %}
-    <h1>{{ childcare }} parents</h1>
     {% if childcare.parents.all %}
         <ul>
         {% for parent in childcare.parents.all %}

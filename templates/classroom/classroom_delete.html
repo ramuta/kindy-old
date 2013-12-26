@@ -9,8 +9,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
+{% block content-title %}Delete classroom {{ classroom }}?{% endblock %}
+
 {% block content %}
-    <h1>Delete classroom {{ classroom }}?</h1>
     <p>Are you sure you want to delete classroom {{ classroom }}?</p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

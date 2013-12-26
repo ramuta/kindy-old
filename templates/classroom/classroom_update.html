@@ -9,9 +9,9 @@
 {% block action_header %}
 {% endblock action_header %}
 
-{% block content %}
-    <h1>Update classroom {{ classroom }}</h1>
+{% block content-title %}Update classroom {{ classroom }}{% endblock %}
 
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

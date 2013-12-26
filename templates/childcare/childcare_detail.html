@@ -15,8 +15,11 @@
     <li><a href="users/invite/"><span class="glyphicon glyphicon-plus"></span> Invite users</a></li>
 {% endblock %}
 
+{% block content-title %}
+    {{ childcare.name }}
+{% endblock content-title %}
+
 {% block content %}
-    <h1>{{ childcare.name }}</h1>
     <p>Address: {{ childcare.street_address }}, {{ childcare.city }}</p>
 
     {% if classroom_list %}
