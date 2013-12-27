@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import DeleteView, UpdateView
@@ -144,5 +145,16 @@ def news_file_delete(request, childcare_slug, news_id, file_id):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def newsboard_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    news_list = News.objects.filter(childcare=childcare)
+    all_news_list = News.objects.filter(childcare=childcare)
+
+    paginator = Paginator(all_news_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        news_list = paginator.page(page)
+    except PageNotAnInteger:
+        news_list = paginator.page(1)
+    except EmptyPage:
+        news_list = paginator.page(paginator.num_pages)
+
     return render(request, 'newsboard/newsboard_section.html', {'childcare': childcare, 'news_list': news_list})
