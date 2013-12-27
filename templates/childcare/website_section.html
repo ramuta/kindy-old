@@ -19,113 +19,104 @@
 
 {% block content %}
     <div class="panel-group" id="accordion">
-    {% if user in childcare.employees.all or user in childcare.managers.all %}
+        {% if user in childcare.employees.all or user in childcare.managers.all %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#first-page">First Page (child care description)</a></h4>
+                <h3 class="panel-title">First Page (child care description)</h3>
             </div>
-            <div id="first-page" class="panel-collapse collapse">
-                <div class="panel-body">
-                {% if childcare.description == '' %}
-                    <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>
-                {% else %}
-                    {{ childcare.description }} <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a>
-                {% endif %}
-                </div>
+            <div class="panel-body">
+            {% if childcare.description == '' %}
+                <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>
+            {% else %}
+                {{ childcare.description }} <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a>
+            {% endif %}
             </div>
         </div>
-    {% endif %}
+        {% endif %}
     
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#news">News</a></h4>
+                <h3 class="panel-title">News</h3>
             </div>
-            <div id="news" class="panel-collapse collapse">
             {% if website_news_list %}
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>News title</th>
-                        <th>Tools</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>News title</th>
+                    <th>Tools</th>
+                </tr>
+                </thead>
+                <tbody>
                 {% for news in website_news_list %}
-                    <tr>
-                        <td>
-                            <a href="/{{ childcare.slug }}/news/{{ news.slug }}">{{ news }}</a>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <a href="/{{ childcare.slug }}/news/{{ news.slug }}">{{ news }}</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
                 {% endfor %}
-                    </tbody>
-                </table>
-                <div class="panel-body">
-                    <a href="/{{ childcare.slug }}/dashboard/newsboard/" class="btn btn-default btn-sm">More</a>
-                </div>
-                {% else %}
-                <div class="panel-body">
-                    No public news yet.
-                    {% if user in childcare.employees.all or user in childcare.managers.all %}
-                        <a href="/{{ childcare.slug }}/dashboard/newsboard/create/">Write your first website news.</a>
-                    {% endif %}
-                </div>
+                </tbody>
+            </table>
+            <div class="panel-body">
+                <a href="/{{ childcare.slug }}/dashboard/newsboard/" class="btn btn-default btn-sm">More</a>
+            </div>
+            {% else %}
+            <div class="panel-body">
+                No public news yet.
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <a href="/{{ childcare.slug }}/dashboard/newsboard/create/">Write your first website news.</a>
                 {% endif %}
             </div>
+            {% endif %}
         </div>
     
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#pages">Pages</a></h4>
+                <h3 class="panel-title">Pages</h3>
             </div>
-            <div id="pages" class="panel-collapse collapse">
-                {% if pages_list %}
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Page title</th>
-                        <th>Tools</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            {% if pages_list %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Page title</th>
+                    <th>Tools</th>
+                </tr>
+                </thead>
+                <tbody>
                 {% for page in pages_list %}
-                    <tr>
-                        <td>
-                            <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/">{{ page }}</a>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/">{{ page }}</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
                 {% endfor %}
-                    </tbody>
-                </table>
-                <div class="panel-body">
-                    <a href="/{{ childcare.slug }}/dashboard/pages/" class="btn btn-default btn-sm">More</a>
-                </div>
-                {% else %}
-                <div class="panel-body">
-                    No pages yet.
-                    {% if user in childcare.employees.all or user in childcare.managers.all %}
-                        <a href="/{{ childcare.slug }}/dashboard/page/create/">Add your first website page.</a>
-                    {% endif %}
-                </div>
+                </tbody>
+            </table>
+            <div class="panel-body">
+                <a href="/{{ childcare.slug }}/dashboard/pages/" class="btn btn-default btn-sm">More</a>
+            </div>
+            {% else %}
+            <div class="panel-body">
+                No pages yet.
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                <a href="/{{ childcare.slug }}/dashboard/page/create/">Add your first website page.</a>
                 {% endif %}
             </div>
+            {% endif %}
         </div>
-    
+
+        {% if user in childcare.employees.all or user in childcare.managers.all %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#theme">Theme</a></h4>
+                <h3 class="panel-title">Theme</h3>
             </div>
-            <div id="theme" class="panel-collapse collapse">
-                <div class="panel-body">
-                    {{ childcare.theme.title }}
-                    {% if user in childcare.employees.all or user in childcare.managers.all %}
-                        <a href="/{{ childcare.slug }}/dashboard/theme">(change)</a>
-                    {% endif %}
-                </div>
+            <div class="panel-body">
+                {{ childcare.theme.title }} <a href="/{{ childcare.slug }}/dashboard/theme">(change)</a>
             </div>
         </div>
+        {% endif %}
     </div>
 {% endblock content %}

@@ -19,6 +19,7 @@ body {
 	padding:15px 30px;
 	position:fixed;
 	right:0;
+	z-index:1000;
 }
 
 #header p { margin:0; }
@@ -35,6 +36,7 @@ body {
 	color:#fff;
 	float:left;
 	min-height:100%;
+	position:fixed;
 	width:18%;
 }
 
@@ -87,7 +89,7 @@ body {
 #content {
 	box-shadow:0 0 10px #000;
 	color:#333;
-	float:left;
+	float:right;
 	min-height:100%;
 	width:82%;
 }
