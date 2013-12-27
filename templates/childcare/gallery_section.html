@@ -3,6 +3,10 @@
 
 {% block title %}Edit website{% endblock title %}
 
+{% block header %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
+{% endblock %}
+
 {% block breadcrumb %}
     <li>Gallery</li>
 {% endblock %}
@@ -15,10 +19,11 @@
 {% block content %}
     {% if diary_image_list %}
         {% for diary_image in diary_image_list %}
-            <div class="pull-left">
-                <a href="{{ diary_image.image.url }}" class="fancybox" rel="gallery"><img src="{% thumbnail diary_image.image 100x100 crop %}"></a>
-            </div>
+        <div class="pull-left">
+            <a href="{{ diary_image.image.url }}" class="fancybox" rel="gallery-1" title="Title"><img src="{% thumbnail diary_image.image 100x100 crop %}"></a>
+        </div>
         {% endfor %}
+        <div class="clearfix"></div>
     {% else %}
         <p>No photos were taken yet.</p>
     {% endif %}
@@ -26,10 +31,11 @@
     <h1>News images:</h1>
     {% if news_image_list %}
         {% for news_image in news_image_list %}
-            <div class="pull-left">
-                <a href="{{ news_image.image.url }}" class="fancybox" rel="gallery"><img src="{% thumbnail news_image.image 100x100 crop %}"></a>
-            </div>
+        <div class="pull-left">
+            <a href="{{ news_image.image.url }}" class="fancybox" rel="gallery-2" title="Title"><img src="{% thumbnail news_image.image 100x100 crop %}"></a>
+        </div>
         {% endfor %}
+        <div class="clearfix"></div>
     {% else %}
         <p>No photos were taken yet.</p>
     {% endif %}
@@ -38,8 +44,6 @@
 {% block footer %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/fancybox.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('a.fancybox').fancybox({ type: 'image' });
-        });
+        gallery('a.fancybox');
     </script>
 {% endblock %}
