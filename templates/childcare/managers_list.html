@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block action %}
-    <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add managers</a></li>
+    {% if user in childcare.managers.all %}
+        <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add managers</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content-title %}{{ childcare }} managers{% endblock %}

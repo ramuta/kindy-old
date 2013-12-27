@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block action %}
-    <li><a href="/{{ childcare.slug }}/dashboard/page/create/"><span class="glyphicon glyphicon-plus"></span> Add page</a></li>
+    {% if user in childcare.employees.all or user in childcare.managers.all %}
+        <li><a href="/{{ childcare.slug }}/dashboard/page/create/"><span class="glyphicon glyphicon-plus"></span> Add page</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content-title %}Pages{% endblock %}
@@ -19,6 +21,9 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>No pages yet. <a href="/{{ childcare.slug }}/dashboard/page/create/">Write your first page.</a></p>
+        <p>No pages yet.
+        {% if user in childcare.employees.all or user in childcare.managers.all %}
+            <a href="/{{ childcare.slug }}/dashboard/page/create/">Write your first page.</a></p>
+        {% endif %}
     {% endif %}
 {% endblock content %}

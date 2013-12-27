@@ -9,10 +9,12 @@
 {% endblock %}
 
 {% block action %}
-    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
-    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/"><span class="glyphicon glyphicon-plus"></span> Add files</a></li>
-    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
-    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
+    {% if user in childcare.employees.all or user in childcare.managers.all %}
+        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/"><span class="glyphicon glyphicon-plus"></span> Add files</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
+    {% endif %}
 {% endblock action %}
 
 {% block content-title %}{{ news }}{% endblock %}
@@ -23,11 +25,16 @@
     {% if news_image_list %}
         {% for image in news_image_list %}
             {% if image.image %}
-                <img src="{% thumbnail image.image 100x100 crop %}"> <p><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
+                <img src="{% thumbnail image.image 100x100 crop %}">
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <p><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
+                {% endif %}
             {% endif %}
         {% endfor %}
     {% else %}
-        <p>No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/">Add images</a></p>
+        {% if user in childcare.employees.all or user in childcare.managers.all %}
+            <p>No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/">Add images</a></p>
+        {% endif %}
     {% endif %}
     <br/>
     <br/>
@@ -35,8 +42,11 @@
         Files:<ul>
         {% for file in news_file_list %}
             {% if file.file %}
-                <li><a href="{{ file.file.url }}">{{ file.description }} ({{ file.file.url }})</a> | <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/file/{{ file.pk }}/delete/">Delete</a></li>
-            {% endif %}
+                <li><a href="{{ file.file.url }}">{{ file.description }} ({{ file.file.url }})</a>
+                    {% if user in childcare.employees.all or user in childcare.managers.all %}
+                        | <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/file/{{ file.pk }}/delete/">Delete</a></li>
+                    {% endif %}
+                {% endif %}
         {% endfor %}
         </ul>
     {% endif %}

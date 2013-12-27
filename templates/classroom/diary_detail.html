@@ -9,9 +9,11 @@
 {% endblock %}
 
 {% block action %}
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
+    {% if user in childcare.employees.all or user in childcare.managers.all %}
+        <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
+    {% endif %}
 {% endblock action %}
 
 {% block content-title %}A diary for {{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}{% endblock %}
@@ -22,10 +24,16 @@
     {% if diary_image_list %}
         {% for image in diary_image_list %}
             {% if image.image %}
-                <img src="{% thumbnail image.image 100x100 crop %}"> <p><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
+                <img src="{% thumbnail image.image 100x100 crop %}">
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <p><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
+                {% endif %}
             {% endif %}
         {% endfor %}
     {% else %}
-        <p>No images were added yet to this diary. <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/">Add images</a></p>
+        {% if user in childcare.employees.all or user in childcare.managers.all %}
+            <p>No images were added yet to this diary. <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/">Add images</a></p>
+
+        {% endif %}
     {% endif %}
 {% endblock content %}

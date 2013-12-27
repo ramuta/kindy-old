@@ -2,15 +2,22 @@
 
 {% block title %}Classroom list{% endblock title %}
 
-{% block action_header %}
-{% endblock action_header %}
+{% block action %}
+    {% if user in childcare.employees.all or user in childcare.managers.all %}
+        <li><a href="create/"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
+    {% endif %}
+{% endblock %}
 
 {% block content-title %}Classrooms{% endblock %}
 
 {% block content %}
     <ul>
     {% for classroom in classroom_list %}
-        <li>{{ classroom }} | <a href="{{ classroom.pk }}/update/">Update</a> | <a href="{{ classroom.pk }}/delete/">Delete</a></li>
+        <li>{{ classroom }}
+            {% if user in childcare.employees.all or user in childcare.managers.all %}
+                 | <a href="{{ classroom.pk }}/update/">Update</a> | <a href="{{ classroom.pk }}/delete/">Delete</a>
+            {% endif %}
+        </li>
     {% endfor %}
     </ul>
 {% endblock content %}

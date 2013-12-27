@@ -9,7 +9,7 @@ from django.template.defaultfilters import slugify
 #
 # Improved from those by Ciantic, 2010.
 
-FORBIDDEN_WORDS = ('admin', 'accounts', 'autocomplete', 'ckeditor', 'childcare', 'dashboard',)
+FORBIDDEN_WORDS = ('admin', 'accounts', 'autocomplete', 'ckeditor', 'childcare', 'dashboard', 'news',)
 
 
 def get_forbidden_words_list():
