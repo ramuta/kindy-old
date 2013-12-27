@@ -18,7 +18,10 @@
     <table class="table table-bordered">
         <tr>
             <th>Diary</th>
+            <th>Classroom</th>
+            {% if user in childcare.employees.all or user in childcare.managers.all %}
             <th>Tools</th>
+            {% endif %}
         </tr>
         {% for diary in diary_list %}
             <tr>
@@ -26,10 +29,15 @@
                     <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}">{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</a>
                 </td>
                 <td>
+                    {{ diary.classroom }}
+                </td>
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                <td>
                     <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
                     <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/update/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
                     <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/delete/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                 </td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
