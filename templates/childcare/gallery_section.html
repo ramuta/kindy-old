@@ -1,7 +1,7 @@
 {% extends 'childcare/childcare_base.html' %}
 {% load thumbnail %}
 
-{% block title %}Edit website{% endblock title %}
+{% block title %}Image gallery{% endblock title %}
 
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
@@ -14,9 +14,10 @@
 {% block action_header %}
 {% endblock %}
 
-{% block content-title %}Diary images{% endblock %}
+{% block content-title %}Image gallery{% endblock %}
 
 {% block content %}
+    <h2>Diary images:</h2>
     {% if diary_image_list %}
         {% for diary_image in diary_image_list %}
         <div class="pull-left">
@@ -28,7 +29,7 @@
         <p>No photos were taken yet.</p>
     {% endif %}
 
-    <h1>News images:</h1>
+    <h2>News images:</h2>
     {% if news_image_list %}
         {% for news_image in news_image_list %}
         <div class="pull-left">
