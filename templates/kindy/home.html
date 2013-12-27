@@ -28,12 +28,14 @@
         {% for childcare in childcare_list_manager %}
             <a href="/{{ childcare.slug }}/dashboard/" class="btn btn-info btn-lg">{{ childcare }}</a>
         {% endfor %}
-    {% elif childcare_list_employee %}
+    {% endif %}
+    {% if childcare_list_employee %}
         <h3>Employee:</h3>
         {% for childcare in childcare_list_employee %}
             <a href="/{{ childcare.slug }}/dashboard/" class="btn btn-info btn-lg">{{ childcare }}</a>
         {% endfor %}
-    {% elif childcare_list_parent %}
+    {% endif %}
+    {% if childcare_list_parent %}
         <h3>Parent:</h3>
         {% for childcare in childcare_list_parent %}
             <a href="/{{ childcare.slug }}/dashboard/" class="btn btn-info btn-lg">{{ childcare }}</a>
