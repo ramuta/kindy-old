@@ -84,8 +84,8 @@ def childcare(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def website_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    website_news_list = News.objects.filter(childcare=childcare, public=True)
-    pages_list = Page.objects.filter(childcare=childcare)
+    website_news_list = News.objects.filter(childcare=childcare, public=True)[:5]
+    pages_list = Page.objects.filter(childcare=childcare)[:5]
     return render(request, 'childcare/website_section.html', {'childcare': childcare,
                                                               'website_news_list': website_news_list,
                                                               'pages_list': pages_list})
