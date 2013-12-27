@@ -41,6 +41,21 @@
             </tr>
         {% endfor %}
     </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if diary_list.has_previous %}
+                <a href="?page={{ diary_list.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ diary_list.number }} of {{ diary_list.paginator.num_pages }}
+            </span>
+
+            {% if diary_list.has_next %}
+                <a href="?page={{ diary_list.next_page_number }}"> next</a>
+            {% endif %}
+        </span>
+    </div>
     {% else %}
         <p>No diaries yet.
         {% if user in childcare.employees.all or user in childcare.managers.all %}

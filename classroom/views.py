@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse_lazy
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
@@ -55,7 +56,18 @@ def diary_create(request, childcare_slug):
 def diary_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     classroom_list = Classroom.objects.filter(childcare=childcare)
-    diary_list = Diary.objects.filter(classroom__in=classroom_list).order_by('-date')
+    all_diary_list = Diary.objects.filter(classroom__in=classroom_list).order_by('-date')
+
+    paginator = Paginator(all_diary_list, 3)
+    page = request.GET.get('page')
+
+    try:
+        diary_list = paginator.page(page)
+    except PageNotAnInteger:
+        diary_list = paginator.page(1)
+    except EmptyPage:
+        diary_list = paginator.page(paginator.num_pages)
+
     return render(request, 'classroom/diary_section.html', {'childcare': childcare,
                                                             'diary_list': diary_list})
 
