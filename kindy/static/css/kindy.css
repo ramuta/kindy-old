@@ -109,15 +109,14 @@ body {
 }
 
 #content .nav ul.actions {
+	border:none;
 	float:right;
 	list-style:none;
 	margin:0;
 	padding:0;
 }
 
-#content .nav ul.actions li {
-	float:left;
-}
+#content .nav ul.actions li { float:left; }
 
 #content .nav ul.actions li a {
 	color:#333;
@@ -125,4 +124,6 @@ body {
 	padding:10px;
 	text-decoration:none;
 }
+
+#content .nav ul.actions li ul li { float:none; }
 /* END CONTENT */
