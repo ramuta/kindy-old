@@ -1,7 +1,8 @@
 import datetime
 from django.forms.extras.widgets import SelectDateWidget
 from classroom.models import Classroom, Diary, DiaryImage
-from django.forms import ModelForm, DateField, ModelChoiceField
+from django.forms import ModelForm, DateField, ModelChoiceField, ValidationError
+from utils.files_images import get_max_size_in_mb, get_max_size
 
 
 class ClassroomCreateForm(ModelForm):
@@ -34,6 +35,15 @@ class AddDiaryImageForm(ModelForm):
     class Meta:
         model = DiaryImage
         fields = ('image',)
+
+    def clean(self):
+        cleaned_data = super(AddDiaryImageForm, self).clean()
+        image = cleaned_data.get('image')
+
+        if image._size > get_max_size():
+            raise ValidationError('Image is too large ( > %s MB )' % get_max_size_in_mb())
+
+        return cleaned_data
 
 
 class DiaryUpdateForm(ModelForm):

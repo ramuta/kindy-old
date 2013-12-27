@@ -4,6 +4,7 @@ from userena.forms import SignupForm
 from .models import Childcare
 import autocomplete_light
 from utils import autocomplete_light_registry
+from utils.files_images import get_max_size, get_max_size_in_mb
 from utils.slugify import get_forbidden_words_list
 from website.models import Page, PageFile
 from ckeditor.widgets import CKEditorWidget
@@ -115,6 +116,15 @@ class AddPageFileForm(ModelForm):
     class Meta:
         model = PageFile
         fields = ('file', 'description',)
+
+    def clean(self):
+        cleaned_data = super(AddPageFileForm, self).clean()
+        file = cleaned_data.get('file')
+
+        if file._size > get_max_size():
+            raise ValidationError('File is too large ( > %s MB )' % get_max_size_in_mb())
+
+        return cleaned_data
 
 
 ROLE_CHOICES = (
