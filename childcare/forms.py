@@ -1,11 +1,14 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField
+from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField, ValidationError
 from userena.forms import SignupForm
 from .models import Childcare
 import autocomplete_light
 from utils import autocomplete_light_registry
 from website.models import Page, PageFile
 from ckeditor.widgets import CKEditorWidget
+
+
+FORBIDDEN_WORDS = ('admin', 'accounts', 'autocomplete', 'ckeditor', 'childcare',)
 
 
 class ChildcareCreateForm(ModelForm):
@@ -16,6 +19,15 @@ class ChildcareCreateForm(ModelForm):
                   'street_address',
                   'city',)
         exclude = ('disabled', 'managers',)
+
+    def clean(self):
+        cleaned_data = super(ChildcareCreateForm, self).clean()
+        slug = cleaned_data.get('slug')
+
+        if slug in FORBIDDEN_WORDS:
+            raise ValidationError('This URL is not available. Please choose another one.')
+
+        return cleaned_data
 
 
 class ChildcareUpdateForm(ModelForm):
