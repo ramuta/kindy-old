@@ -4,11 +4,9 @@ from userena.forms import SignupForm
 from .models import Childcare
 import autocomplete_light
 from utils import autocomplete_light_registry
+from utils.slugify import get_forbidden_words_list
 from website.models import Page, PageFile
 from ckeditor.widgets import CKEditorWidget
-
-
-FORBIDDEN_WORDS = ('admin', 'accounts', 'autocomplete', 'ckeditor', 'childcare',)
 
 
 class ChildcareCreateForm(ModelForm):
@@ -24,7 +22,7 @@ class ChildcareCreateForm(ModelForm):
         cleaned_data = super(ChildcareCreateForm, self).clean()
         slug = cleaned_data.get('slug')
 
-        if slug in FORBIDDEN_WORDS:
+        if slug in get_forbidden_words_list():
             raise ValidationError('This URL is not available. Please choose another one.')
 
         return cleaned_data

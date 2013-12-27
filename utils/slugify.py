@@ -9,6 +9,12 @@ from django.template.defaultfilters import slugify
 #
 # Improved from those by Ciantic, 2010.
 
+FORBIDDEN_WORDS = ('admin', 'accounts', 'autocomplete', 'ckeditor', 'childcare', 'dashboard',)
+
+
+def get_forbidden_words_list():
+    return FORBIDDEN_WORDS
+
 
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
                     slug_separator='-'):
@@ -29,6 +35,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
 
     # Sort out the initial slug. Chop its length down if we need to.
     slug = slugify(value)
+
     if slug_len:
         slug = slug[:slug_len]
     slug = _slug_strip(slug, slug_separator)
@@ -43,7 +50,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
     # Find a unique slug. If one matches, at '-2' to the end and try again
     # (then '-3', etc).
     next = 2
-    while not slug or queryset.filter(**{slug_field_name: slug}):
+    while not slug or queryset.filter(**{slug_field_name: slug}) or slug in get_forbidden_words_list():
         slug = original_slug
         end = '-%s' % next
         if slug_len and len(slug) + len(end) > slug_len:
