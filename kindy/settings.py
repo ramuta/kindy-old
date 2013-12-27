@@ -113,7 +113,6 @@ else:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL
-    AWS_PRELOAD_METADATA = True
     CKEDITOR_UPLOAD_PATH = 'ckeditor/'
     THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
