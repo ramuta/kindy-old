@@ -29,7 +29,6 @@
         {% for image in diary_image_list %}
             {% if image.image %}
                 <div class="pull-left">
-
                     <a href="{{ image.image.url }}" class="fancybox" rel="gallery"><img src="{% thumbnail image.image 100x100 crop %}"></a>
                     {% if user in childcare.employees.all or user in childcare.managers.all %}
                         <p><a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/image/{{ image.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></p>

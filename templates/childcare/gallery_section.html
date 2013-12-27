@@ -15,7 +15,9 @@
 {% block content %}
     {% if diary_image_list %}
         {% for diary_image in diary_image_list %}
-            <img src="{% thumbnail diary_image.image 100x100 crop %}">
+            <div class="pull-left">
+                <a href="{{ diary_image.image.url }}" class="fancybox" rel="gallery"><img src="{% thumbnail diary_image.image 100x100 crop %}"></a>
+            </div>
         {% endfor %}
     {% else %}
         <p>No photos were taken yet.</p>
@@ -24,9 +26,20 @@
     <h1>News images:</h1>
     {% if news_image_list %}
         {% for news_image in news_image_list %}
-            <img src="{% thumbnail news_image.image 100x100 crop %}">
+            <div class="pull-left">
+                <a href="{{ news_image.image.url }}" class="fancybox" rel="gallery"><img src="{% thumbnail news_image.image 100x100 crop %}"></a>
+            </div>
         {% endfor %}
     {% else %}
         <p>No photos were taken yet.</p>
     {% endif %}
 {% endblock content %}
+
+{% block footer %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/fancybox.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('a.fancybox').fancybox({ type: 'image' });
+        });
+    </script>
+{% endblock %}
