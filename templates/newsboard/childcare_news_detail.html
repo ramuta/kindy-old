@@ -1,6 +1,10 @@
 {% extends 'childcare/childcare_base.html' %}
 {% load thumbnail %}
 
+{% block header %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
+{% endblock %}
+
 {% block title %}{{ news }}{% endblock title %}
 
 {% block breadcrumb %}
@@ -25,10 +29,13 @@
     {% if news_image_list %}
         {% for image in news_image_list %}
             {% if image.image %}
-                <img src="{% thumbnail image.image 100x100 crop %}">
-                {% if user in childcare.employees.all or user in childcare.managers.all %}
-                    <p><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/image/{{ image.pk }}/delete/">Delete image</a></p>
-                {% endif %}
+                <div class="pull-left">
+                    <a href="{{ image.image.url }}" class="fancybox" rel="gallery" title="{{ news }}"><img src="{% thumbnail image.image 100x100 crop %}"></a>
+
+                    {% if user in childcare.employees.all or user in childcare.managers.all %}
+                        <p><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/image/{{ image.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></p>
+                    {% endif %}
+                </div>
             {% endif %}
         {% endfor %}
     {% else %}
@@ -51,3 +58,10 @@
         </ul>
     {% endif %}
 {% endblock content %}
+
+{% block footer %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/fancybox.js"></script>
+    <script type="text/javascript">
+        gallery('a.fancybox');
+    </script>
+{% endblock %}
