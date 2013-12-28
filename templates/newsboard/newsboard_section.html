@@ -15,14 +15,44 @@
 
 {% block content %}
     {% if news_list %}
-        <ul>
+    <table class="table table-bordered">
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            {% if user in childcare.employees.all or user in childcare.managers.all %}
+            <th>Tools</th>
+            <th>Visibility</th>
+            {% endif %}
+        </tr>
         {% for news in news_list %}
-            <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}">{{ news }}</a></li>
+            <tr>
+                <td>
+                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}">{{ news }}</a>
+                </td>
+                <td>
+                    {{ news.created }}
+                </td>
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                <td>
+                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
+                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add files</a>
+                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/update/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/delete/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                </td>
+                <td>
+                    {% if news.public %}
+                        On website
+                    {% else %}
+                        For registered users only
+                    {% endif %}
+                </td>
+                {% endif %}
+            </tr>
         {% endfor %}
-        </ul>
+    </table>
 
-        <!-- Pagination -->
-        <div class="pagination">
+    <!-- Pagination -->
+    <div class="pagination">
         <span class="step-links">
             {% if news_list.has_previous %}
                 <a href="?page={{ news_list.previous_page_number }}">previous</a>
