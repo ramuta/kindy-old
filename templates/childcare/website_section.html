@@ -22,14 +22,16 @@
         {% if user in childcare.employees.all or user in childcare.managers.all %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">First Page (child care description)</h3>
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#first-page">First Page (child care description)</a></h4>
             </div>
-            <div class="panel-body">
-            {% if childcare.description == '' %}
-                <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>
-            {% else %}
-                {{ childcare.description }} <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a>
-            {% endif %}
+            <div id="first-page" class="panel-collapse collapse in">
+                <div class="panel-body">
+                {% if childcare.description == '' %}
+                    <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>
+                {% else %}
+                    {{ childcare.description }} <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a>
+                {% endif %}
+                </div>
             </div>
         </div>
         {% endif %}

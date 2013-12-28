@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
@@ -152,7 +153,18 @@ def website_page_delete(request, childcare_slug, page_id):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def website_pages_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    page_list = Page.objects.filter(childcare=childcare)
+    all_page_list = Page.objects.filter(childcare=childcare)
+
+    paginator = Paginator(all_page_list, 3)
+    page = request.GET.get('page')
+
+    try:
+        page_list = paginator.page(page)
+    except PageNotAnInteger:
+        page_list = paginator.page(1)
+    except EmptyPage:
+        page_list = paginator.page(paginator.num_pages)
+
     return render(request, 'childcare/website_page_list.html', {'childcare': childcare,
                                                                 'page_list': page_list})
 

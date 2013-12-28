@@ -8,18 +8,74 @@
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
         <li><a href="/{{ childcare.slug }}/dashboard/page/create/"><span class="glyphicon glyphicon-plus"></span> Add page</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/theme/"><span class="glyphicon glyphicon-th"></span> Choose theme</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/first-page/edit/"><span class="glyphicon glyphicon-plus"></span> Add first page description</a></li>
     {% endif %}
+    <li class="pull-right"><a href="/{{ childcare.slug }}/" target="_blank"><span class="glyphicon glyphicon-globe"></span> Go to website</a></li>
 {% endblock %}
 
-{% block content-title %}Pages{% endblock %}
+{% block content-title %}Website pages{% endblock %}
 
 {% block content %}
+    {% if user in childcare.employees.all or user in childcare.managers.all %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#first-page">First Page (child care description)</a></h4>
+            </div>
+            <div id="first-page" class="panel-collapse collapse">
+                <div class="panel-body">
+                {% if childcare.description == '' %}
+                    <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>
+                {% else %}
+                    {{ childcare.description }} <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     {% if page_list %}
-        <ul>
+    <table class="table table-bordered">
+        <tr>
+            <th>Page</th>
+            <th>Order</th>
+            {% if user in childcare.employees.all or user in childcare.managers.all %}
+            <th>Tools</th>
+            {% endif %}
+        </tr>
         {% for page in page_list %}
-            <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}">{{ page }}</a></li>
+            <tr>
+                <td>
+                    <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}">{{ page }}</a>
+                </td>
+                <td>
+                    {{ page.order }}
+                </td>
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                <td>
+                    <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/files/" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add files</a>
+                    <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/update/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                    <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/delete/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                </td>
+                {% endif %}
+            </tr>
         {% endfor %}
-        </ul>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_list.has_previous %}
+                <a href="?page={{ page_list.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_list.number }} of {{ page_list.paginator.num_pages }}
+            </span>
+
+            {% if page_list.has_next %}
+                <a href="?page={{ page_list.next_page_number }}"> next</a>
+            {% endif %}
+        </span>
+    </div>
     {% else %}
         <p>No pages yet.
         {% if user in childcare.employees.all or user in childcare.managers.all %}
@@ -27,3 +83,4 @@
         {% endif %}
     {% endif %}
 {% endblock content %}
+
