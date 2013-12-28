@@ -13,6 +13,7 @@
 {% block content-title %}Edit first page description for {{ childcare }} website{% endblock %}
 
 {% block content %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

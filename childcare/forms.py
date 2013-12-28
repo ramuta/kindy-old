@@ -43,6 +43,8 @@ class ChildcareUpdateForm(ModelForm):
 
 
 class FirstPageForm(ModelForm):
+    description = CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Childcare
         fields = (
