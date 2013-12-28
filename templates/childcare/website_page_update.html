@@ -13,6 +13,7 @@
 {% block content-title %}Update a website page {{ page }}{% endblock %}
 
 {% block content %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
     <form method="post" action="">
         {% csrf_token %}
         {{ form.as_p }}

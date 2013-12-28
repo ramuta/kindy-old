@@ -3,5 +3,7 @@
 {% block title %}{{ childcare }}{% endblock title %}
 
 {% block content %}
-    <p>{{ childcare.description|linebreaks }}</p>
+    {% autoescape off %}
+        <p>{{ childcare.description|linebreaks }}</p>
+    {% endautoescape %}
 {% endblock content %}
