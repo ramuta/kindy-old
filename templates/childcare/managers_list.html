@@ -15,12 +15,44 @@
 {% block content-title %}{{ childcare }} managers{% endblock %}
 
 {% block content %}
-    {% if childcare.managers.all %}
-        <ul>
-        {% for manager in childcare.managers.all %}
-            <li>{{ manager }}</li>
-        {% endfor %}
-        </ul>
+    {% if managers_list %}
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+            {% for manager in managers_list %}
+                <tr>
+                    <td>
+                        <a href="/accounts/{{ manager.username }}">{{ manager.first_name }} {{ manager.last_name }}</a>
+                    </td>
+                    <td>
+                        {{ manager.username }}
+                    </td>
+                    <td>
+                        {{ manager.email }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if managers_list.has_previous %}
+                    <a href="?page={{ managers_list.previous_page_number }}">previous</a>
+                {% endif %}
+
+                {% if managers_list.has_other_pages %}
+                <span class="current">
+                    Page {{ managers_list.number }} of {{ managers_list.paginator.num_pages }}
+                </span>
+                {% endif %}
+
+                {% if managers_list.has_next %}
+                    <a href="?page={{ managers_list.next_page_number }}"> next</a>
+                {% endif %}
+            </span>
+        </div>
     {% else %}
         <p>No managers.</p>
     {% endif %}

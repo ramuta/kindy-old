@@ -315,7 +315,19 @@ def parents_add_remove(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def managers_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    return render(request, 'childcare/managers_list.html', {'childcare': childcare})
+    all_managers_list = childcare.managers.all()
+
+    paginator = Paginator(all_managers_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        managers_list = paginator.page(page)
+    except PageNotAnInteger:
+        managers_list = paginator.page(1)
+    except EmptyPage:
+        managers_list = paginator.page(paginator.num_pages)
+    return render(request, 'childcare/managers_list.html', {'childcare': childcare,
+                                                            'managers_list': managers_list})
 
 
 @login_required()

@@ -47,9 +47,11 @@
                 <a href="?page={{ diary_list.previous_page_number }}">previous</a>
             {% endif %}
 
+            {% if diary_list.has_other_pages %}
             <span class="current">
                 Page {{ diary_list.number }} of {{ diary_list.paginator.num_pages }}
             </span>
+            {% endif %}
 
             {% if diary_list.has_next %}
                 <a href="?page={{ diary_list.next_page_number }}"> next</a>
