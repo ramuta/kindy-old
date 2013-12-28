@@ -72,7 +72,8 @@ body {
 	-webkit-transition:background 0.2s;
 }
 
-#sidebar ul.nav li a:hover, #sidebar ul.nav li a:focus, #sidebar ul.nav li a.active { background:#445164; }
+#sidebar ul.nav li a:hover, #sidebar ul.nav li a.active { background:#445164; }
+#sidebar ul.nav li a:focus { background:none; }
 
 #sidebar ul.nav li ul.subnav {
 	list-style:none;
