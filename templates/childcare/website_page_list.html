@@ -22,13 +22,16 @@
             <div class="panel-heading">
                 <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#first-page">First Page (child care description)</a></h4>
             </div>
-            <div id="first-page" class="panel-collapse collapse">
-                <div class="panel-body">
-                {% if childcare.description == '' %}
+            {% if childcare.description == '' %}
+                <div id="first-page" class="panel-collapse collapse in">
+                    <div class="panel-body">
+
                     <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>
-                {% else %}
+            {% else %}
+                <div id="first-page" class="panel-collapse collapse">
+                <div class="panel-body">
                     {{ childcare.description }} <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a>
-                {% endif %}
+            {% endif %}
                 </div>
             </div>
         </div>
