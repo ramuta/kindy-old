@@ -155,7 +155,7 @@ def website_pages_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     all_page_list = Page.objects.filter(childcare=childcare)
 
-    paginator = Paginator(all_page_list, 3)
+    paginator = Paginator(all_page_list, 10)
     page = request.GET.get('page')
 
     try:

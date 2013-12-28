@@ -1,8 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models, IntegrityError
-import re
 from childcare.models import Childcare
-from django.template.defaultfilters import slugify
 from utils.imagegenerators import get_file_path
 from utils.slugify import unique_slugify
 

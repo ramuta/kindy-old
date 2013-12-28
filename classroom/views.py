@@ -58,7 +58,7 @@ def diary_section(request, childcare_slug):
     classroom_list = Classroom.objects.filter(childcare=childcare)
     all_diary_list = Diary.objects.filter(classroom__in=classroom_list).order_by('-date')
 
-    paginator = Paginator(all_diary_list, 3)
+    paginator = Paginator(all_diary_list, 10)
     page = request.GET.get('page')
 
     try:
