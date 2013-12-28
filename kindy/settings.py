@@ -92,6 +92,12 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
+
 if LOCAL_ENV_BOOL:
     MEDIA_ROOT = os.path.join(DIRNAME, 'media/')
     MEDIA_URL = '/media/'

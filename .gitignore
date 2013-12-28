@@ -15,6 +15,8 @@ kindy/media/files/news/*
 kindy/media/files/child/*
 kindy/media/files/page/*
 kindy/media/files/plan/*
+kindy/media/ckeditor/*
+kindy/media/mugshots/*
 
 run.sh
 kindy/media/CACHE
