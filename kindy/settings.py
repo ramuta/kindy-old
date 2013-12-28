@@ -138,6 +138,26 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+THUMBNAIL_ALIASES = {
+    'newsboard.NewsImage.image': {
+        'thumb': {
+            'size': (100, 100),
+            'quality': 85,
+            'crop': True,
+            'upscale': True,
+        },
+    },
+
+    'classroom.DiaryImage.image': {
+        'thumb': {
+            'size': (100, 100),
+            'quality': 85,
+            'crop': True,
+            'upscale': True,
+        },
+    }
+}
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
