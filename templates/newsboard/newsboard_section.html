@@ -58,9 +58,11 @@
                 <a href="?page={{ news_list.previous_page_number }}">previous</a>
             {% endif %}
 
+            {% if news_list.has_other_pages %}
             <span class="current">
                 Page {{ news_list.number }} of {{ news_list.paginator.num_pages }}
             </span>
+            {% endif %}
 
             {% if news_list.has_next %}
                 <a href="?page={{ news_list.next_page_number }}"> next</a>

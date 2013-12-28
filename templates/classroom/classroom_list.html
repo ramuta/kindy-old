@@ -43,9 +43,11 @@
                 <a href="?page={{ classroom_list.previous_page_number }}">previous</a>
             {% endif %}
 
+            {% if classroom_list.has_other_pages %}
             <span class="current">
                 Page {{ classroom_list.number }} of {{ classroom_list.paginator.num_pages }}
             </span>
+            {% endif %}
 
             {% if classroom_list.has_next %}
                 <a href="?page={{ classroom_list.next_page_number }}"> next</a>
