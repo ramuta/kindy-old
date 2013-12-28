@@ -21,7 +21,7 @@
     {% if diary_image_list %}
         {% for diary_image in diary_image_list %}
         <div class="pull-left">
-            <a href="{{ diary_image.image.url }}" class="fancybox" rel="gallery-1" title="Title"><img src="{% thumbnail diary_image.image 100x100 crop %}"></a>
+            <a href="{{ diary_image.image.url }}" class="fancybox" rel="gallery-1" title="Diary for {{ diary_image.diary.date.day }} {{ diary_image.diary.date|date:'M' }} {{ diary_image.diary.date.year }}"><img src="{% thumbnail diary_image.image 100x100 crop %}"></a>
         </div>
         {% endfor %}
         <div class="clearfix"></div>
@@ -33,7 +33,7 @@
     {% if news_image_list %}
         {% for news_image in news_image_list %}
         <div class="pull-left">
-            <a href="{{ news_image.image.url }}" class="fancybox" rel="gallery-2" title="Title"><img src="{% thumbnail news_image.image 100x100 crop %}"></a>
+            <a href="{{ news_image.image.url }}" class="fancybox" rel="gallery-2" title="{{ news_image.news }}"><img src="{% thumbnail news_image.image 100x100 crop %}"></a>
         </div>
         {% endfor %}
         <div class="clearfix"></div>
