@@ -334,14 +334,39 @@ def managers_list(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def employees_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    return render(request, 'childcare/employees_list.html', {'childcare': childcare})
+
+    all_employees_list = childcare.employees.all()
+
+    paginator = Paginator(all_employees_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        employees_list = paginator.page(page)
+    except PageNotAnInteger:
+        employees_list = paginator.page(1)
+    except EmptyPage:
+        employees_list = paginator.page(paginator.num_pages)
+    return render(request, 'childcare/employees_list.html', {'childcare': childcare,
+                                                             'employees_list': employees_list})
 
 
 @login_required()
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def parents_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    return render(request, 'childcare/parents_list.html', {'childcare': childcare})
+    all_parents_list = childcare.parents.all()
+
+    paginator = Paginator(all_parents_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        parents_list = paginator.page(page)
+    except PageNotAnInteger:
+        parents_list = paginator.page(1)
+    except EmptyPage:
+        parents_list = paginator.page(paginator.num_pages)
+    return render(request, 'childcare/parents_list.html', {'childcare': childcare,
+                                                           'parents_list': parents_list})
 
 
 @login_required()

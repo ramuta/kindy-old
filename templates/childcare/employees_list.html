@@ -15,12 +15,44 @@
 {% block content-title %}{{ childcare }} employees{% endblock %}
 
 {% block content %}
-    {% if childcare.employees.all %}
-        <ul>
-        {% for employee in childcare.employees.all %}
-            <li>{{ employee }}</li>
-        {% endfor %}
-        </ul>
+    {% if employees_list %}
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+            {% for employee in employees_list %}
+                <tr>
+                    <td>
+                        <a href="/accounts/{{ employee.username }}">{{ employee.first_name }} {{ employee.last_name }}</a>
+                    </td>
+                    <td>
+                        {{ employee.username }}
+                    </td>
+                    <td>
+                        {{ employee.email }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if employees_list.has_previous %}
+                    <a href="?page={{ employees_list.previous_page_number }}">previous</a>
+                {% endif %}
+
+                {% if employees_list.has_other_pages %}
+                <span class="current">
+                    Page {{ employees_list.number }} of {{ employees_list.paginator.num_pages }}
+                </span>
+                {% endif %}
+
+                {% if employees_list.has_next %}
+                    <a href="?page={{ employees_list.next_page_number }}"> next</a>
+                {% endif %}
+            </span>
+        </div>
     {% else %}
         <p>No employees added yet.</p>
     {% endif %}
