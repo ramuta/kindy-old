@@ -4,13 +4,11 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
-from userena.models import UserenaSignup
 from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm, ChildcareUpdateForm, InviteUsersForm
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News, NewsImage
-from utils.invites import get_clean_username, invite_new_kindy_user
-from utils.emails import send_invite_email
+from utils.invites import invite_new_kindy_user
 from website.models import Page, PageFile
 from django.forms.formsets import formset_factory
 
@@ -213,7 +211,7 @@ def website_first_page_edit(request, childcare_slug):
         form = FirstPageForm(request.POST, instance=childcare)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/%s/dashboard/website/' % childcare.slug)
+            return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
     else:
         form = FirstPageForm(instance=childcare)
     return render(request, 'childcare/first_page_edit.html', {'form': form, 'childcare': childcare})
@@ -227,7 +225,7 @@ def website_choose_theme(request, childcare_slug):
         form = ChooseThemeForm(request.POST, instance=childcare)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/%s/dashboard/website/' % childcare.slug)
+            return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
     else:
         form = ChooseThemeForm(instance=childcare)
     return render(request, 'childcare/website_choose_theme.html', {'form': form, 'childcare': childcare})
