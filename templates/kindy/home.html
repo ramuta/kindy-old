@@ -23,9 +23,6 @@
 {% endblock %}
 
 {% block content %}
-
-    Da vidmo request: {{ request.path }}
-
     {% if childcare_list_manager or childcare_list_employee or childcare_list_parent %}
         {% if childcare_list_manager %}
             <h3>Manager:</h3>
