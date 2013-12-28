@@ -122,6 +122,7 @@ else:
     AWS_PRELOAD_METADATA = False
     CKEDITOR_UPLOAD_PATH = 'ckeditor/'
     THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    AWS_QUERYSTRING_AUTH = False
 
 # Make this unique, and don't share it with anybody.
 # Nastavi env.variable na Heroku
