@@ -11,13 +11,52 @@
 {% block content-title %}Classrooms{% endblock %}
 
 {% block content %}
-    <ul>
-    {% for classroom in classroom_list %}
-        <li>{{ classroom }}
+    {% if classroom_list %}
+    <table class="table table-bordered">
+        <tr>
+            <th>Classroom</th>
+            <th>Description</th>
             {% if user in childcare.employees.all or user in childcare.managers.all %}
-                 | <a href="{{ classroom.pk }}/update/">Update</a> | <a href="{{ classroom.pk }}/delete/">Delete</a>
+            <th>Tools</th>
             {% endif %}
-        </li>
-    {% endfor %}
-    </ul>
+        </tr>
+        {% for classroom in classroom_list %}
+            <tr>
+                <td>
+                    {{ classroom }}
+                </td>
+                <td>
+                    {{ classroom.description }}
+                </td>
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                <td>
+                    <a href="{{ classroom.pk }}/update/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                    <a href="{{ classroom.pk }}/delete/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if classroom_list.has_previous %}
+                <a href="?page={{ classroom_list.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ classroom_list.number }} of {{ classroom_list.paginator.num_pages }}
+            </span>
+
+            {% if classroom_list.has_next %}
+                <a href="?page={{ classroom_list.next_page_number }}"> next</a>
+            {% endif %}
+        </span>
+    </div>
+    {% else %}
+        <p>No classrooms.
+        {% if user in childcare.employees.all or user in childcare.managers.all %}
+            You need at least one to publish e-diaries.
+            <a href="create/">Add a classroom.</a>
+        {% endif %}</p>
+    {% endif %}
 {% endblock content %}

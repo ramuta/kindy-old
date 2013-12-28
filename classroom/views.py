@@ -152,7 +152,18 @@ def diary_image_delete(request, childcare_slug, diary_id, image_id):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def classroom_list(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    classroom_list = Classroom.objects.filter(childcare=childcare, disabled=False)
+    all_classroom_list = Classroom.objects.filter(childcare=childcare, disabled=False)
+
+    paginator = Paginator(all_classroom_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        classroom_list = paginator.page(page)
+    except PageNotAnInteger:
+        classroom_list = paginator.page(1)
+    except EmptyPage:
+        classroom_list = paginator.page(paginator.num_pages)
+
     return render(request, 'classroom/classroom_list.html', {'childcare': childcare,
                                                              'classroom_list': classroom_list})
 
