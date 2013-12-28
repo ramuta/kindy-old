@@ -8,6 +8,7 @@ from childcare.models import Childcare
 from newsboard.forms import NewsCreateForm, AddNewsImageForm, AddNewsFileForm, NewsUpdateForm
 from newsboard.models import News, NewsImage, NewsFile
 from django.forms.formsets import formset_factory
+from utils.imagegenerators import utils_generate_thumbnail
 
 
 @login_required
@@ -84,7 +85,9 @@ def add_news_images(request, childcare_slug, news_id):
                 if obj.image:  # save only forms with images
                     obj.news = news
                     obj.save()
-                    form_image.save(commit=True)
+                    object = form_image.save(commit=True)
+                    # generate thumbnail
+                    utils_generate_thumbnail(object)
             return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
     else:
         formset = ImageFormSet()

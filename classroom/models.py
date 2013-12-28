@@ -1,4 +1,6 @@
 from django.db import models
+from easy_thumbnails.fields import ThumbnailerField
+from easy_thumbnails.files import get_thumbnailer
 from childcare.models import Childcare
 from django.contrib.auth.models import User
 from utils.imagegenerators import get_file_path

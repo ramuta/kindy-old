@@ -6,11 +6,13 @@ from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import DeleteView, UpdateView
+from easy_thumbnails.files import get_thumbnailer, generate_all_aliases
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
 from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm, DiaryImageUpdateForm
 from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
+from utils.imagegenerators import utils_generate_thumbnail
 
 
 @login_required
@@ -127,7 +129,9 @@ def add_diary_images(request, childcare_slug, diary_id):
                 if obj.image:  # save only forms with images
                     obj.diary = diary
                     obj.save()
-                    form_image.save(commit=True)
+                    object = form_image.save(commit=True)
+                    # generate thumbnail
+                    utils_generate_thumbnail(object)
             return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
     else:
         formset = ImageFormSet()

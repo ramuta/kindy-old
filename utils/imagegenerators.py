@@ -20,6 +20,7 @@ register.generator('gallery:thumbnail', GalleryThumbnail)
 import os
 import uuid
 from django.contrib.contenttypes.models import ContentType
+from easy_thumbnails.files import generate_all_aliases
 
 
 def get_file_path(instance, filename):
@@ -40,3 +41,8 @@ def get_file_path(instance, filename):
 
     if model == 'pagefile':
         return os.path.join('files/page/', filename)
+
+
+def utils_generate_thumbnail(object):
+    fieldfile = getattr(object, 'image')
+    generate_all_aliases(fieldfile, include_global=True)
