@@ -8,3 +8,9 @@ function gallery(el) {
 		});
 	});
 }
+
+$(function() {
+	$('form').submit(function() {
+		$(this).find('input[type="submit"]').val('Loading...').prop('disabled', true);
+	});
+});

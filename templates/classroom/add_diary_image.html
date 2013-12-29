@@ -17,16 +17,6 @@
           </tr>
         {% endfor %}
     </table>
-    <input type="submit" />
+    <input type="submit" value="Upload">
   </form>
 {% endblock content %}
-
-{% block footer %}
-    <script type="text/javascript">
-        $(function() {
-          $('form').submit(function() {
-            $(this).find('input[type="submit"]').val('Loading...').prop('disabled', true);
-          });
-        });
-    </script>
-{% endblock %}
