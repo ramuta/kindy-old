@@ -13,6 +13,7 @@
 
 {% block content %}
     <p>Image has to be smaller than 1 MB. You can upload up to 5 images at once.</p>
+    <p>If you need to resize your photos, you can use online services like <a href="http://www.resize-photos.com/" target='_blank'>www.resize-photos.com</a>.</p>
     <form method="post" action="" enctype="multipart/form-data">
     {% csrf_token %}
     {{ formset.management_form }}
