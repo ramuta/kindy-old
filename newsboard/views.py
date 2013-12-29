@@ -84,6 +84,7 @@ def add_news_images(request, childcare_slug, news_id):
                 obj = form_image.save(commit=False)
                 if obj.image:  # save only forms with images
                     obj.news = news
+                    obj.uploader = request.user
                     obj.save()
                     object = form_image.save(commit=True)
                     # generate thumbnail

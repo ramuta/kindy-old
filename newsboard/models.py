@@ -30,7 +30,9 @@ class News(models.Model):
 class NewsImage(models.Model):
     image = models.ImageField(upload_to=get_file_path, blank=True)
     news = models.ForeignKey(News)
-    #created
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    modified = models.DateTimeField(auto_now=True, null=True)
+    uploader = models.ForeignKey(User, null=True)
 
 
 class NewsFile(models.Model):
@@ -38,4 +40,5 @@ class NewsFile(models.Model):
     description = models.CharField(max_length=500, blank=True)
     uploader = models.ForeignKey(User)
     news = models.ForeignKey(News)
-    #created
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    modified = models.DateTimeField(auto_now=True, null=True)
