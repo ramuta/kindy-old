@@ -1,15 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.core.urlresolvers import reverse_lazy
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.views.generic.edit import DeleteView, UpdateView
-from easy_thumbnails.files import get_thumbnailer, generate_all_aliases
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
-from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm, DiaryImageUpdateForm
+from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm
 from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
 from utils.imagegenerators import utils_generate_thumbnail
