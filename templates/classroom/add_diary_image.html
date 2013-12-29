@@ -1,14 +1,6 @@
 {% extends 'childcare/childcare_base.html' %}
 {% block title %}{{ classroom }} | Daily diary{% endblock title %}
 
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
-    <li>Create</li>
-{% endblock %}
-
-{% block action_header %}
-{% endblock action_header %}
-
 {% block content-title %}Add diary images{% endblock %}
 
 {% block content %}
@@ -28,3 +20,13 @@
     <input type="submit" />
   </form>
 {% endblock content %}
+
+{% block footer %}
+    <script type="text/javascript">
+        $(function() {
+          $('form').submit(function() {
+            $(this).find('input[type="submit"]').val('Loading...').prop('disabled', true);
+          });
+        });
+    </script>
+{% endblock %}
