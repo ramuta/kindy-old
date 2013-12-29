@@ -12,6 +12,7 @@
 {% block content-title %}Add diary images{% endblock %}
 
 {% block content %}
+    <p>Image has to be smaller than 1 MB. You can upload up to 5 images at once.</p>
     <form method="post" action="" enctype="multipart/form-data">
     {% csrf_token %}
     {{ formset.management_form }}
