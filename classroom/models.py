@@ -39,3 +39,6 @@ class Diary(models.Model):
 class DiaryImage(models.Model):
     image = models.ImageField(upload_to=get_file_path, null=True)
     diary = models.ForeignKey(Diary, null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    modified = models.DateTimeField(auto_now=True, null=True)
+    uploader = models.ForeignKey(User, null=True)

@@ -128,6 +128,7 @@ def add_diary_images(request, childcare_slug, diary_id):
                 obj = form_image.save(commit=False)
                 if obj.image:  # save only forms with images
                     obj.diary = diary
+                    obj.uploader = request.user
                     obj.save()
                     object = form_image.save(commit=True)
                     # generate thumbnail
