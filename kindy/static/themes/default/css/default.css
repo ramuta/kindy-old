@@ -1,7 +1,7 @@
 @import 'http://fonts.googleapis.com/css?family=Cherry+Swash';
 
 body {
-	background:url(/static/images/themes/default/background.png) repeat;
+	background:url(/kindy/static/themes/default/images/background.png) repeat;
 	font-family:'Cherry Swash', Helvetica, Arial, sans-serif;
 }
 
