@@ -1,0 +1,12 @@
+{% extends 'themes/default/base.html' %}
+
+{% block title %}{{ childcare }} news{% endblock title %}
+
+{% block content %}
+    <h1>News</h1>
+    <ul>
+    {% for news in news_list %}
+        <li><a href="/{{ childcare.slug }}/news/{{ news.slug }}">{{ news }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

@@ -1,5 +1,11 @@
 {% extends 'themes/theme_base.html' %}
 
+{% block resources %}
+    <!-- ADD THEME CSS
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/themes/ADD_THEME_CSS.css">
+    -->
+{% endblock resources %}
+
 {% block theme_body %}
     <div class="container">
 			<h1 class="title"><a href="/{{ childcare.slug }}/">{{ childcare }}</a></h1>

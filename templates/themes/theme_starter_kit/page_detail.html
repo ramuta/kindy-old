@@ -1,0 +1,19 @@
+{% extends 'themes/default/base.html' %}
+
+{% block title %}{{ childcare }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ page }}</h1>
+    {% autoescape off %}
+        <p>{{ page.content|linebreaks }}</p>
+    {% endautoescape %}
+
+    {% if page_file_list %}
+        Files:
+        <ul>
+        {% for file in page_file_list %}
+            <li><a href="{{ file.file.url }}">{{ file.description }}</a>, {{ file.uploader }} ({{ file.created }})</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}

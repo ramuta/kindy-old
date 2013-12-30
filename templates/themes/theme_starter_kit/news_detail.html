@@ -1,0 +1,33 @@
+{% extends 'themes/default/base.html' %}
+
+{% load thumbnail %}
+
+{% block title %}{{ childcare }}{% endblock title %}
+
+{% block content %}
+    {% if news.public %}
+        <h1>{{ news }}</h1>
+        <p>{{ news.content|linebreaks }}</p>
+    {% else %}
+        <h1>The page you want to reach is not available.</h1>
+    {% endif %}
+
+    {% if news_image_list %}
+        {% for image in news_image_list %}
+            {% if image.image %}
+                <img src="{% thumbnail image.image 100x100 crop %}">
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <br/>
+    <br/>
+    {% if news_file_list %}
+        Files:<ul>
+        {% for file in news_file_list %}
+            {% if file.file %}
+                <li><a href="{{ file.file.url }}">{{ file.description }} ({{ file.file.url }})</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}
