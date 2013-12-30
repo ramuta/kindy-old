@@ -1,46 +1,10 @@
-# Django settings for kindy project.
 import os
-from utils.deployment import is_local_env
-from utils.secret import get_secret_key
-
-# check if app is local or deployed on server
-LOCAL_ENV_BOOL = is_local_env()
-
-if LOCAL_ENV_BOOL:
-    DEBUG = True
-else:
-    DEBUG = False
-
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
-
-if LOCAL_ENV_BOOL:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'database5.db',                      # Or path to database file if using sqlite3.
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd654pe0238l5dh',
-            'USER': 'jbjfrmpkbkzixf',
-            'PASSWORD': 'gH9qoFiE1XPhNPw_ztyJA8p9yZ',
-            'HOST': 'ec2-54-204-45-126.compute-1.amazonaws.com',
-            'PORT': '5432',
-        }
-    }
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -50,6 +14,8 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
+
+
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
@@ -81,7 +47,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(DIRNAME, "static").replace('\\', '/'),
+    os.path.join(DIRNAME, "../static").replace('\\', '/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -97,39 +63,6 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
-
-if LOCAL_ENV_BOOL:
-    MEDIA_ROOT = os.path.join(DIRNAME, 'media/')
-    MEDIA_URL = '/media/'
-    # URL that handles the media served from MEDIA_ROOT. Make sure to use a
-    # trailing slash.
-    # Examples: "http://example.com/media/", "http://media.example.com/"
-
-    # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/1.6/howto/static-files/
-    STATIC_ROOT = os.path.join(DIRNAME, 'staticfiles/')
-    STATIC_URL = '/static/'
-    # ck editor
-    CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + 'ckeditor/'
-else:
-    AWS_STORAGE_BUCKET_NAME = 'getkindy'
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL
-    AWS_PRELOAD_METADATA = False
-    CKEDITOR_UPLOAD_PATH = 'ckeditor/'
-    THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    AWS_QUERYSTRING_AUTH = False
-
-# Make this unique, and don't share it with anybody.
-# Nastavi env.variable na Heroku
-if LOCAL_ENV_BOOL:
-    SECRET_KEY = get_secret_key()
-else:
-    SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -179,7 +112,7 @@ ROOT_URLCONF = 'kindy.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'kindy.wsgi.application'
 
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '../../', 'templates').replace('\\','/'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -241,19 +174,6 @@ LOGGING = {
     }
 }
 
-# emailing
-if LOCAL_ENV_BOOL:
-    # run in terminal: python -m smtpd -n -c DebuggingServer localhost:1025
-    EMAIL_HOST = 'localhost'
-    EMAIL_PORT = 1025
-else:  # TODO
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_HOST_USER = 'info@getkindy.com'
-    EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD"]
-
 # guardian
 ANONYMOUS_USER_ID = -1
 GUARDIAN_RENDER_403 = True
@@ -272,21 +192,3 @@ CKEDITOR_CONFIGS = {
         'width': 700,
     },
 }
-
-if not LOCAL_ENV_BOOL:
-    # Parse database configuration from $DATABASE_URL
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.config()
-    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # Allow all host headers
-    ALLOWED_HOSTS = ['*']
-    # Static asset configuration
-    #import os
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    #STATIC_ROOT = 'staticfiles'
-    #STATIC_ROOT = 'staticfiles'
-    #STATIC_URL = '/static/'
-    '''STATICFILES_DIRS = (
-        os.path.join(STATIC_ROOT, 'static'),
-    )'''

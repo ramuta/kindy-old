@@ -1,9 +1,9 @@
 import autocomplete_light
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
-from django.conf import settings
 from django.contrib import admin
 from childcare import views as childcare_views
+from django.conf import settings
 from utils.deployment import is_local_env
 
 autocomplete_light.autodiscover()
