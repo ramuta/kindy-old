@@ -1,9 +1,10 @@
-from utils.deployment import is_local_env
+from utils.deployment import get_dj_env
 
-LOCAL_ENV_BOOL = is_local_env()
+DJ_ENV = get_dj_env()
 
-if LOCAL_ENV_BOOL:
+if DJ_ENV == 'local':
     from local import *
-else:
+elif DJ_ENV == 'prod':
     from prod import *
-
+elif DJ_ENV == 'dev':
+    from dev import *

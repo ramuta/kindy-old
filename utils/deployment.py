@@ -14,3 +14,16 @@ def is_local_env():
             return True
     except KeyError:
         return True
+
+
+def get_dj_env():
+    try:
+        GET_ENV = os.environ["DJANGO_ENV"]
+        if GET_ENV == 1:
+            return 'prod'
+        elif GET_ENV == 2:
+            return 'dev'
+        else:
+            return 'local'
+    except KeyError:
+        return 'local'
