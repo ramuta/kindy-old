@@ -1,9 +1,0 @@
-{% extends theme_path %}
-
-{% block title %}{{ childcare }}{% endblock title %}
-
-{% block content %}
-    {% autoescape off %}
-        <p>{{ childcare.description|linebreaks }}</p>
-    {% endautoescape %}
-{% endblock content %}

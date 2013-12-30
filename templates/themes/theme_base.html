@@ -5,7 +5,7 @@
 		<title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
 	    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/website.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/themes/{{ childcare.theme.computer_name }}.css">
+        {% block css %}{% endblock css %}
 	</head>
 	<body>
 		{% block theme_body %}
