@@ -1,3 +1,5 @@
+from itertools import chain
+from operator import attrgetter
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -240,9 +242,21 @@ def gallery_section(request, childcare_slug):
     news_list = News.objects.filter(childcare=childcare)
     diary_image_list = DiaryImage.objects.filter(diary_id__in=diary_list)
     news_image_list = NewsImage.objects.filter(news_id__in=news_list)
+    all_image_list = list(chain(diary_image_list, news_image_list))
+    all_image_list.sort(key=attrgetter('created'), reverse=True)
+
+    paginator = Paginator(all_image_list, 60)
+    page = request.GET.get('page')
+
+    try:
+        image_list = paginator.page(page)
+    except PageNotAnInteger:
+        image_list = paginator.page(1)
+    except EmptyPage:
+        image_list = paginator.page(paginator.num_pages)
+
     return render(request, 'childcare/gallery_section.html', {'childcare': childcare,
-                                                              'diary_image_list': diary_image_list,
-                                                              'news_image_list': news_image_list})
+                                                              'image_list': image_list})
 
 
 @login_required()
