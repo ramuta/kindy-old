@@ -1,1 +1,1 @@
-web: gunicorn kindy.wsgi
+web: newrelic-admin run-program gunicorn kindy.wsgi
