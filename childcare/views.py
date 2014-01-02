@@ -282,7 +282,7 @@ def managers_add_remove(request, childcare_slug):
             for old_user in old_managers:
                 if old_user not in new_managers:
                     old_user.groups.remove(group)
-            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+            return HttpResponseRedirect('/%s/dashboard/managers/' % childcare.slug)
     else:
         form = ManagersAddForm(instance=childcare)
     return render(request, 'childcare/managers_add.html', {'form': form, 'childcare': childcare})
@@ -304,7 +304,7 @@ def employees_add_remove(request, childcare_slug):
             for old_user in old_employees:
                 if old_user not in new_employees:
                     old_user.groups.remove(group)
-            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+            return HttpResponseRedirect('/%s/dashboard/employees/' % childcare.slug)
     else:
         form = EmployeesAddForm(instance=childcare)
     return render(request, 'childcare/employees_add.html', {'form': form, 'childcare': childcare})
@@ -326,7 +326,7 @@ def parents_add_remove(request, childcare_slug):
             for old_user in old_parents:
                 if old_user not in new_parents:
                     old_user.groups.remove(group)
-            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+            return HttpResponseRedirect('/%s/dashboard/parents/' % childcare.slug)
     else:
         form = ParentsAddForm(instance=childcare)
     return render(request, 'childcare/parents_add.html', {'form': form, 'childcare': childcare})

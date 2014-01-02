@@ -22,7 +22,7 @@ def classroom_create(request, childcare_slug):
             obj.childcare = childcare
             obj.save()
             form.save(commit=True)
-            return HttpResponseRedirect('/%s/dashboard/' % childcare_slug)
+            return HttpResponseRedirect('/%s/dashboard/classroom/' % childcare_slug)
     else:
         form = ClassroomCreateForm()
     return render(request, 'classroom/classroom_create.html', {'form': form, 'childcare': childcare})
@@ -191,7 +191,7 @@ def classroom_update(request, childcare_slug, classroom_id):
         form = ClassroomCreateForm(data=request.POST, instance=classroom)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/%s/dashboard/classroom' % childcare_slug)
+            return HttpResponseRedirect('/%s/dashboard/classroom/' % childcare_slug)
     else:
         form = ClassroomCreateForm(instance=classroom)
     return render(request, 'classroom/classroom_update.html', {'childcare': childcare,
