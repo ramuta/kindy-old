@@ -30,22 +30,52 @@
 {% block content %}
     <div class="row">
         <div class="col-md-4">
-            <a href="classroom/" class="info-box"><span class="num">5</span><br>CLASSROOMS</a>
+            <a href="classroom/" class="info-box"><span class="num">{{ classroom_num }}</span><br>
+                {% if classroom_num == 1 %}
+                    CLASSROOM
+                {% else %}
+                    CLASSROOMS
+                {% endif %}
+            </a>
         </div>
         <div class="col-md-4">
-            <a href="managers/" class="info-box"><span class="num">2</span><br>MANAGERS</a>
+            <a href="managers/" class="info-box"><span class="num">{{ manager_num }}</span><br>
+                {% if manager_num == 1 %}
+                    MANAGER
+                {% else %}
+                    MANAGERS
+                {% endif %}
+            </a>
         </div>
         <div class="col-md-4">
-            <a href="employees/" class="info-box"><span class="num">12</span><br>EMPLOYEES</a>
+            <a href="employees/" class="info-box"><span class="num">{{ employee_num }}</span><br>
+                {% if employee_num == 1 %}
+                    EMPLOYEE
+                {% else %}
+                    EMPLOYEES
+                {% endif %}
+            </a>
         </div>
         <div class="col-md-4">
-            <a href="parents/" class="info-box"><span class="num">30</span><br>PARENTS</a>
+            <a href="parents/" class="info-box"><span class="num">{{ parent_num }}</span><br>
+                {% if parent_num == 1 %}
+                    PARENT
+                {% else %}
+                    PARENTS
+                {% endif %}
+            </a>
         </div>
         <div class="col-md-4">
-            <a href="diary/" class="info-box"><span class="num">54</span><br>DIARYS</a>
+            <a href="diary/" class="info-box"><span class="num">{{ diary_num }}</span><br>
+                {% if diary_num == 1 %}
+                    DIARY
+                {% else %}
+                    DIARIES
+                {% endif %}
+            </a>
         </div>
         <div class="col-md-4">
-            <a href="newsboard/" class="info-box"><span class="num">16</span><br>NEWS</a>
+            <a href="newsboard/" class="info-box"><span class="num">{{ news_num }}</span><br>NEWS</a>
         </div>
     </div>
 {% endblock content %}
