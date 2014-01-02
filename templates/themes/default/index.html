@@ -1,12 +1,28 @@
 {% extends 'themes/default/base.html' %}
 
-{% block title %}
-    First page
-{% endblock title %}
+{% block title %}{{ childcare }}{% endblock title %}
 
 {% block content %}
-    <h1>{{ childcare }}</h1>
     {% autoescape off %}
-        <p>{{ childcare.description|linebreaks }}</p>
+    <div class="row">
+    	<div class="col-md-4 news">
+    		<div class="box">
+    			<h2>News</h2>
+    			{{ childcare.description|linebreaks }}
+    		</div>
+    	</div>
+    	<div class="col-md-4 about">
+    		<div class="box">
+    			<h2>About us</h2>
+    			{{ childcare.description|linebreaks }}
+    		</div>
+    	</div>
+    	<div class="col-md-4 page">
+    		<div class="box">
+    			<h2>Title</h2>
+    			{{ childcare.description|linebreaks }}
+    		</div>
+    	</div>
+    </div>
     {% endautoescape %}
 {% endblock %}

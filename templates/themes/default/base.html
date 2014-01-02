@@ -1,24 +1,33 @@
 {% extends 'themes/theme_base.html' %}
 
 {% block resources %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/default/css/default.css">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/default/css/default.css">
 {% endblock resources %}
 
 {% block theme_body %}
-    <div class="container">
-			<h1 class="title"><a href="/{{ childcare.slug }}/">{{ childcare }}</a></h1>
-			<div id="nav">
-				<ul>
-                    {% for page in pages_list %}
-					    <li><a href="/{{ childcare.slug }}/{{ page.slug }}">{{ page }}</a></li>
-                    {% endfor %}
-                    <li><a href="/{{ childcare.slug }}/news">News</a></li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-			<div id="content">
-			{% block content %}{% endblock %}
-			</div>
+	<div id="banner">
+		<div class="container">
+			<a href="/{{ childcare.slug }}/" class="logo">{{ childcare }}</a>
+			<ul class="nav">
+			{% for page in pages_list %}
+				<li><a href="/{{ childcare.slug }}/{{ page.slug }}/">{{ page }}</a></li>
+			{% endfor %}
+			</ul>
 		</div>
+	</div>
+	<div id="content">
+		<div class="container">
+		{% block content %}{% endblock %}
+		</div>
+	</div>
+	<div id="footer">
+		<div class="container">
+			{{ childcare }}
+			<ul class="nav">
+			{% for page in pages_list %}
+				<li><a href="/{{ childcare.slug }}/{{ page.slug }}/">{{ page }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
 {% endblock theme_body %}

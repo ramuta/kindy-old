@@ -3,22 +3,21 @@
 	<head>
 		<meta charset="utf-8">
 		<title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
-	    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/website.css">
-        {% block resources %}{% endblock resources %}
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/website.css">
+		{% block resources %}{% endblock resources %}
 	</head>
 	<body>
 		{% block theme_body %}
-        {% endblock theme_body %}
-
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+		{% endblock theme_body %}
+		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/functions.js"></script>
 		<script type="text/javascript">
 			$(function() {
-				$('#sidebar ul.nav a[href="{{ request.path }}"]').addClass('active');
+				$('ul.nav a[href="{{ request.path }}"]').addClass('active');
 			});
 		</script>
-        {% block footer %}{% endblock %}
+		{% block footer %}{% endblock %}
 	</body>
 </html>

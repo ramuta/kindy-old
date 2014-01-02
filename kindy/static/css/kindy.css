@@ -9,6 +9,13 @@ body {
 	background:#efebea;
 	font-family:Ubuntu, Helvetica, Arial, sans-serif;
 }
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+	background:#5a6173;
+	color:#fff;
+}
 /* END MAIN DEFINITIONS */
 
 /* HEADER */
