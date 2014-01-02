@@ -131,17 +131,27 @@ body {
 
 #content .nav ul.actions li ul li { float:none; }
 
-#content a.info-box {
+#content .info-box {
+	display:table;
+	margin-bottom:20px;
+}
+
+#content .info-box a {
 	background:#fff;
 	display:block;
 	font-size:2em;
-	margin-bottom:20px;
 	padding:20px;
 	text-align:center;
 	text-decoration:none;
 }
 
-#content a.info-box .num {
+#content .info-box a.static {
+	display:table-cell;
+	height:200px;
+	vertical-align:middle;
+}
+
+#content .info-box a .num {
 	color:#555;
 	font-size:2em;
 }
