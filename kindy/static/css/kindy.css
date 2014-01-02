@@ -130,4 +130,19 @@ body {
 }
 
 #content .nav ul.actions li ul li { float:none; }
+
+#content a.info-box {
+	background:#fff;
+	display:block;
+	font-size:2em;
+	margin-bottom:20px;
+	padding:20px;
+	text-align:center;
+	text-decoration:none;
+}
+
+#content a.info-box .num {
+	color:#555;
+	font-size:2em;
+}
 /* END CONTENT */
