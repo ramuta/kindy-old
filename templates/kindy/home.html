@@ -23,30 +23,14 @@
 {% endblock %}
 
 {% block content %}
-    {% if childcare_list_manager or childcare_list_employee or childcare_list_parent %}
+    {% if all_childcare_list %}
         <div class="row">
-        {% if childcare_list_manager %}
-            {% for childcare in childcare_list_manager %}
+            {% for childcare in all_childcare_list %}
             <div class="col-md-4 info-box">
                 <a href="/{{ childcare.slug }}/dashboard/" class="static">{{ childcare }}</a>
             </div>
             {% endfor %}
-        {% endif %}
-        {% if childcare_list_employee %}
-            {% for childcare in childcare_list_employee %}
-            <div class="col-md-4 info-box">
-                <a href="/{{ childcare.slug }}/dashboard/" class="static">{{ childcare }}</a>
-            </div>
-            {% endfor %}
-        {% endif %}
-        {% if childcare_list_parent %}
-            {% for childcare in childcare_list_parent %}
-            <div class="col-md-4 info-box">
-                <a href="/{{ childcare.slug }}/dashboard/" class="static">{{ childcare }}</a>
-            </div>
-            {% endfor %}
-        {% endif %}
-        </div>
+
     {% else %}
         <p>Are you a childcare manager? <a href="childcare/create/">Create a site for your child care.</a></p>
     {% endif %}
