@@ -166,7 +166,7 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'logentries_handler':{
-            'token': 'LOGENTRIES-TOKEN',
+            'token': os.environ["LOGENTRIES_TOKEN"],
             'class': 'logentries.LogentriesHandler'
         },
     },
