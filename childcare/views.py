@@ -192,7 +192,7 @@ def add_page_files(request, childcare_slug, page_id):
                     obj.uploader = request.user
                     obj.save()
                     form_file.save(commit=True)
-            return HttpResponseRedirect('/%s/dashboard/page/%s' % (childcare_slug, page.pk))
+                    return HttpResponseRedirect('/%s/dashboard/page/%s' % (childcare_slug, page.pk))
     else:
         formset = FileFormSet()
     return render(request, 'childcare/add_page_file.html', {'formset': formset,
