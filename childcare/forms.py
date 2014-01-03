@@ -141,3 +141,11 @@ class InviteUsersForm(Form):
     last_name = CharField(max_length=200, required=True)
     email = EmailField(required=True)
     role = ChoiceField(choices=ROLE_CHOICES, required=True)
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            user = User.objects.get(email=email)
+        except user.DoesNotExist:
+            return email
+        raise ValidationError(u'A user with this email is already registered. Go to Info and add them.')
