@@ -89,7 +89,7 @@ def add_news_images(request, childcare_slug, news_id):
                     object = form_image.save(commit=True)
                     # generate thumbnail
                     utils_generate_thumbnail(object)
-            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+                    return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
     else:
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_image.html', {'formset': formset,
@@ -125,7 +125,7 @@ def add_news_files(request, childcare_slug, news_id):
                     obj.uploader = request.user
                     obj.save()
                     form_file.save(commit=True)
-            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+                    return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
     else:
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_file.html', {'formset': formset,
