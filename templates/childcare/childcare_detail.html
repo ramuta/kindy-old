@@ -11,13 +11,13 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> Add <b class="caret"></b></a>
         <ul class="dropdown-menu">
         {% if user in childcare.managers.all %}
-            <li><a href="managers/add/"><span class="glyphicon glyphicon-plus"></span> Add managers</a></li>
+            <li><a href="managers/add/"><span class="glyphicon glyphicon-plus"></span> Add manager</a></li>
         {% endif %}
 
         {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <li><a href="classroom/create/"><span class="glyphicon glyphicon-plus"></span> Create classroom</a></li>
-            <li><a href="employees/add/"><span class="glyphicon glyphicon-plus"></span> Add employees</a></li>
-            <li><a href="parents/add/"><span class="glyphicon glyphicon-plus"></span> Add parents</a></li>
+            <li><a href="classroom/create/"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
+            <li><a href="employees/add/"><span class="glyphicon glyphicon-plus"></span> Add employee</a></li>
+            <li><a href="parents/add/"><span class="glyphicon glyphicon-plus"></span> Add parent</a></li>
         {% endif %}
         </ul>
     </li>

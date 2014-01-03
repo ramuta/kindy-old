@@ -14,9 +14,8 @@
 	text-decoration:none;
 }
 
-#banner ul.nav {
-	float:right;
-}
+#banner ul.nav { float:right; }
+#banner ul.nav li { float:left; }
 
 #banner ul.nav li a {
 	color:#fff;
