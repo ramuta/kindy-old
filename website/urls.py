@@ -6,4 +6,5 @@ urlpatterns = patterns('',
                        url(r'^news/(?P<news_slug>[\w\-]+)/$', views.news_detail),
                        url(r'^news/$', views.website_news),
                        url(r'^(?P<page_slug>[\w\-]+)/$', views.page_detail),
+                       url(r'^about/$', views.about),
                        )

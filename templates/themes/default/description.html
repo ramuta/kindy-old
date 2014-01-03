@@ -1,0 +1,10 @@
+{% extends 'themes/default/base.html' %}
+
+{% block title %}{{ childcare }}{% endblock title %}
+
+{% block content %}
+    <h1>About us</h1>
+    {% autoescape off %}
+        <p>{{ childcare.description|linebreaks }}</p>
+    {% endautoescape %}
+{% endblock content %}

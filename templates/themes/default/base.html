@@ -9,6 +9,7 @@
 		<div class="container">
 			<a href="/{{ childcare.slug }}/" class="logo">{{ childcare }}</a>
 			<ul class="nav">
+            <li><a href="/{{ childcare.slug }}/news/">News</a></li>
 			{% for page in pages_list %}
 				<li><a href="/{{ childcare.slug }}/{{ page.slug }}/">{{ page }}</a></li>
 			{% endfor %}

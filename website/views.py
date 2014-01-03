@@ -6,10 +6,10 @@ from website.models import Page, PageFile
 
 def website(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    #website_news_list = News.objects.filter(childcare=childcare, public=True)
+    website_news_list = News.objects.filter(childcare=childcare, public=True)
     pages_list = Page.objects.filter(childcare=childcare)
     return render(request, 'themes/'+childcare.theme.computer_name+'/index.html', {'childcare': childcare,
-                                                                                   #'news_list': website_news_list,
+                                                                                   'news_list': website_news_list,
                                                                                    'pages_list': pages_list})
 
 
@@ -44,3 +44,10 @@ def page_detail(request, childcare_slug, page_slug):
                                                                                          'page': page,
                                                                                          'pages_list': pages_list,
                                                                                          'page_file_list': page_file_list})
+
+
+def about(request, childcare_slug):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    pages_list = Page.objects.filter(childcare=childcare)
+    return render(request, 'themes/'+childcare.theme.computer_name+'/description.html', {'childcare': childcare,
+                                                                                         'pages_list': pages_list})

@@ -8,13 +8,16 @@
     	<div class="col-md-4 news">
     		<div class="box">
     			<h2>News</h2>
-    			{{ childcare.description|linebreaks|slice:":400" }}
+                {% for news in news_list %}
+                    <li><a href="/{{ childcare.slug }}/news/{{ news.slug }}/">{{ news }}</a></li>
+                {% endfor %}
     		</div>
     	</div>
     	<div class="col-md-4 about">
     		<div class="box">
     			<h2>About us</h2>
     			{{ childcare.description|linebreaks|slice:":400" }}
+                <a href="/{{ childcare.slug }}/about/">Read more</a>
     		</div>
     	</div>
     	<div class="col-md-4 page">
