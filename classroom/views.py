@@ -10,6 +10,10 @@ from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
 from utils.imagegenerators import utils_generate_thumbnail
 
+# setup logging
+import logging
+log = logging.getLogger("logentries")
+
 
 @login_required
 @permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))

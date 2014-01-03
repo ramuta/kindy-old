@@ -3,6 +3,10 @@ from childcare.models import Childcare
 from newsboard.models import News, NewsImage, NewsFile
 from website.models import Page, PageFile
 
+# setup logging
+import logging
+log = logging.getLogger("logentries")
+
 
 def website(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)

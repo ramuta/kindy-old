@@ -13,9 +13,9 @@ from newsboard.models import News, NewsImage
 from utils.invites import invite_new_kindy_user
 from website.models import Page, PageFile
 from django.forms.formsets import formset_factory
+
+# setup logging
 import logging
-
-
 log = logging.getLogger("logentries")
 
 
@@ -97,6 +97,7 @@ def childcare(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def website_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    log.info('Childcare Website section (%s)' % childcare.name)
     website_news_list = News.objects.filter(childcare=childcare, public=True)[:5]
     pages_list = Page.objects.filter(childcare=childcare)[:5]
     return render(request, 'childcare/website_section.html', {'childcare': childcare,
@@ -115,6 +116,7 @@ def website_page_create(request, childcare_slug):
             obj.childcare = childcare
             obj.save
             form.save(commit=True)
+            log.info('Page created (childcare: %s)' % childcare.name)
             return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, obj.pk))
     else:
         form = WebsitePageCreateForm()
@@ -126,6 +128,7 @@ def website_page_create(request, childcare_slug):
 def website_page_detail(request, childcare_slug, page_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     page = get_object_or_404(Page, pk=page_id, childcare=childcare)
+    log.info('Page detail (%s: %s)' % (childcare.name, page.title))
     page_file_list = PageFile.objects.filter(page=page)
     return render(request, 'childcare/website_page_detail.html', {'childcare': childcare,
                                                                   'page': page,
@@ -141,6 +144,7 @@ def website_page_update(request, childcare_slug, page_id):
         form = WebsitePageCreateForm(data=request.POST, instance=page)
         if form.is_valid():
             form.save()
+            log.info('Page updated (%s: %s, user: %s)' % (childcare.name, page.title, request.user))
             return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, page.pk))
     else:
         form = WebsitePageCreateForm(instance=page)
@@ -156,6 +160,7 @@ def website_page_delete(request, childcare_slug, page_id):
     page = get_object_or_404(Page, pk=page_id, childcare=childcare)
     if request.method == 'POST':
         page.delete()
+        log.info('Page deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
         return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
     return render(request, 'childcare/website_page_delete.html', {'childcare': childcare,
                                                                   'page': page})
@@ -197,6 +202,7 @@ def add_page_files(request, childcare_slug, page_id):
                     obj.uploader = request.user
                     obj.save()
                     form_file.save(commit=True)
+                    log.info('Page files added (childcare: %s)' % childcare.name)
                     return HttpResponseRedirect('/%s/dashboard/page/%s' % (childcare_slug, page.pk))
     else:
         formset = FileFormSet()
