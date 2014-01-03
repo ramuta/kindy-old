@@ -8,19 +8,19 @@
     	<div class="col-md-4 news">
     		<div class="box">
     			<h2>News</h2>
-    			{{ childcare.description|linebreaks }}
+    			{{ childcare.description|linebreaks|slice:":400" }}
     		</div>
     	</div>
     	<div class="col-md-4 about">
     		<div class="box">
     			<h2>About us</h2>
-    			{{ childcare.description|linebreaks }}
+    			{{ childcare.description|linebreaks|slice:":400" }}
     		</div>
     	</div>
     	<div class="col-md-4 page">
     		<div class="box">
     			<h2>Title</h2>
-    			{{ childcare.description|linebreaks }}
+    			{{ childcare.description|linebreaks|slice:":400" }}
     		</div>
     	</div>
     </div>
