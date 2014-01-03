@@ -129,7 +129,7 @@ def add_diary_images(request, childcare_slug, diary_id):
                     object = form_image.save(commit=True)
                     # generate thumbnail
                     utils_generate_thumbnail(object)
-            return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
+                    return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
     else:
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,
