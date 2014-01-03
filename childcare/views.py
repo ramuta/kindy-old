@@ -13,6 +13,10 @@ from newsboard.models import News, NewsImage
 from utils.invites import invite_new_kindy_user
 from website.models import Page, PageFile
 from django.forms.formsets import formset_factory
+import logging
+
+
+log = logging.getLogger("logentries")
 
 
 @login_required
@@ -70,6 +74,7 @@ def childcare_update(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def childcare(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    log.info('Childcare opened: %s' % childcare.name)
     classroom_num = Classroom.objects.filter(childcare=childcare, disabled=False).count()
     manager_num = User.objects.filter(childcare_managers__id=childcare.pk).count()
     employee_num = User.objects.filter(childcare_employees__id=childcare.pk).count()

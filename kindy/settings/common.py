@@ -1,4 +1,5 @@
 import os
+from logentries import LogentriesHandler
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -163,13 +164,21 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'logentries_handler':{
+            'token': 'LOGENTRIES-TOKEN',
+            'class': 'logentries.LogentriesHandler'
+        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'logentries': {
+            'handlers': ['logentries_handler'],
+            'level': 'INFO',
         },
     }
 }
