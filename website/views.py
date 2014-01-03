@@ -49,5 +49,5 @@ def page_detail(request, childcare_slug, page_slug):
 def about(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     pages_list = Page.objects.filter(childcare=childcare)
-    return render(request, 'themes/'+childcare.theme.computer_name+'/description.html', {'childcare': childcare,
-                                                                                         'pages_list': pages_list})
+    return render(request, 'themes/'+childcare.theme.computer_name+'/about.html', {'childcare': childcare,
+                                                                                   'pages_list': pages_list})
