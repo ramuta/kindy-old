@@ -50,3 +50,18 @@ def invite_new_kindy_user(email, first_name, last_name, inviter, childcare, role
 
     # email
     send_invite_email(inviter=inviter, invitee=user, childcare=childcare, password=password)
+
+
+def add_current_user(user, role, childcare):
+    if role == 'Parent':
+        group = Group.objects.get(name='Childcare %s: Parent' % childcare.pk)
+        user.groups.add(group)
+        childcare.parents.add(user)
+    elif role == 'Employee':
+        group = Group.objects.get(name='Childcare %s: Employee' % childcare.pk)
+        user.groups.add(group)
+        childcare.employees.add(user)
+    elif role == 'Manager':
+        group = Group.objects.get(name='Childcare %s: Manager' % childcare.pk)
+        user.groups.add(group)
+        childcare.managers.add(user)

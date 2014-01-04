@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'south',
     'storages',
     'boto',
+    'logentries',
 
     'accounts',
     'childcare',
@@ -165,20 +166,12 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'logentries_handler':{
-            'token': os.environ["LOGENTRIES_TOKEN"],
-            'class': 'logentries.LogentriesHandler'
-        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-        'logentries': {
-            'handlers': ['logentries_handler'],
-            'level': 'INFO',
         },
     }
 }

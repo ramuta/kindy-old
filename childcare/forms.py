@@ -142,10 +142,24 @@ class InviteUsersForm(Form):
     email = EmailField(required=True)
     role = ChoiceField(choices=ROLE_CHOICES, required=True)
 
-    def clean_email(self):
+    def __init__(self, *args, **kwargs):
+        self.childcare = kwargs.pop('childcare', None)
+        super(InviteUsersForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
         email = self.cleaned_data['email']
+        role = self.cleaned_data['role']
+
         try:
             user = User.objects.get(email=email)
         except user.DoesNotExist:
-            return email
-        raise ValidationError(u'A user with this email is already registered. Go to Info and add them.')
+            return self.cleaned_data
+
+        if user in self.childcare.managers.all() and role == 'Manager':
+            raise ValidationError(u'This user is already a manager in your childcare.')
+        elif user in self.childcare.employees.all() and role == 'Employee':
+            raise ValidationError(u'This user is already an employee in your childcare.')
+        elif user in self.childcare.parents.all() and role == 'Parent':
+            raise ValidationError(u'This user is already a parent in your childcare.')
+
+        return self.cleaned_data

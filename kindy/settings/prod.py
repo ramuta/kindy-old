@@ -16,6 +16,31 @@ DATABASES = {
     }
 }
 
+LOGGING += {
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'logentries_handler':{
+            'token': os.environ["LOGENTRIES_TOKEN"],
+            'class': 'logentries.LogentriesHandler'
+        },
+    },
+        'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'logentries': {
+            'handlers': ['logentries_handler'],
+            'level': 'INFO',
+        },
+    }
+}
+
 AWS_STORAGE_BUCKET_NAME = 'getkindy'
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']

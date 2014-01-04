@@ -10,7 +10,7 @@ from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPag
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News, NewsImage
-from utils.invites import invite_new_kindy_user
+from utils.invites import invite_new_kindy_user, add_current_user
 from website.models import Page, PageFile
 from django.forms.formsets import formset_factory
 
@@ -417,21 +417,32 @@ def parents_list(request, childcare_slug):
 def invite_users(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     if request.method == 'POST':
-        form = InviteUsersForm(request.POST)
+        form = InviteUsersForm(request.POST, childcare=childcare)
         if form.is_valid():
             first_name = form.cleaned_data[u'first_name']  # .encode('ascii')
             last_name = form.cleaned_data[u'last_name']
             email = form.cleaned_data['email']
             role = form.cleaned_data['role']
             inviter = request.user
-            invite_new_kindy_user(email=email,
-                                  first_name=first_name,
-                                  last_name=last_name,
-                                  inviter=inviter,
-                                  childcare=childcare,
-                                  role=role)
-            log.info(log_prefix+'User invited (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+            user = None
+            try:  # if user already exists, add them to the role
+                user = User.objects.get(email=email)
+                add_current_user(user=user, role=role, childcare=childcare)
+                log.info(log_prefix+'User added (childcare: %s, user: %s)' % (childcare.name, request.user))
+            except user.DoesNotExist:  # if user doesn't exist, create them and add to the role
+                invite_new_kindy_user(email=email,
+                                      first_name=first_name,
+                                      last_name=last_name,
+                                      inviter=inviter,
+                                      childcare=childcare,
+                                      role=role)
+                log.info(log_prefix+'User invited (childcare: %s, user: %s)' % (childcare.name, request.user))
+            if role == 'Parent':
+                return HttpResponseRedirect('/%s/dashboard/parents/' % childcare.slug)
+            elif role == 'Employee':
+                return HttpResponseRedirect('/%s/dashboard/employees' % childcare.slug)
+            elif role == 'Manager':
+                return HttpResponseRedirect('/%s/dashboard/managers' % childcare.slug)
     else:
-        form = InviteUsersForm()
+        form = InviteUsersForm(childcare=childcare)
     return render(request, 'childcare/invite_users.html', {'form': form, 'childcare': childcare})
