@@ -129,10 +129,15 @@ class AddPageFileForm(ModelForm):
         return cleaned_data
 
 
-ROLE_CHOICES = (
+ROLE_CHOICES_MANAGER = (
     ('Parent', 'Parent'),
     ('Employee', 'Employee'),
     ('Manager', 'Manager'),
+)
+
+ROLE_CHOICES_EMPLOYEE = (
+    ('Parent', 'Parent'),
+    ('Employee', 'Employee'),
 )
 
 
@@ -140,11 +145,17 @@ class InviteUsersForm(Form):
     first_name = CharField(max_length=200, required=True)
     last_name = CharField(max_length=200, required=True)
     email = EmailField(required=True)
-    role = ChoiceField(choices=ROLE_CHOICES, required=True)
+    role = ChoiceField(choices=ROLE_CHOICES_EMPLOYEE, required=True)
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
         self.childcare = kwargs.pop('childcare', None)
         super(InviteUsersForm, self).__init__(*args, **kwargs)
+
+        if self.request.user in self.childcare.managers.all():
+            self.fields['role'] = ChoiceField(choices=ROLE_CHOICES_MANAGER, required=True)
+        else:
+            self.fields['role'] = ChoiceField(choices=ROLE_CHOICES_EMPLOYEE, required=True)
 
     def clean(self):
         email = self.cleaned_data['email']

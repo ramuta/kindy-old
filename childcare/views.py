@@ -419,7 +419,7 @@ def parents_list(request, childcare_slug):
 def invite_users(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     if request.method == 'POST':
-        form = InviteUsersForm(request.POST, childcare=childcare)
+        form = InviteUsersForm(request.POST, request=request, childcare=childcare)
         if form.is_valid():
             first_name = form.cleaned_data[u'first_name']  # .encode('ascii')
             last_name = form.cleaned_data[u'last_name']
@@ -446,7 +446,7 @@ def invite_users(request, childcare_slug):
             elif role == 'Manager':
                 return HttpResponseRedirect('/%s/dashboard/managers' % childcare.slug)
     else:
-        form = InviteUsersForm(childcare=childcare)
+        form = InviteUsersForm(request=request, childcare=childcare)
     return render(request, 'childcare/invite_users.html', {'form': form, 'childcare': childcare})
 
 
