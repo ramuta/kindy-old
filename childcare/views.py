@@ -285,6 +285,7 @@ def gallery_section(request, childcare_slug):
                                                               'image_list': image_list})
 
 
+'''
 @login_required()
 @permission_required_or_403('childcare_admin', (Childcare, 'slug', 'childcare_slug'))
 def managers_add_remove(request, childcare_slug):
@@ -352,6 +353,7 @@ def parents_add_remove(request, childcare_slug):
     else:
         form = ParentsAddForm(instance=childcare)
     return render(request, 'childcare/parents_add.html', {'form': form, 'childcare': childcare})
+'''
 
 
 @login_required()
@@ -446,3 +448,45 @@ def invite_users(request, childcare_slug):
     else:
         form = InviteUsersForm(childcare=childcare)
     return render(request, 'childcare/invite_users.html', {'form': form, 'childcare': childcare})
+
+
+@login_required()
+@permission_required_or_403('childcare_manager', (Childcare, 'slug', 'childcare_slug'))
+def remove_manager(request, childcare_slug, username):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    user = User.objects.get(username=username)
+    group = Group.objects.get(name='Childcare %s: Manager' % childcare.pk)
+    if request.method == 'POST':
+        user.groups.remove(group)
+        childcare.managers.remove(user)
+        log.info(log_prefix+'Manager removed (childcare: %s, user: %s)' % (childcare.name, request.user))
+        return HttpResponseRedirect('/%s/dashboard/managers/' % childcare_slug)
+    return render(request, 'childcare/user_remove.html', {'childcare': childcare, 'user': user, 'role': 'manager'})
+
+
+@login_required()
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def remove_employee(request, childcare_slug, username):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    user = User.objects.get(username=username)
+    group = Group.objects.get(name='Childcare %s: Employee' % childcare.pk)
+    if request.method == 'POST':
+        user.groups.remove(group)
+        childcare.employees.remove(user)
+        log.info(log_prefix+'Employee removed (childcare: %s, user: %s)' % (childcare.name, request.user))
+        return HttpResponseRedirect('/%s/dashboard/employees/' % childcare_slug)
+    return render(request, 'childcare/user_remove.html', {'childcare': childcare, 'user': user, 'role': 'employee'})
+
+
+@login_required()
+@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
+def remove_parent(request, childcare_slug, username):
+    childcare = get_object_or_404(Childcare, slug=childcare_slug)
+    user = User.objects.get(username=username)
+    group = Group.objects.get(name='Childcare %s: Parent' % childcare.pk)
+    if request.method == 'POST':
+        user.groups.remove(group)
+        childcare.parents.remove(user)
+        log.info(log_prefix+'Parent removed (childcare: %s, user: %s)' % (childcare.name, request.user))
+        return HttpResponseRedirect('/%s/dashboard/parents/' % childcare_slug)
+    return render(request, 'childcare/user_remove.html', {'childcare': childcare, 'user': user, 'role': 'parent'})

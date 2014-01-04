@@ -2,13 +2,9 @@
 
 {% block title %}{{ childcare.name }}{% endblock title %}
 
-{% block breadcrumb %}
-    <li>{{ childcare.name }}</li>
-{% endblock %}
-
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add parents</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/users/invite/"><span class="glyphicon glyphicon-plus"></span> Invite users</a></li>
     {% endif %}
 {% endblock %}
 
@@ -21,6 +17,9 @@
                 <th>Name</th>
                 <th>Username</th>
                 <th>Email</th>
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <th>Tools</th>
+                {% endif %}
             </tr>
             {% for parent in parents_list %}
                 <tr>
@@ -33,6 +32,11 @@
                     <td>
                         {{ parent.email }}
                     </td>
+                    {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <td>
+                        <a href="/{{ childcare.slug }}/dashboard/parents/{{ parent.username }}/remove/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

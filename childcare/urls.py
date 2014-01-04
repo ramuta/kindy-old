@@ -50,10 +50,15 @@ urlpatterns = patterns('',
                        url(r'^gallery/$', views.gallery_section),
 
                        # add users
-                       url(r'^managers/add/$', views.managers_add_remove),
-                       url(r'^employees/add/$', views.employees_add_remove),
-                       url(r'^parents/add/$', views.parents_add_remove),
+                       #url(r'^managers/add/$', views.managers_add_remove),
+                       #url(r'^employees/add/$', views.employees_add_remove),
+                       #url(r'^parents/add/$', views.parents_add_remove),
                        url(r'^users/invite/$', views.invite_users),
+
+                       # remove users
+                       url(r'^managers/(?P<username>[\w\-]+)/remove/$', views.remove_manager),
+                       url(r'^employees/(?P<username>[\w\-]+)/remove/$', views.remove_employee),
+                       url(r'^parents/(?P<username>[\w\-]+)/remove/$', views.remove_parent),
 
                        # users lists
                        url(r'^managers/$', views.managers_list),

@@ -1,0 +1,15 @@
+{% extends 'childcare/childcare_base.html' %}
+{% block title %}Remove an {{ role }}{% endblock title %}
+
+{% block action_header %}
+{% endblock action_header %}
+
+{% block content-title %}Remove {{ user.first_name }} {{ user.last_name }} as {{ role }}?{% endblock %}
+
+{% block content %}
+    <p>Are you sure you want to remove {{ user.first_name }} {{ user.last_name }} as {{ role }}?</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, I'm sure</button>
+    </form>
+{% endblock content %}

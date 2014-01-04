@@ -8,7 +8,7 @@
 
 {% block action %}
     {% if user in childcare.managers.all %}
-        <li><a href="add/"><span class="glyphicon glyphicon-plus"></span> Add managers</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/users/invite/"><span class="glyphicon glyphicon-plus"></span> Invite users</a></li>
     {% endif %}
 {% endblock %}
 
@@ -21,6 +21,9 @@
                 <th>Name</th>
                 <th>Username</th>
                 <th>Email</th>
+                {% if user in childcare.managers.all %}
+                    <th>Tools</th>
+                {% endif %}
             </tr>
             {% for manager in managers_list %}
                 <tr>
@@ -33,6 +36,11 @@
                     <td>
                         {{ manager.email }}
                     </td>
+                    {% if user in childcare.managers.all %}
+                    <td>
+                        <a href="/{{ childcare.slug }}/dashboard/managers/{{ manager.username }}/remove/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>
