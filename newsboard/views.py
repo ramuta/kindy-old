@@ -13,6 +13,7 @@ from utils.imagegenerators import utils_generate_thumbnail
 # setup logging
 import logging
 log = logging.getLogger("logentries")
+log_prefix = '[kindylog]'
 
 
 @login_required
@@ -27,7 +28,7 @@ def childcare_news_create(request, childcare_slug):
             obj.childcare = childcare
             obj.save()
             news = form.save(commit=True)
-            log.info('News created (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'News created (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
     else:
         form = NewsCreateForm()
@@ -56,7 +57,7 @@ def childcare_news_update(request, childcare_slug, news_id):
         form = NewsUpdateForm(data=request.POST, instance=news)
         if form.is_valid():
             form.save()
-            log.info('News updated (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'News updated (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
     else:
         form = NewsUpdateForm(instance=news)
@@ -72,7 +73,7 @@ def childcare_news_delete(request, childcare_slug, news_id):
     news = get_object_or_404(News, pk=news_id, childcare=childcare)
     if request.method == 'POST':
         news.delete()
-        log.info('News deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
+        log.info(log_prefix+'News deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
         return HttpResponseRedirect('/%s/dashboard/newsboard/' % childcare_slug)
     return render(request, 'newsboard/childcare_news_delete.html', {'childcare': childcare,
                                                                     'news': news})
@@ -87,7 +88,7 @@ def add_news_images(request, childcare_slug, news_id):
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
-            log.info('News images added (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'News images added (childcare: %s, user: %s)' % (childcare.name, request.user))
             for form_image in formset:
                 obj = form_image.save(commit=False)
                 if obj.image:  # save only forms with images
@@ -112,7 +113,7 @@ def news_image_delete(request, childcare_slug, news_id, image_id):
     news = get_object_or_404(News, pk=news_id)
     if request.method == 'POST':
         image.delete()
-        log.info('News image deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
+        log.info(log_prefix+'News image deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
         return HttpResponseRedirect('/%s/dashboard/newsboard/%s/' % (childcare_slug, news.pk))
     return render(request, 'newsboard/news_image_delete.html', {'childcare': childcare,
                                                                 'image': image})
@@ -127,7 +128,7 @@ def add_news_files(request, childcare_slug, news_id):
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
-            log.info('News files added (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'News files added (childcare: %s, user: %s)' % (childcare.name, request.user))
             for form_file in formset:
                 obj = form_file.save(commit=False)
                 if obj.file:  # save only forms with images
@@ -150,7 +151,7 @@ def news_file_delete(request, childcare_slug, news_id, file_id):
     news = get_object_or_404(News, pk=news_id)
     if request.method == 'POST':
         file.delete()
-        log.info('News file deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
+        log.info(log_prefix+'News file deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
         return HttpResponseRedirect('/%s/dashboard/newsboard/%s/' % (childcare_slug, news.pk))
     return render(request, 'newsboard/news_file_delete.html', {'childcare': childcare,
                                                                'file': file})
@@ -161,7 +162,7 @@ def news_file_delete(request, childcare_slug, news_id, file_id):
 def newsboard_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     all_news_list = News.objects.filter(childcare=childcare)
-    log.info('Newsboard (childcare: %s, user: %s)' % (childcare.name, request.user))
+    log.info(log_prefix+'Newsboard (childcare: %s, user: %s)' % (childcare.name, request.user))
 
     paginator = Paginator(all_news_list, 10)
     page = request.GET.get('page')

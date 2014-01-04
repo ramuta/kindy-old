@@ -18,6 +18,8 @@ from django.forms.formsets import formset_factory
 import logging
 log = logging.getLogger("logentries")
 
+log_prefix = '[kindylog]'
+
 
 @login_required
 def childcare_create(request):
@@ -49,7 +51,7 @@ def childcare_create(request):
             # create default classroom
             classroom = Classroom(name='%s classroom' % childcare, childcare=childcare)
             classroom.save()
-            log.info('Childcare created (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Childcare created (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
     else:
         form = ChildcareCreateForm()
@@ -64,7 +66,7 @@ def childcare_update(request, childcare_slug):
         form = ChildcareUpdateForm(data=request.POST, instance=childcare)
         if form.is_valid():
             form.save()
-            log.info('Childcare updated (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Childcare updated (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
     else:
         form = ChildcareUpdateForm(instance=childcare)
@@ -76,7 +78,7 @@ def childcare_update(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def childcare(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    log.info('Childcare opened (childcare: %s, user: %s)' % (childcare.name, request.user))
+    log.info(log_prefix+'Childcare opened (childcare: %s, user: %s)' % (childcare.name, request.user))
     classroom_num = Classroom.objects.filter(childcare=childcare, disabled=False).count()
     manager_num = User.objects.filter(childcare_managers__id=childcare.pk).count()
     employee_num = User.objects.filter(childcare_employees__id=childcare.pk).count()
@@ -99,7 +101,7 @@ def childcare(request, childcare_slug):
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def website_section(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    log.info('Childcare Website section (%s)' % childcare.name)
+    log.info(log_prefix+'Childcare Website section (%s)' % childcare.name)
     website_news_list = News.objects.filter(childcare=childcare, public=True)[:5]
     pages_list = Page.objects.filter(childcare=childcare)[:5]
     return render(request, 'childcare/website_section.html', {'childcare': childcare,
@@ -118,7 +120,7 @@ def website_page_create(request, childcare_slug):
             obj.childcare = childcare
             obj.save
             form.save(commit=True)
-            log.info('Page created (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Page created (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, obj.pk))
     else:
         form = WebsitePageCreateForm()
@@ -130,7 +132,7 @@ def website_page_create(request, childcare_slug):
 def website_page_detail(request, childcare_slug, page_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     page = get_object_or_404(Page, pk=page_id, childcare=childcare)
-    log.info('Page detail (%s: %s)' % (childcare.name, page.title))
+    log.info(log_prefix+'Page detail (%s: %s)' % (childcare.name, page.title))
     page_file_list = PageFile.objects.filter(page=page)
     return render(request, 'childcare/website_page_detail.html', {'childcare': childcare,
                                                                   'page': page,
@@ -146,7 +148,7 @@ def website_page_update(request, childcare_slug, page_id):
         form = WebsitePageCreateForm(data=request.POST, instance=page)
         if form.is_valid():
             form.save()
-            log.info('Page updated (%s: %s, user: %s)' % (childcare.name, page.title, request.user))
+            log.info(log_prefix+'Page updated (%s: %s, user: %s)' % (childcare.name, page.title, request.user))
             return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, page.pk))
     else:
         form = WebsitePageCreateForm(instance=page)
@@ -162,7 +164,7 @@ def website_page_delete(request, childcare_slug, page_id):
     page = get_object_or_404(Page, pk=page_id, childcare=childcare)
     if request.method == 'POST':
         page.delete()
-        log.info('Page deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
+        log.info(log_prefix+'Page deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
         return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
     return render(request, 'childcare/website_page_delete.html', {'childcare': childcare,
                                                                   'page': page})
@@ -197,7 +199,7 @@ def add_page_files(request, childcare_slug, page_id):
     if request.method == 'POST':
         formset = FileFormSet(request.POST, request.FILES)
         if formset.is_valid():
-            log.info('Page files added (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Page files added (childcare: %s, user: %s)' % (childcare.name, request.user))
             for form_file in formset:
                 obj = form_file.save(commit=False)
                 if obj.file:  # save only forms with files
@@ -220,7 +222,7 @@ def page_file_delete(request, childcare_slug, page_id, file_id):
     page = get_object_or_404(Page, pk=page_id)
     if request.method == 'POST':
         file.delete()
-        log.info('Page file deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
+        log.info(log_prefix+'Page file deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
         return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare_slug, page.pk))
     return render(request, 'childcare/page_file_delete.html', {'childcare': childcare,
                                                                'file': file})
@@ -234,7 +236,7 @@ def website_first_page_edit(request, childcare_slug):
         form = FirstPageForm(request.POST, instance=childcare)
         if form.is_valid():
             form.save()
-            log.info('About edited (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'About edited (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
     else:
         form = FirstPageForm(instance=childcare)
@@ -249,7 +251,7 @@ def website_choose_theme(request, childcare_slug):
         form = ChooseThemeForm(request.POST, instance=childcare)
         if form.is_valid():
             form.save()
-            log.info('Theme changed (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Theme changed (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
     else:
         form = ChooseThemeForm(instance=childcare)
@@ -267,7 +269,7 @@ def gallery_section(request, childcare_slug):
     news_image_list = NewsImage.objects.filter(news_id__in=news_list)
     all_image_list = list(chain(diary_image_list, news_image_list))
     all_image_list.sort(key=attrgetter('created'), reverse=True)
-    log.info('Gallery (childcare: %s, user: %s)' % (childcare.name, request.user))
+    log.info(log_prefix+'Gallery (childcare: %s, user: %s)' % (childcare.name, request.user))
 
     paginator = Paginator(all_image_list, 60)
     page = request.GET.get('page')
@@ -293,7 +295,7 @@ def managers_add_remove(request, childcare_slug):
             old_managers = list(childcare.managers.all())  # have to convert to list to preserve values in it
             new_managers = form.cleaned_data['managers']
             form.save(commit=True)
-            log.info('Managers added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Managers added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
             group = Group.objects.get(name='Childcare %s: Manager' % childcare.pk)
             for user in new_managers:
                 user.groups.add(group)
@@ -317,7 +319,7 @@ def employees_add_remove(request, childcare_slug):
             new_employees = form.cleaned_data['employees']
             form.save(commit=True)
             group = Group.objects.get(name='Childcare %s: Employee' % childcare.pk)
-            log.info('Employees added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Employees added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
             for user in new_employees:
                 user.groups.add(group)
             for old_user in old_employees:
@@ -340,7 +342,7 @@ def parents_add_remove(request, childcare_slug):
             new_parents = form.cleaned_data['parents']
             form.save(commit=True)
             group = Group.objects.get(name='Childcare %s: Parent' % childcare.pk)
-            log.info('Parents added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'Parents added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
             for user in new_parents:
                 user.groups.add(group)
             for old_user in old_parents:
@@ -428,7 +430,7 @@ def invite_users(request, childcare_slug):
                                   inviter=inviter,
                                   childcare=childcare,
                                   role=role)
-            log.info('User invited (childcare: %s, user: %s)' % (childcare.name, request.user))
+            log.info(log_prefix+'User invited (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
     else:
         form = InviteUsersForm()
