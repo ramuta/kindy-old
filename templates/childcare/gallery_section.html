@@ -20,7 +20,7 @@
     {% if image_list %}
         {% for image in image_list %}
         <div class="pull-left">
-            <a href="{{ image.image.url }}" class="fancybox" rel="gallery-1" title=""><img src="{{ image.image.url }}.100x100_q85_crop_upscale.jpg"></a>
+            <a href="{{ image.image.url }}" class="fancybox" rel="gallery-1" title=""><img src="{{ image.thumbnail }}"></a>
         </div>
         {% endfor %}
         <div class="clearfix"></div>

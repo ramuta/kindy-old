@@ -29,6 +29,7 @@ class News(models.Model):
 
 class NewsImage(models.Model):
     image = models.ImageField(upload_to=get_file_path, blank=True)
+    thumbnail = models.CharField(max_length=255, null=True)
     news = models.ForeignKey(News)
     created = models.DateTimeField(auto_now_add=True, null=True)
     modified = models.DateTimeField(auto_now=True, null=True)

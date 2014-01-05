@@ -1,5 +1,5 @@
 from django.db import models
-from easy_thumbnails.fields import ThumbnailerField
+from easy_thumbnails.fields import ThumbnailerField, ThumbnailerImageField
 from easy_thumbnails.files import get_thumbnailer
 from childcare.models import Childcare
 from django.contrib.auth.models import User
@@ -38,6 +38,7 @@ class Diary(models.Model):
 
 class DiaryImage(models.Model):
     image = models.ImageField(upload_to=get_file_path, null=True)
+    thumbnail = models.CharField(max_length=255, null=True)
     diary = models.ForeignKey(Diary, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     modified = models.DateTimeField(auto_now=True, null=True)

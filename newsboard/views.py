@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.views.generic.edit import DeleteView, UpdateView
 from guardian.decorators import permission_required_or_403
 from childcare.models import Childcare
 from newsboard.forms import NewsCreateForm, AddNewsImageForm, AddNewsFileForm, NewsUpdateForm
@@ -97,7 +96,9 @@ def add_news_images(request, childcare_slug, news_id):
                     obj.save()
                     object = form_image.save(commit=True)
                     # generate thumbnail
-                    utils_generate_thumbnail(object)
+                    thumb_url = utils_generate_thumbnail(object.image)
+                    object.thumbnail = thumb_url
+                    object.save()
                     return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
     else:
         formset = ImageFormSet()

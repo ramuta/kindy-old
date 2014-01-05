@@ -15,7 +15,7 @@
 
 {% block content %}
     <p>Are you sure you want to delete this image?</p>
-    <p><img src="{{ image.image.url }}.100x100_q85_crop_upscale.jpg"></p>
+    <p><img src="{{ image.thumbnail }}"></p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Yes, I'm sure</button>

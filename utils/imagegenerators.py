@@ -20,7 +20,7 @@ register.generator('gallery:thumbnail', GalleryThumbnail)
 import os
 import uuid
 from django.contrib.contenttypes.models import ContentType
-from easy_thumbnails.files import generate_all_aliases
+from easy_thumbnails.files import generate_all_aliases, get_thumbnailer
 
 
 def get_file_path(instance, filename):
@@ -44,5 +44,8 @@ def get_file_path(instance, filename):
 
 
 def utils_generate_thumbnail(object):
-    fieldfile = getattr(object, 'image')
-    generate_all_aliases(fieldfile, include_global=True)
+    thumbnailer = get_thumbnailer(object)
+    thumbnailer.generate = True  # so a not generate a thumb if sthg went wrong
+    thumbnail_options = {'crop': True, 'size': (100, 100), 'upscale': True}
+    thumbnail = thumbnailer.get_thumbnail(thumbnail_options)
+    return thumbnail.url
