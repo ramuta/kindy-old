@@ -83,6 +83,7 @@ def childcare(request, childcare_slug):
     manager_num = User.objects.filter(childcare_managers__id=childcare.pk).count()
     employee_num = User.objects.filter(childcare_employees__id=childcare.pk).count()
     parent_num = User.objects.filter(childcare_parents__id=childcare.pk).count()
+    pages_num = Page.objects.filter(childcare=childcare).count()
 
     classroom_list = Classroom.objects.filter(childcare=childcare)
     diary_num = Diary.objects.filter(classroom__in=classroom_list).count()
@@ -94,7 +95,8 @@ def childcare(request, childcare_slug):
                                                                'employee_num': employee_num,
                                                                'parent_num': parent_num,
                                                                'diary_num': diary_num,
-                                                               'news_num': news_num})
+                                                               'news_num': news_num,
+                                                               'pages_num': pages_num})
 
 
 @login_required()

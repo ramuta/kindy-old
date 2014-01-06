@@ -66,5 +66,14 @@
         <div class="col-md-4 info-box">
             <a href="newsboard/"><span class="num">{{ news_num }}</span><br>NEWS</a>
         </div>
+        <div class="col-md-4 info-box">
+            <a href="pages/"><span class="num">{{ pages_num }}</span><br>
+                {% if pages_num == 1 %}
+                    PAGE
+                {% else %}
+                    PAGES
+                {% endif %}
+            </a>
+        </div>
     </div>
 {% endblock content %}

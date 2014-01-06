@@ -1,9 +1,11 @@
-from django.forms import ModelForm, CharField, ValidationError
+from django.forms import ModelForm, CharField, ValidationError, BooleanField
 from newsboard.models import News, NewsImage, NewsFile
 from utils.files_images import get_max_size, get_max_size_in_mb
 
 
 class NewsCreateForm(ModelForm):
+    public = BooleanField(label='Public (visible on website)')
+
     class Meta:
         model = News
         fields = ('title',
