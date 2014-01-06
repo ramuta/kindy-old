@@ -53,6 +53,7 @@
 }
 
 #footer ul.nav { float:right; }
+#footer ul.nav li { float:left; }
 
 #footer ul.nav li a {
 	background:transparent;

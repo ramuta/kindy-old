@@ -6,16 +6,9 @@
 	<a href="/">Home</a>
 {% endblock %}
 
-{% block breadcrumb %}
-    {{ user.first_name }} {{ user.last_name }} {{ user.get_full_name }}
-{% endblock %}
-
 {% block sidebar %}
     <li><a href="/accounts/{{ user.username }}/">Profile</a></li>
     <li><a href="/childcare/create/">Create childcare</a></li>
-{% endblock %}
-
-{% block action %}
 {% endblock %}
 
 {% block content-title %}
@@ -30,8 +23,15 @@
                 <a href="/{{ childcare.slug }}/dashboard/" class="static">{{ childcare }}</a>
             </div>
             {% endfor %}
+            <div class="col-md-4 info-box" style="opacity:0.9;">
+                <a href="/childcare/create/" class="static">Create new childcare</a>
+            </div>
         </div>
     {% else %}
-        <p>Are you a childcare manager? <a href="childcare/create/">Create a site for your child care.</a></p>
+        <div class="row">
+            <div class="col-md-4 info-box">
+                <a href="/childcare/create/" class="static">Create childcare</a>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}
