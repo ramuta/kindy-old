@@ -15,6 +15,8 @@
 				<li><a href="/{{ childcare.slug }}/{{ page.slug }}/">{{ page }}</a></li>
 			{% endfor %}
 			</ul>
+			<div class="clearfix"></div>
+			<h2 class="slogan">{{ childcare.slogan }}</h2>
 		</div>
 	</div>
 	<div id="content">
@@ -24,7 +26,7 @@
 	</div>
 	<div id="footer">
 		<div class="container">
-			{{ childcare }}
+			{{ childcare.name }} | {{ childcare.email }}
 			<ul class="nav">
 				<li><a href="/{{ childcare.slug }}/news/">News</a></li>
 			{% for page in pages_list %}

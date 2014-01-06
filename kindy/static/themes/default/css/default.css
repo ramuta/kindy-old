@@ -1,4 +1,7 @@
-body { font-size:16px; }
+body {
+	color:#4e4e4e;
+	font-size:16px;
+}
 
 /* BANNER */
 #banner {
@@ -12,7 +15,8 @@ body { font-size:16px; }
 	display:block;
 	float:left;
 	font-size:2em;
-	margin-top:18px;
+	opacity:0.9;
+	margin-top:25px;
 	text-decoration:none;
 }
 
@@ -21,6 +25,7 @@ body { font-size:16px; }
 
 #banner ul.nav li a {
 	color:#fff;
+	opacity:0.9;
 	padding:40px 25px 15px;
 }
 
@@ -29,20 +34,59 @@ body { font-size:16px; }
 #banner ul.nav li a.active {
 	background:rgba(255, 255, 255, 0.3);
 }
+
+#banner h2.slogan {
+	color:#fff;
+	font-size:3em;
+	margin-top:10%;
+	letter-spacing:0.05em;
+	text-align:center;
+	text-transform:uppercase;
+}
 /* END BANNER */
 
 /* CONTENT */
-#content { padding:30px 0; }
+#content { padding:50px 0; }
+#content h1 { margin-bottom:30px; }
 
 #content .box {
 	color:#fff;
 	margin:0 10px;
-	padding:10px 20px 20px;
+	padding:20px;
 }
 
-#content .box h2 { margin-bottom:20px; }
-#content .box ul { padding-left:20px; }
+#content .box h2 {
+	font-size:2.6em;
+	font-weight:normal;
+	margin:0 0 30px;
+}
+
+#content .box ul {
+	list-style:none;
+	padding:0;
+}
+
 #content .box a { color:#fff; }
+
+#content .box img {
+	height:auto;
+	margin-bottom:15px;
+	width:100%;
+}
+
+#content .box p, #content .box ul { opacity:0.7; }
+
+#content .box a.button {
+	background:rgba(0, 0, 0, 0.2);
+	display:block;
+	margin-top:20px;
+	padding:10px 0;
+	text-align:center;
+	text-decoration:none;
+	text-transform:uppercase;
+}
+
+#content .box a.button:hover { background:rgba(0, 0, 0, 0.4); }
 
 #content .news .box { background:#0e85a5; }
 #content .about .box { background:#f58734; }
