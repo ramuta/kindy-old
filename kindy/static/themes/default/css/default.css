@@ -1,3 +1,5 @@
+body { font-size:16px; }
+
 /* BANNER */
 #banner {
 	background:url(../img/background.jpg) no-repeat center;
@@ -30,15 +32,17 @@
 /* END BANNER */
 
 /* CONTENT */
-#content {
-	padding:30px 0;
-}
+#content { padding:30px 0; }
 
 #content .box {
 	color:#fff;
 	margin:0 10px;
 	padding:10px 20px 20px;
 }
+
+#content .box h2 { margin-bottom:20px; }
+#content .box ul { padding-left:20px; }
+#content .box a { color:#fff; }
 
 #content .news .box { background:#0e85a5; }
 #content .about .box { background:#f58734; }
@@ -58,6 +62,6 @@
 #footer ul.nav li a {
 	background:transparent;
 	color:#fff;
-	padding:0;
+	padding:0 5px;
 }
 /* END FOOTER */

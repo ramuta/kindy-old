@@ -42,7 +42,6 @@ urlpatterns = patterns('',
                        url(r'^page/(?P<page_id>\d+)/delete/$', views.website_page_delete),
                        url(r'^page/(?P<page_id>\d+)/update/$', views.website_page_update),
                        url(r'^page/(?P<page_id>\d+)/file/(?P<file_id>\d+)/delete/$', views.page_file_delete),
-                       url(r'^website/$', views.website_section),
                        url(r'^first-page/edit/$', views.website_first_page_edit),
                        url(r'^theme/$', views.website_choose_theme),
 

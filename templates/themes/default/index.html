@@ -8,9 +8,11 @@
     	<div class="col-md-4 news">
     		<div class="box">
     			<h2>News</h2>
+                <ul>
                 {% for news in news_list %}
                     <li><a href="/{{ childcare.slug }}/news/{{ news.slug }}/">{{ news }}</a></li>
                 {% endfor %}
+                </ul>
     		</div>
     	</div>
     	<div class="col-md-4 about">
