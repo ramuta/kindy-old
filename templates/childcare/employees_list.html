@@ -1,10 +1,6 @@
 {% extends 'childcare/childcare_base.html' %}
 
-{% block title %}{{ childcare.name }}{% endblock title %}
-
-{% block breadcrumb %}
-    <li>{{ childcare.name }}</li>
-{% endblock %}
+{% block title %}{{ childcare.name }} employees{% endblock title %}
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
