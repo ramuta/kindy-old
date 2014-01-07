@@ -161,16 +161,17 @@ class InviteUsersForm(Form):
         email = self.cleaned_data['email']
         role = self.cleaned_data['role']
 
+        user = None
+
         try:
             user = User.objects.get(email=email)
-        except user.DoesNotExist:
+
+            if user in self.childcare.managers.all() and role == 'Manager':
+                raise ValidationError(u'This user is already a manager in your childcare.')
+            elif user in self.childcare.employees.all() and role == 'Employee':
+                raise ValidationError(u'This user is already an employee in your childcare.')
+            elif user in self.childcare.parents.all() and role == 'Parent':
+                raise ValidationError(u'This user is already a parent in your childcare.')
             return self.cleaned_data
-
-        if user in self.childcare.managers.all() and role == 'Manager':
-            raise ValidationError(u'This user is already a manager in your childcare.')
-        elif user in self.childcare.employees.all() and role == 'Employee':
-            raise ValidationError(u'This user is already an employee in your childcare.')
-        elif user in self.childcare.parents.all() and role == 'Parent':
-            raise ValidationError(u'This user is already a parent in your childcare.')
-
-        return self.cleaned_data
+        except:
+            return self.cleaned_data

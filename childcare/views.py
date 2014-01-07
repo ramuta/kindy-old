@@ -421,7 +421,7 @@ def invite_users(request, childcare_slug):
                 user = User.objects.get(email=email)
                 add_current_user(user=user, role=role, childcare=childcare)
                 log.info(log_prefix+'User added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            except user.DoesNotExist:  # if user doesn't exist, create them and add to the role
+            except:  # if user doesn't exist, create them and add to the role
                 invite_new_kindy_user(email=email,
                                       first_name=first_name,
                                       last_name=last_name,

@@ -8,6 +8,7 @@
         <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
         <li><a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
     {% endif %}
+    <li class="pull-right"><a href="/{{ childcare.slug }}/{{ page.slug }}/" target="_blank"><span class="glyphicon glyphicon-globe"></span> See on website</a></li>
 {% endblock action %}
 
 {% block content-title %}{{ page }}{% endblock %}
