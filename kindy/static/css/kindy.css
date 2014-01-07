@@ -10,6 +10,8 @@ body {
 	font-family:Ubuntu, Helvetica, Arial, sans-serif;
 }
 
+hr { border-color:#ddd; }
+
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th {

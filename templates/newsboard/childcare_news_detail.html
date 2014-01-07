@@ -7,11 +7,6 @@
 
 {% block title %}{{ news }}{% endblock title %}
 
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/newsboard">Newsboard</a></li>
-    <li>News</li>
-{% endblock %}
-
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
         <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
@@ -24,8 +19,10 @@
 {% block content-title %}{{ news }}{% endblock %}
 
 {% block content %}
-    <p>{{ news.content|linebreaks }}</p>
+    <p>{{ news.content|safe }}</p>
 
+    <hr>
+    <strong>Gallery</strong>
     {% if news_image_list %}
         {% for image in news_image_list %}
             {% if image.image %}
@@ -43,8 +40,9 @@
             <p>No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/">Add images</a></p>
         {% endif %}
     {% endif %}
-    <br/>
-    <br/>
+
+    <hr>
+    <strong>Attachments</strong>
     {% if news_file_list %}
         Files:<ul>
         {% for file in news_file_list %}
@@ -56,6 +54,10 @@
                 {% endif %}
         {% endfor %}
         </ul>
+    {% else %}
+        {% if user in childcare.employees.all or user in childcare.managers.all %}
+            <p>No attachments were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/">Add attachments</a></p>
+        {% endif %}
     {% endif %}
 {% endblock content %}
 

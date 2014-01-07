@@ -1,21 +1,28 @@
 {% extends 'childcare/childcare_base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Update your childcare{% endblock title %}
-
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/">Childcare</a></li>
-    <li>Update</li>
-{% endblock %}
-
-{% block action_header %}
-{% endblock action_header %}
 
 {% block content-title %}Update {{ childcare }}{% endblock %}
 
 {% block content %}
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update">
-    </form>
-{% endblock content %}
+<form method="post" class="form-horizontal">
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		<label class="col-md-2 control-label">{{ field.label }}</label>
+		<div class="col-md-3">
+			{{ field|add_class:'form-control' }}
+		</div>
+		<div class="col-md-3">
+			<p class="form-control-static">{{ field.errors.as_text }}</p>
+		</div>
+	</div>
+	{% endfor %}
+	<div class="form-group">
+		<div class="col-md-2 col-md-offset-2">
+			<input type="submit" value="Update" class="btn btn-default">
+		</div>
+	</div>
+</form>
+{% endblock %}

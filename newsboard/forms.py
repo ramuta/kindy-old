@@ -1,9 +1,11 @@
 from django.forms import ModelForm, CharField, ValidationError, BooleanField
 from newsboard.models import News, NewsImage, NewsFile
 from utils.files_images import get_max_size, get_max_size_in_mb
+from ckeditor.widgets import CKEditorWidget
 
 
 class NewsCreateForm(ModelForm):
+    content = CharField(widget=CKEditorWidget())
     public = BooleanField(label='Public (visible on website)')
 
     class Meta:
@@ -46,6 +48,8 @@ class AddNewsFileForm(ModelForm):
 
 
 class NewsUpdateForm(ModelForm):
+    content = CharField(widget=CKEditorWidget())
+
     class Meta:
         model = News
         fields = ('content', 'public',)

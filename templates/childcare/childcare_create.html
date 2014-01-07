@@ -17,6 +17,9 @@
             <div class="col-md-4">
                 <input type="text" name="name" class="name form-control">
             </div>
+            <div class="col-md-3">
+                <p class="form-control-static">{{ form.name.errors.as_text }}</p>
+            </div>
         </div>
         <div class="form-group">
             <label class="col-md-1 control-label">URL</label>
@@ -26,17 +29,26 @@
                     <input type="text" name="slug" class="slug form-control">
                 </div>
             </div>
+            <div class="col-md-3">
+                <p class="form-control-static">{{ form.slug.errors.as_text }}</p>
+            </div>
         </div>
         <div class="form-group">
             <label class="col-md-1 control-label">Address</label>
             <div class="col-md-4">
                 <input type="text" name="street_address" class="form-control">
             </div>
+            <div class="col-md-3">
+                <p class="form-control-static">{{ form.address.errors.as_text }}</p>
+            </div>
         </div>
         <div class="form-group">
             <label class="col-md-1 control-label">City</label>
             <div class="col-md-4">
                 <input type="text" name="city" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <p class="form-control-static">{{ form.city.errors.as_text }}</p>
             </div>
         </div>
         <div class="form-group">

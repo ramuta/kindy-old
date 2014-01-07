@@ -28,7 +28,7 @@
             {% if childcare.description == '' %}
                     <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>
             {% else %}
-                    {{ childcare.description|slice:":300" }}... <a href="/{{ childcare.slug }}/dashboard/first-page/edit">(edit)</a>
+                    {{ childcare.description|safe }}<a href="/{{ childcare.slug }}/dashboard/first-page/edit/" class="btn btn-xs btn-default">Edit</a>
             {% endif %}
                 </div>
             </div>

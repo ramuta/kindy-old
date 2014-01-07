@@ -1,22 +1,21 @@
 {% extends 'childcare/childcare_base.html' %}
+{% load widget_tweaks %}
 
-{% block title %}Edit first page{% endblock title %}
+{% block title %}Edit About us{% endblock title %}
 
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/website/">Website</a></li>
-    <li>First page</li>
-{% endblock %}
-
-{% block action_header %}
-{% endblock action_header %}
-
-{% block content-title %}Edit first page description for {{ childcare }} website{% endblock %}
+{% block content-title %}Edit About us for {{ childcare }} website{% endblock %}
 
 {% block content %}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Edit">
-    </form>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
+<form method="post">
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		<label>{{ field.label }}</label>
+		{{ field|add_class:'form-control' }}
+	</div>
+	<p>{{ field.errors.as_text }}</p>
+	{% endfor %}
+	<input type="submit" value="Update" class="btn btn-default">
+</form>
 {% endblock content %}

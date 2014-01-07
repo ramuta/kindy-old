@@ -7,8 +7,8 @@ from utils.slugify import unique_slugify
 
 
 class Page(models.Model):
-    title = models.CharField(max_length=100, blank=True)
-    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    title = models.CharField(max_length=100, null=True)
+    slug = models.SlugField(max_length=100, unique=True, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     modified = models.DateTimeField(auto_now=True, null=True)
     content = models.TextField(null=True)

@@ -1,22 +1,29 @@
 {% extends 'childcare/childcare_base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Create a website page{% endblock title %}
-
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/website/">Website</a></li>
-    <li>Create page</li>
-{% endblock %}
-
-{% block action_header %}
-{% endblock action_header %}
 
 {% block content-title %}Create a website page{% endblock %}
 
 {% block content %}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create">
-    </form>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
+<form method="post" class="form-horizontal">
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		<label class="col-md-1 control-label">{{ field.label }}</label>
+		<div class="col-md-3">
+			{{ field|add_class:'form-control' }}
+		</div>
+		<div class="col-md-3">
+			<p class="form-control-static">{{ field.errors.as_text }}</p>
+		</div>
+	</div>
+	{% endfor %}
+	<div class="form-group">
+		<div class="col-md-2 col-md-offset-1">
+			<input type="submit" value="Create" class="btn btn-default">
+		</div>
+	</div>
+</form>
 {% endblock content %}

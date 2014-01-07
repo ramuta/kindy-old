@@ -22,13 +22,17 @@
                 <th>Username</th>
                 <th>Email</th>
                 {% if user in childcare.managers.all %}
-                    <th>Tools</th>
+                <th>Tools</th>
                 {% endif %}
             </tr>
             {% for manager in managers_list %}
                 <tr>
                     <td>
+                        {% if manager.first_name and manager.last_name %}
                         <a href="/accounts/{{ manager.username }}">{{ manager.first_name }} {{ manager.last_name }}</a>
+                        {% else %}
+                        <a href="/accounts/{{ manager.username }}">{{ manager.username }}</a> <small>(not set)</small>
+                        {% endif %}
                     </td>
                     <td>
                         {{ manager.username }}
