@@ -5,8 +5,8 @@ from ckeditor.widgets import CKEditorWidget
 
 
 class NewsCreateForm(ModelForm):
-    content = CharField(widget=CKEditorWidget())
-    public = BooleanField(label='Public (visible on website)')
+    public = BooleanField(label='Public (visible on website)', initial=False, required=False)
+    content = CharField(widget=CKEditorWidget(config_name='custom'))
 
     class Meta:
         model = News

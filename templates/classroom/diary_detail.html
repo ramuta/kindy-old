@@ -21,9 +21,10 @@
     <p><strong>Classroom:</strong> {{ diary.classroom }}</p>
     <p>{{ diary.content|safe }}</p>
 
+
+    {% if diary_image_list %}
     <hr>
     <p><strong>Gallery</strong></p>
-    {% if diary_image_list %}
         {% for image in diary_image_list %}
             {% if image.image %}
                 <div class="pull-left">

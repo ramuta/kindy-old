@@ -22,7 +22,7 @@ class DiaryCreateForm(ModelForm):
         self.fields['classroom'] = ModelChoiceField(queryset=Classroom.objects.filter(childcare__id=self._childcare.pk,
                                                                                       disabled=False))
     date = DateField(widget=SelectDateWidget, initial=datetime.date.today)
-    content = CharField(widget=CKEditorWidget())
+    content = CharField(widget=CKEditorWidget(config_name='custom'))
 
     class Meta:
         model = Diary
