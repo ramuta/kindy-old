@@ -1,20 +1,33 @@
 {% extends 'childcare/childcare_base.html' %}
-{% block title %}Daily diary{% endblock title %}
+{% load widget_tweaks %}
 
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
-    <li>Update</li>
-{% endblock %}
+{% block title %}Update a diary{% endblock title %}
 
-{% block action_header %}
-{% endblock action_header %}
-
-{% block content-title %}Update a diary for {{ diary.date }}{% endblock %}
+{% block content-title %}Update a diary{% endblock %}
 
 {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update" />
-    </form>
-{% endblock content %}
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
+<form method="post" class="form-horizontal">
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		<label class="col-md-1 control-label">{{ field.label }}</label>
+		<div class="col-md-3">
+			{{ field|add_class:'form-control' }}
+		</div>
+	</div>
+	{% if field.errors %}
+	<div class="form-group">
+		<div class="col-md-3 col-md-offset-1">
+			<p>{{ field.errors.as_text }}</p>
+		</div>
+	</div>
+	{% endif %}
+	{% endfor %}
+	<div class="form-group">
+		<div class="col-md-2 col-md-offset-1">
+			<input type="submit" value="Update" class="btn btn-default">
+		</div>
+	</div>
+</form>
+{% endblock %}

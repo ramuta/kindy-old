@@ -13,7 +13,11 @@
 	<div class="form-group">
 		<label class="col-md-1 control-label">{{ field.label }}</label>
 		<div class="col-md-3">
+			{% if field.name == 'date' %}
+			<p class="form-control-static">{{ field }}</p>
+			{% else %}
 			{{ field|add_class:'form-control' }}
+			{% endif %}
 		</div>
 		{% if field.name != 'content' %}
 		<div class="col-md-3">

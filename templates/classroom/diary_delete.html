@@ -1,13 +1,6 @@
 {% extends 'childcare/childcare_base.html' %}
-{% block title %}Daily diary{% endblock title %}
 
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
-    <li>Delete</li>
-{% endblock %}
-
-{% block action_header %}
-{% endblock action_header %}
+{% block title %}Delete a diary{% endblock title %}
 
 {% block content-title %}Delete a diary for {{ diary.date }}?{% endblock %}
 

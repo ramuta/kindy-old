@@ -7,7 +7,7 @@ from utils.imagegenerators import get_file_path
 
 
 class Classroom(models.Model):
-    name = models.CharField(max_length=100, blank=True)
+    name = models.CharField(max_length=100, null=True)
     description = models.CharField(max_length=255, blank=True)
     childcare = models.ForeignKey(Childcare, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)

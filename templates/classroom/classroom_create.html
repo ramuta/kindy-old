@@ -1,16 +1,28 @@
 {% extends 'childcare/childcare_base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Create a class{% endblock title %}
-
-{% block action_header %}
-{% endblock action_header %}
 
 {% block content-title %}Add a class in your childcare{% endblock %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create">
-    </form>
-{% endblock content %}
+<form method="post" class="form-horizontal">
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		<label class="col-md-2 control-label">{{ field.label }}</label>
+		<div class="col-md-3">
+			{{ field|add_class:'form-control' }}
+		</div>
+		<div class="col-md-3">
+			<p class="form-control-static">{{ field.errors.as_text }}</p>
+		</div>
+	</div>
+	{% endfor %}
+	<div class="form-group">
+		<div class="col-md-2 col-md-offset-2">
+			<input type="submit" value="Create" class="btn btn-default">
+		</div>
+	</div>
+</form>
+{% endblock %}

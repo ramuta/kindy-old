@@ -23,7 +23,7 @@
                 <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#first-page">About us</a></h4>
             </div>
 
-            <div id="first-page" class="panel-collapse collapse in">
+            <div id="first-page" class="panel-collapse collapse{% if childcare.description == '' %} in{% endif %}">
                 <div class="panel-body">
             {% if childcare.description == '' %}
                     <a href="/{{ childcare.slug }}/dashboard/first-page/edit">Add your childcare description.</a>

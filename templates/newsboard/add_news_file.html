@@ -1,18 +1,11 @@
 {% extends 'childcare/childcare_base.html' %}
-{% block title %}News{% endblock title %}
 
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/newsboard/">Newsboard</a></li>
-    <li>Add files</li>
-{% endblock %}
-
-{% block action_header %}
-{% endblock action_header %}
+{% block title %}Add news files{% endblock title %}
 
 {% block content-title %}Add news files{% endblock %}
 
 {% block content %}
-    <form method="post" action="" enctype="multipart/form-data">
+    <form method="post">
     {% csrf_token %}
     {{ formset.management_form }}
     <table>

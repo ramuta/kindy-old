@@ -1,15 +1,10 @@
 {% extends 'childcare/childcare_base.html' %}
 {% load thumbnail %}
 
-{% block title %}{{ classroom }} | Daily diary{% endblock title %}
+{% block title %}A diary for {{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}{% endblock title %}
 
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
-{% endblock %}
-
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/diary/">Diary list</a></li>
-    <li>{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</li>
 {% endblock %}
 
 {% block action %}
@@ -24,7 +19,10 @@
 
 {% block content %}
     <p><strong>Classroom:</strong> {{ diary.classroom }}</p>
-    <p>{{ diary.content|linebreaks }}</p>
+    <p>{{ diary.content|safe }}</p>
+
+    <hr>
+    <strong>Gallery</strong>
     {% if diary_image_list %}
         {% for image in diary_image_list %}
             {% if image.image %}
@@ -40,7 +38,7 @@
         {% endfor %}
     {% else %}
         {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <p>No images were added yet to this diary. <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/">Add images</a></p>
+            <p>No images were added yet to this diary. <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/" class="btn btn-xs btn-default">Add images</a></p>
         {% endif %}
     {% endif %}
 {% endblock content %}

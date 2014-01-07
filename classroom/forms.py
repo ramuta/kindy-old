@@ -49,6 +49,8 @@ class AddDiaryImageForm(ModelForm):
 
 
 class DiaryUpdateForm(ModelForm):
+    content = CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Diary
         fields = ('content',)

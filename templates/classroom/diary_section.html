@@ -1,9 +1,6 @@
 {% extends 'childcare/childcare_base.html' %}
-{% block title %}{{ classroom }} | Daily diary{% endblock title %}
 
-{% block breadcrumb %}
-    <li>Daily diary list</li>
-{% endblock %}
+{% block title %}Daily diary list{% endblock title %}
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
