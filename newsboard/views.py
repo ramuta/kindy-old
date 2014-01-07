@@ -101,7 +101,7 @@ def add_news_images(request, childcare_slug, news_id):
                     thumb_url = utils_generate_thumbnail(object.image)
                     object.thumbnail = thumb_url
                     object.save()
-                    return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
     else:
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_image.html', {'formset': formset,
