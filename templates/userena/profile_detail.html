@@ -7,40 +7,21 @@
 {% block content-title %}{{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}{% endblock %}
 
 {% block content %}
-  <div class="white-box">
-
-    <div id="details">
-      {% block profile_details %}
-        <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
-        <dl>
-          {% block profile_definition_list %}
-            {% if profile.user.get_full_name %}
-              <dt>{% trans "Name" %}</dt>
-              <dd>{{ profile.user.get_full_name }}</dd>
-            {% endif %}
-            {% if profile.user.email and not hide_email %}
-              <dt>{% trans "Email" %}</dt>
-              <dd>{{ profile.user.email }}</dd>
-            {% endif %}
-            {% if profile.age %}
-              <dt>{% trans "Age" %}</dt>
-              <dd>{{ profile.age }}</dd>
-            {% endif %}
-            {% if profile.website %}
-              <dt>{% trans "Website" %}</dt>
-              <dd>{{ profile.website|urlize }}</dd>
-            {% endif %}
-            {% if profile.location %}
-              <dt>{% trans "Location" %}</dt>
-              <dd>{{ profile.location }}</dd>
-            {% endif %}
-            {% if profile.about_me %}
-              <dt>{% trans "About me" %}</dt>
-              <dd>{{ profile.about_me }}</dd>
-            {% endif %}
-          {% endblock %}
-        </dl>
+  <div id="details">
+    {% block profile_details %}
+      <img src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" class="mugshot pull-left" style="margin:0 10px 10px 0;">
+      {% block profile_definition_list %}
+        <p>
+        {% if profile.user.get_full_name %}
+          {% trans "Name:" %}
+          {{ profile.user.get_full_name }}<br>
+        {% endif %}
+        {% if profile.user.email and not hide_email %}
+          {% trans "Email:" %}
+          {{ profile.user.email }}<br>
+        {% endif %}
+        </p>
       {% endblock %}
-    </div>
+    {% endblock %}
   </div>
 {% endblock %}

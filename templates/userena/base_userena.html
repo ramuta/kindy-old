@@ -2,7 +2,11 @@
 {% load i18n %}
 
 {% block sidebar-title %}
+  {% if user.username == profile.user.username %}
   <a href="/accounts/{{ profile.user.username }}/">Profile</a>
+  {% else %}
+  <a href="/">Home</a>
+  {% endif %}
 {% endblock %}
 
 {% block sidebar %}
