@@ -2,17 +2,13 @@
 
 {% block title %}Choose a theme{% endblock title %}
 
-{% block breadcrumb %}
-    <li><a href="/{{ childcare.slug }}/dashboard/website/">Website</a></li>
-    <li>Choose theme</li>
-{% endblock %}
-
 {% block action_header %}
 {% endblock action_header %}
 
 {% block content-title %}Choose a theme{% endblock %}
 
 {% block content %}
+    <p>New themes will be added regularly.</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
