@@ -43,7 +43,7 @@ class ChildcareUpdateForm(ModelForm):
 
 
 class FirstPageForm(ModelForm):
-    description = CharField(widget=CKEditorWidget())
+    description = CharField(widget=CKEditorWidget(config_name='custom'))
 
     class Meta:
         model = Childcare
@@ -53,7 +53,7 @@ class FirstPageForm(ModelForm):
 
 
 class WebsitePageCreateForm(ModelForm):
-    content = CharField(widget=CKEditorWidget())
+    content = CharField(widget=CKEditorWidget(config_name='custom'))
 
     class Meta:
         model = Page

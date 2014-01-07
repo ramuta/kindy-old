@@ -5,6 +5,7 @@ from django.contrib import admin
 from childcare import views as childcare_views
 from django.conf import settings
 from utils.deployment import is_local_env
+from userena import views as userena_views
 
 autocomplete_light.autodiscover()
 admin.autodiscover()
@@ -20,6 +21,7 @@ urlpatterns = patterns('',
 
     # accounts
     url(r'^accounts/', include('userena.urls')),
+    url(r'^activate/(?P<activation_key>\w+)/$', userena_views.activate, {'success_url': '/'}, name='userena_activate'),
 
     #autocomplete
     url(r'autocomplete/', include('autocomplete_light.urls')),
