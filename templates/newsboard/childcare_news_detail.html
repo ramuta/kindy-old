@@ -19,11 +19,12 @@
 {% block content-title %}{{ news }}{% endblock %}
 
 {% block content %}
+    <p>{{ news.author.first_name }} {{ news.author.last_name }} | {{ news.created }}</p>
     <p>{{ news.content|safe }}</p>
 
+    {% if news_image_list %}
     <hr>
     <p><strong>Gallery</strong></p>
-    {% if news_image_list %}
         {% for image in news_image_list %}
             {% if image.image %}
                 <div class="pull-left">
@@ -40,10 +41,11 @@
             <p>No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/" class="btn btn-xs btn-default">Add images</a></p>
         {% endif %}
     {% endif %}
+
+    {% if news_file_list %}
     <div class="clearfix"></div>
     <hr>
     <p><strong>Attachments</strong></p>
-    {% if news_file_list %}
         Files:<ul>
         {% for file in news_file_list %}
             {% if file.file %}
