@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404, render
 from childcare.models import Childcare
 from newsboard.models import News, NewsImage, NewsFile
@@ -12,12 +13,22 @@ log_prefix = '[kindylog]'
 
 def website(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    website_news_list = News.objects.filter(childcare=childcare, public=True)
+    #website_news_list = News.objects.filter(childcare=childcare, public=True)
+    try:
+        website_news_latest = News.objects.filter(childcare=childcare, public=True)[:1].get()
+    except ObjectDoesNotExist:
+        website_news_latest = None
     pages_list = Page.objects.filter(childcare=childcare)
+    try:
+        page_first = Page.objects.filter(childcare=childcare)[:1].get()
+    except ObjectDoesNotExist:
+        page_first = None
     log.info(log_prefix+'Website index (childcare: %s)' % childcare.name)
     return render(request, 'themes/'+childcare.theme.computer_name+'/index.html', {'childcare': childcare,
-                                                                                   'news_list': website_news_list,
-                                                                                   'pages_list': pages_list})
+                                                                                   #'news_list': website_news_list,
+                                                                                   'news_latest': website_news_latest,
+                                                                                   'pages_list': pages_list,
+                                                                                   'page': page_first})
 
 
 def website_news(request, childcare_slug):

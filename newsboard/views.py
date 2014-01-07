@@ -7,6 +7,7 @@ from childcare.models import Childcare
 from newsboard.forms import NewsCreateForm, AddNewsImageForm, AddNewsFileForm, NewsUpdateForm
 from newsboard.models import News, NewsImage, NewsFile
 from django.forms.formsets import formset_factory
+from utils.files_images import get_max_size_in_mb
 from utils.imagegenerators import utils_generate_thumbnail
 
 # setup logging
@@ -84,6 +85,7 @@ def add_news_images(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id)
     ImageFormSet = formset_factory(AddNewsImageForm, extra=5)
+    image_size = get_max_size_in_mb()
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
@@ -103,7 +105,8 @@ def add_news_images(request, childcare_slug, news_id):
     else:
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_image.html', {'formset': formset,
-                                                             'childcare': childcare})
+                                                             'childcare': childcare,
+                                                             'image_size': image_size})
 
 
 @login_required

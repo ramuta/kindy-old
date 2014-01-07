@@ -8,6 +8,7 @@ from childcare.models import Childcare
 from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm
 from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
+from utils.files_images import get_max_size_in_mb
 from utils.imagegenerators import utils_generate_thumbnail
 
 # setup logging
@@ -129,6 +130,7 @@ def add_diary_images(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
     ImageFormSet = formset_factory(AddDiaryImageForm, extra=5)
+    image_size = get_max_size_in_mb()
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
@@ -149,7 +151,8 @@ def add_diary_images(request, childcare_slug, diary_id):
     else:
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,
-                                                              'childcare': childcare})
+                                                              'childcare': childcare,
+                                                              'image_size': image_size})
 
 
 @login_required

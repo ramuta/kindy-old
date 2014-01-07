@@ -7,29 +7,33 @@
     <div class="row">
     	<div class="col-md-4 news">
     		<div class="box">
-    			<h2>News</h2>
-                <ul>
-                {% for news in news_list %}
-                    <li><a href="/{{ childcare.slug }}/news/{{ news.slug }}/">{{ news }}</a></li>
-                {% endfor %}
-                </ul>
-                <a href="/{{ childcare.slug }}/about/" class="button">Read more</a>
+                {% if news_latest %}
+                    <h2>{{ news_latest }}</h2>
+                    {{ news_latest.content|linebreaks|slice:":400" }}
+                    <a href="/{{ childcare.slug }}/news/{{ news_latest.slug }}/" class="button">Read more</a>
+                {% else %}
+                    <h2>Add some news</h2>
+                {% endif %}
     		</div>
     	</div>
     	<div class="col-md-4 about">
     		<div class="box">
     			<h2>About us</h2>
                 <img src="{{ STATIC_URL }}themes/default/img/about-us.png" alt="About us">
-    			{{ childcare.description|linebreaks|slice:":400" }}
+    			{{ childcare.description|linebreaks|slice:":200" }}
                 <a href="/{{ childcare.slug }}/about/" class="button">Read more</a>
     		</div>
     	</div>
     	<div class="col-md-4 page">
     		<div class="box">
-    			<h2>Title</h2>
-                <img src="{{ STATIC_URL }}themes/default/img/childcare.png" alt="{{ childcare.name }}">
-    			{{ childcare.description|linebreaks|slice:":400" }}
-                <a href="/{{ childcare.slug }}/about/" class="button">Read more</a>
+                {% if page %}
+                    <h2>{{ page }}</h2>
+                    <img src="{{ STATIC_URL }}themes/default/img/childcare.png" alt="{{ childcare.name }}">
+                    {{ page.content|linebreaks|slice:":200" }}
+                    <a href="/{{ childcare.slug }}/{{ page.slug }}/" class="button">Read more</a>
+                {% else %}
+                    <h2>Add some pages.</h2>
+                {% endif %}
     		</div>
     	</div>
     </div>
