@@ -26,7 +26,10 @@
 	</div>
 	<div id="footer">
 		<div class="container">
-			{{ childcare.name }} | {{ childcare.email }}
+			{{ childcare.name }}
+            {% if childcare.email %}
+                 | {{ childcare.email }}
+            {% endif %}
 			<ul class="nav">
 				<li><a href="/{{ childcare.slug }}/news/">News</a></li>
 			{% for page in pages_list %}
