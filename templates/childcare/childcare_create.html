@@ -26,7 +26,8 @@
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">kindy.at/</span>
-                    <input type="text" name="slug" class="slug form-control">
+                    <input type="text" name="slug" class="slug form-control" readonly>
+                    <span class="input-group-addon"><a href="#edit" class="glyphicon glyphicon-pencil edit" style="text-decoration:none;"></a></span>
                 </div>
             </div>
             <div class="col-md-3">
@@ -39,7 +40,7 @@
                 <input type="text" name="street_address" class="form-control">
             </div>
             <div class="col-md-3">
-                <p class="form-control-static">{{ form.address.errors.as_text }}</p>
+                <p class="form-control-static">{{ form.street_address.errors.as_text }}</p>
             </div>
         </div>
         <div class="form-group">
@@ -66,11 +67,17 @@
                 var slug = $(this).val().toLowerCase();
 
                 slug = slug.replace(/\ /g, '-');
+                slug = slug.replace(/\'/g, '');
                 slug = slug.replace(/\č/g, 'c');
                 slug = slug.replace(/\š/g, 's');
                 slug = slug.replace(/\ž/g, 'z');
 
                 $('input.slug').val(slug);
+            });
+
+            $('a.edit').click(function(e) {
+                e.preventDefault();
+                $('input.slug').prop('readonly', false).focus();
             });
         });
     </script>
