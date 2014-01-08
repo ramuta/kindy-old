@@ -1,8 +1,8 @@
 Hi!
 
-I created an account for you at the {{ childcare.name }} website.
+I created an account for you at the new {{ childcare.name }} website.
 
-Sign up at http://www.kindy.at with your email. Password is: {{ password }}. Please change it at the first login.
+Sign in at http://www.kindy.at with your email. Your current password is: {{ password }}. Please change it at the first login.
 
-Regards,
+Sincerely,
 {{ inviter }}

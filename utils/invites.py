@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from userena.models import UserenaSignup
-from utils.emails import send_invite_email
+from utils.emails import send_invite_email, send_user_added_email
 
 
 def get_clean_username(first_name, last_name, random_number=False):
@@ -52,7 +52,7 @@ def invite_new_kindy_user(email, first_name, last_name, inviter, childcare, role
     send_invite_email(inviter=inviter, invitee=user, childcare=childcare, password=password)
 
 
-def add_current_user(user, role, childcare):
+def add_current_user(user, role, childcare, inviter):
     if role == 'Parent':
         group = Group.objects.get(name='Childcare %s: Parent' % childcare.pk)
         user.groups.add(group)
@@ -65,3 +65,5 @@ def add_current_user(user, role, childcare):
         group = Group.objects.get(name='Childcare %s: Manager' % childcare.pk)
         user.groups.add(group)
         childcare.managers.add(user)
+
+    send_user_added_email(inviter=inviter, invitee=user, childcare=childcare, role=role)

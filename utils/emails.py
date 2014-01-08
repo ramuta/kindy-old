@@ -24,3 +24,24 @@ def send_invite_email(inviter, invitee, childcare, password):
         email = EmailMultiAlternatives(subject=subject, body=text_content, from_email=inviter.email, to=[invitee.email,])
         email.attach_alternative(content=html_content, mimetype='text/html')
         email.send()
+
+
+def send_user_added_email(inviter, invitee, childcare, role):
+    if inviter and invitee and childcare:
+        subject = 'I added you to the %s dashboard' % childcare
+
+        plaintext = get_template('email/user_added.txt')
+        htmly = get_template('email/user_added.html')
+
+        context = Context({
+            'inviter': inviter.get_full_name(),
+            'childcare': childcare,
+            'role': role
+        })
+
+        text_content = plaintext.render(context)
+        html_content = htmly.render(context)
+
+        email = EmailMultiAlternatives(subject=subject, body=text_content, from_email=inviter.email, to=[invitee.email, ])
+        email.attach_alternative(content=html_content, mimetype='text/html')
+        email.send()

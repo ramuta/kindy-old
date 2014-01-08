@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-</head>
 <body>
-    Hi!
+    <p>Hi!</p>
 
-    I created an account for you at the {{ childcare.name }} website.
+    <p>I created an account for you at the {{ childcare.name }} website.</p>
 
-    Sign up at http://www.kindy.at with your email. Password is: {{ password }}. Please change it at the first login.
+    <p>Sign in at <a href="http://www.kindy.at/accounts/signin/">http://www.kindy.at</a> with your email. Your current password is: {{ password }}. Please change it at the first login.</p>
 
-    Regards,
+    <p>Sincerely,</p>
     {{ inviter }}
 </body>
 </html>
