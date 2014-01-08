@@ -22,7 +22,7 @@
 			<span class="name">{{ childcare }}</span>
 			<p class="pull-right">
 			{% if user.is_authenticated %}
-                <span class="glyphicon glyphicon-home"></span> <a href="/">Home</a> |
+				<span class="glyphicon glyphicon-home"></span> <a href="/">Home</a> |
 				<span class="glyphicon glyphicon-user"></span> <a href="/accounts/{{ user }}">{% if user.first_name == '' %}{{ user }}{% else %}{{ user.first_name }} {{ user.last_name }}{% endif %}</a> |
 				<span class="glyphicon glyphicon-log-out"></span> <a href="/accounts/signout/">Logout</a>
 			{% else %}

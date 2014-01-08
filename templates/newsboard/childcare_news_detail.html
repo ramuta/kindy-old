@@ -38,7 +38,9 @@
         {% endfor %}
     {% else %}
         {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <p>No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/" class="btn btn-xs btn-default">Add images</a></p>
+        <hr>
+        <p><strong>Gallery</strong></p>
+        No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/" class="btn btn-xs btn-default">Add images</a>
         {% endif %}
     {% endif %}
 
@@ -58,7 +60,10 @@
         </ul>
     {% else %}
         {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <p>No attachments were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/" class="btn btn-xs btn-default">Add attachments</a></p>
+        <div class="clearfix"></div>
+        <hr>
+        <p><strong>Attachments</strong></p>
+        No attachments were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/" class="btn btn-xs btn-default">Add attachments</a>
         {% endif %}
     {% endif %}
 {% endblock content %}

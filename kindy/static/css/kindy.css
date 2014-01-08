@@ -1,5 +1,16 @@
 /* CUSTOM FONTS */
 @import 'https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,700,700italic&subset=latin,latin-ext';
+
+@font-face {
+	font-family:'Kindy';
+	font-style:normal;
+	font-weight:normal;
+	src:url('../fonts/kindy.eot');
+	src:url('../fonts/kindy.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/kindy.woff') format('woff'),
+		url('../fonts/kindy.ttf') format('truetype'),
+		url('../fonts/kindy.svg#kindyiconsregular') format('svg');
+}
 /* END CUSTOM FONTS */
 
 /* MAIN DEFINITIONS */
@@ -74,11 +85,15 @@ hr { border-color:#ddd; }
 	display:block;
 	outline:none;
 	padding:20px;
-	padding-left:60px;
+	padding-left:40px;
 	text-decoration:none;
 	transition:background 0.2s;
 	-moz-transition:background 0.2s;
 	-webkit-transition:background 0.2s;
+}
+
+#sidebar ul.nav li a span.glyphicon {
+	margin-right:5px;
 }
 
 #sidebar ul.nav li a:hover, #sidebar ul.nav li a.active { background:#445164; }

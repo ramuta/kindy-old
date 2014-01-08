@@ -21,7 +21,6 @@
     <p><strong>Classroom:</strong> {{ diary.classroom }}</p>
     <p>{{ diary.content|safe }}</p>
 
-
     {% if diary_image_list %}
     <hr>
     <p><strong>Gallery</strong></p>
@@ -39,7 +38,9 @@
         {% endfor %}
     {% else %}
         {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <p>No images were added yet to this diary. <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/" class="btn btn-xs btn-default">Add images</a></p>
+        <hr>
+        <p><strong>Gallery</strong></p>
+        No images were added yet to this diary. <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/" class="btn btn-xs btn-default">Add images</a>
         {% endif %}
     {% endif %}
 {% endblock content %}
