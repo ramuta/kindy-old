@@ -27,7 +27,7 @@
             {% endif %}
         </tr>
         <tr>
-            <td><a href="/{{ childcare.slug }}/dashboard/first-page/edit/">About</a></td>
+            <td><a href="/{{ childcare.slug }}/about/" target="_blank">About</a></td>
             <td>/</td>
             {% if user in childcare.employees.all or user in childcare.managers.all %}
                 <td><a href="/{{ childcare.slug }}/dashboard/first-page/edit/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a></td>
@@ -36,7 +36,7 @@
         {% for page in page_list %}
             <tr>
                 <td>
-                    <a href="/{{ childcare.slug }}/dashboard/page/{{ page.pk }}">{{ page }}</a>
+                    <a href="/{{ childcare.slug }}/{{ page.slug }}" target="_blank">{{ page }}</a>
                 </td>
                 <td>
                     {{ page.order }}
