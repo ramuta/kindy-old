@@ -419,7 +419,7 @@ def invite_users(request, childcare_slug):
             user = None
             try:  # if user already exists, add them to the role
                 user = User.objects.get(email=email)
-                add_current_user(user=user, role=role, childcare=childcare)
+                add_current_user(user=user, role=role, childcare=childcare, inviter=inviter)
                 log.info(log_prefix+'User added (childcare: %s, user: %s)' % (childcare.name, request.user))
             except:  # if user doesn't exist, create them and add to the role
                 invite_new_kindy_user(email=email,

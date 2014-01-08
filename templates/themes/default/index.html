@@ -9,7 +9,8 @@
     		<div class="box">
                 {% if news_latest %}
                     <h2>{{ news_latest }}</h2>
-                    {{ news_latest.content|linebreaks|slice:":400" }}
+                    <img src="{{ STATIC_URL }}themes/default/img/newsboard.jpg" alt="News">
+                    {{ news_latest.content|linebreaks|slice:":200" }}
                     <a href="/{{ childcare.slug }}/news/{{ news_latest.slug }}/" class="button">Read more</a>
                 {% else %}
                     <h2>Add some news</h2>

@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-</head>
 <body>
+    <p>Hi!</p>
 
+    <p>I added you to the {{ childcare.name }} dashboard as {{ role }}.</p>
+
+    <p>You can access it with this link: <a href="http://www.kindy.at/{{ childcare.slug }}/dashboard/">http://www.kindy.at/{{ childcare.slug }}/dashboard/</a>.</p>
+
+    <p>Sincerely,</p>
+    {{ inviter }}
 </body>
 </html>
