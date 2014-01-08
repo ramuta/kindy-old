@@ -15,10 +15,19 @@
 		<div class="col-md-3">
 			{{ field|add_class:'form-control' }}
 		</div>
+		{% if field.name != 'content' %}
 		<div class="col-md-3">
 			<p class="form-control-static">{{ field.errors.as_text }}</p>
 		</div>
+		{% endif %}
 	</div>
+	{% if field.name == 'content' and field.errors %}
+	<div class="form-group">
+		<div class="col-md-3 col-md-offset-1">
+			<p>{{ field.errors.as_text }}</p>
+		</div>
+	</div>
+	{% endif %}
 	{% endfor %}
 	<div class="form-group">
 		<div class="col-md-2 col-md-offset-1">

@@ -121,7 +121,7 @@ hr { border-color:#ddd; }
 
 #content .padding {
 	margin-top:50px;
-	padding:50px 30px;
+	padding:50px 30px 30px;
 }
 
 #content .nav {
@@ -157,7 +157,7 @@ hr { border-color:#ddd; }
 
 #content .info-box {
 	display:table;
-	margin-bottom:20px;
+	margin:15px 0;
 }
 
 #content .info-box a {
