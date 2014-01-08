@@ -21,7 +21,7 @@
 			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
             {% if childcare %}
                 <span class="name">{{ childcare }}</span> |
-                <a href="/{{ childcare.slug }}/" target="_blank"><span class="glyphicon glyphicon-globe"></span> Go to website</a>
+                <a href="/{{ childcare.slug }}/" target="_blank">Go to website</a>
             {% endif %}
 			<p class="pull-right">
 			{% if user.is_authenticated %}
