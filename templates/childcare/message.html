@@ -1,0 +1,9 @@
+{% extends 'childcare/childcare_base.html' %}
+
+{% block title %}{{ childcare.name }}Message to user{% endblock title %}
+
+{% block content-title %}{{ title }}{% endblock %}
+
+{% block content %}
+    {{ message }}
+{% endblock %}

@@ -3,7 +3,7 @@ from operator import attrgetter
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
 from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm, ChildcareUpdateForm, InviteUsersForm
@@ -355,6 +355,8 @@ def managers_list(request, childcare_slug):
     paginator = Paginator(all_managers_list, 10)
     page = request.GET.get('page')
 
+    manager_num = User.objects.filter(childcare_managers__id=childcare.pk).count()
+
     try:
         managers_list = paginator.page(page)
     except PageNotAnInteger:
@@ -421,7 +423,7 @@ def invite_users(request, childcare_slug):
                 user = User.objects.get(email=email)
                 add_current_user(user=user, role=role, childcare=childcare, inviter=inviter)
                 log.info(log_prefix+'User added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            except:  # if user doesn't exist, create them and add to the role
+            except user.DoesNotExist:  # if user doesn't exist, create them and add to the role
                 invite_new_kindy_user(email=email,
                                       first_name=first_name,
                                       last_name=last_name,
@@ -451,7 +453,13 @@ def remove_manager(request, childcare_slug, username):
         childcare.managers.remove(user)
         log.info(log_prefix+'Manager removed (childcare: %s, user: %s)' % (childcare.name, request.user))
         return HttpResponseRedirect('/%s/dashboard/managers/' % childcare_slug)
-    return render(request, 'childcare/user_remove.html', {'childcare': childcare, 'user': user, 'role': 'manager'})
+    manager_num = User.objects.filter(childcare_managers__id=childcare.pk).count()
+    if manager_num == 1:
+        title = 'Sorry'
+        message = 'You cannot remove yourself as a manager, because there is no other managers left in this childcare.'
+        return render(request, 'childcare/message.html', {'childcare': childcare, 'title': title, 'message': message})
+    else:
+        return render(request, 'childcare/user_remove.html', {'childcare': childcare, 'user': user, 'role': 'manager'})
 
 
 @login_required()
