@@ -111,7 +111,7 @@ def website_page_create(request, childcare_slug):
             obj.save
             form.save(commit=True)
             log.info(log_prefix+'Page created (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, obj.pk))
+            return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
     else:
         form = WebsitePageCreateForm()
     return render(request, 'childcare/website_page_create.html', {'form': form, 'childcare': childcare})

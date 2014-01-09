@@ -5,6 +5,7 @@
 {% block content-title %}Add news files{% endblock %}
 
 {% block content %}
+    <p>File has to be <strong>smaller than {{ file_size }} MB</strong>. You can upload up to 5 files at once.</p>
     <form method="post">
     {% csrf_token %}
     {{ formset.management_form }}

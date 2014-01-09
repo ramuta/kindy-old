@@ -21,6 +21,11 @@
           {{ profile.user.email }}<br>
         {% endif %}
         </p>
+        <p>
+        Date of birth: {{ profile.date_of_birth }}
+        <br>
+        {{ profile.current_town }}, {{ profile.current_country }}
+        </p>
       {% endblock %}
     {% endblock %}
   </div>
