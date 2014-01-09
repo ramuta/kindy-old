@@ -4,7 +4,7 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="/{{ childcare.slug }}/dashboard/users/invite/"><span class="glyphicon glyphicon-plus"></span> Invite users</a></li>
+        <li><a href="/{{ childcare.slug }}/dashboard/users/invite/"><span class="glyphicon glyphicon-plus"></span> Invite employee</a></li>
     {% endif %}
 {% endblock %}
 
@@ -58,6 +58,6 @@
             </span>
         </div>
     {% else %}
-        <p>No employees added yet.</p>
+        <p>No employees added yet. <a href="/{{ childcare.slug }}/dashboard/users/invite/" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite employee</a></p>
     {% endif %}
 {% endblock content %}
