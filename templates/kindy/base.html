@@ -57,9 +57,13 @@
 		<script type="text/javascript" src="{{ STATIC_URL }}js/functions.js"></script>
 		<script type="text/javascript">
 			$(function() {
-				$('#sidebar ul.nav a').each(function() {
-					if('{{ request.path }}'.match($(this).attr('href'))) $(this).addClass('active');
-				});
+				if('{{ request.path }}' != '/') {
+					$('#sidebar ul.nav a').each(function() {
+						if('{{ request.path }}'.match($(this).attr('href')) && $(this).attr('href') != '/') $(this).addClass('active');
+					});
+				} else {
+					$('#sidebar ul.nav a[href="/"]').addClass('active');
+				}
 			});
 		</script>
 		{% block footer %}{% endblock %}
