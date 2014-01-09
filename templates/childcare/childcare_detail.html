@@ -4,9 +4,9 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="classroom/create/"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
-        <li><a href="update/"><span class="glyphicon glyphicon-edit"></span> Update childcare</a></li>
-        <li><a href="users/invite/"><span class="glyphicon glyphicon-plus"></span> Invite users</a></li>
+        <li><a href="{% url 'childcare:classroom_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
+        <li><a href="{% url 'childcare:childcare_update' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-edit"></span> Update childcare</a></li>
+        <li><a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Invite users</a></li>
         <li class="pull-right"><a href="/{{ childcare.slug }}/" target="_blank"><span class="glyphicon glyphicon-globe"></span> Go to website</a></li>
     {% endif %}
 {% endblock %}
@@ -16,7 +16,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-4 info-box">
-            <a href="classroom/"><span class="num">{{ classroom_num }}</span><br>
+            <a href="{% url 'childcare:classroom_list' childcare_slug=childcare.slug %}"><span class="num">{{ classroom_num }}</span><br>
                 {% if classroom_num == 1 %}
                     CLASSROOM
                 {% else %}
@@ -25,7 +25,7 @@
             </a>
         </div>
         <div class="col-md-4 info-box">
-            <a href="diary/"><span class="num">{{ diary_num }}</span><br>
+            <a href="{% url 'childcare:diary_list' childcare_slug=childcare.slug %}"><span class="num">{{ diary_num }}</span><br>
                 {% if diary_num == 1 %}
                     DIARY
                 {% else %}
@@ -34,10 +34,10 @@
             </a>
         </div>
         <div class="col-md-4 info-box">
-            <a href="newsboard/"><span class="num">{{ news_num }}</span><br>NEWS</a>
+            <a href="{% url 'childcare:news_list' childcare_slug=childcare.slug %}"><span class="num">{{ news_num }}</span><br>NEWS</a>
         </div>
         <div class="col-md-4 info-box">
-            <a href="managers/"><span class="num">{{ manager_num }}</span><br>
+            <a href="{% url 'childcare:manager_list' childcare_slug=childcare.slug %}"><span class="num">{{ manager_num }}</span><br>
                 {% if manager_num == 1 %}
                     MANAGER
                 {% else %}
@@ -46,7 +46,7 @@
             </a>
         </div>
         <div class="col-md-4 info-box">
-            <a href="employees/"><span class="num">{{ employee_num }}</span><br>
+            <a href="{% url 'childcare:employee_list' childcare_slug=childcare.slug %}"><span class="num">{{ employee_num }}</span><br>
                 {% if employee_num == 1 %}
                     EMPLOYEE
                 {% else %}
@@ -55,7 +55,7 @@
             </a>
         </div>
         <div class="col-md-4 info-box">
-            <a href="parents/"><span class="num">{{ parent_num }}</span><br>
+            <a href="{% url 'childcare:parent_list' childcare_slug=childcare.slug %}"><span class="num">{{ parent_num }}</span><br>
                 {% if parent_num == 1 %}
                     PARENT
                 {% else %}
@@ -64,7 +64,7 @@
             </a>
         </div>
         <div class="col-md-4 info-box">
-            <a href="pages/"><span class="num">{{ pages_num }}</span><br>
+            <a href="{% url 'childcare:page_list' childcare_slug=childcare.slug %}"><span class="num">{{ pages_num }}</span><br>
                 {% if pages_num == 1 %}
                     PAGE
                 {% else %}

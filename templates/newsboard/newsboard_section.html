@@ -7,7 +7,7 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/create/"><span class="glyphicon glyphicon-plus"></span> Add newsboard post</a></li>
+        <li><a href="{% url 'childcare:news_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add newsboard post</a></li>
     {% endif %}
 {% endblock %}
 
@@ -27,17 +27,17 @@
         {% for news in news_list %}
             <tr>
                 <td>
-                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}">{{ news }}</a>
+                    <a href="{% url 'childcare:news_detail' childcare_slug=childcare.slug news_id=news.pk %}">{{ news }}</a>
                 </td>
                 <td>
                     {{ news.created }}
                 </td>
                 {% if user in childcare.employees.all or user in childcare.managers.all %}
                 <td>
-                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
-                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add files</a>
-                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/update/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
-                    <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/delete/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    <a href="{% url 'childcare:news_add_images' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
+                    <a href="{% url 'childcare:news_add_files' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add files</a>
+                    <a href="{% url 'childcare:news_update' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                    <a href="{% url 'childcare:news_delete' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                 </td>
                 <td>
                     {% if news.public %}
@@ -72,7 +72,7 @@
     {% else %}
         <p>No news yet.
         {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <a href="/{{ childcare.slug }}/dashboard/newsboard/create/">Write your first news.</a>
+            <a href="{% url 'childcare:news_create' childcare_slug=childcare.slug %}">Write your first news.</a>
         {% endif %}</p>
     {% endif %}
 {% endblock content %}

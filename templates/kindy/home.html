@@ -21,7 +21,7 @@
         <div class="row">
             {% for childcare in all_childcare_list %}
             <div class="col-md-4 info-box">
-                <a href="/{{ childcare.slug }}/dashboard/" class="static">{{ childcare }}</a>
+                <a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}" class="static">{{ childcare }}</a>
             </div>
             {% endfor %}
             <div class="col-md-4 info-box" style="opacity:0.9;">

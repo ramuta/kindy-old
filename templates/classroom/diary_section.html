@@ -4,7 +4,7 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="/{{ childcare.slug }}/dashboard/diary/create/"><span class="glyphicon glyphicon-plus"></span> Add a diary</a></li>
+        <li><a href="{% url 'childcare:diary_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add a diary</a></li>
     {% endif %}
 {% endblock %}
 
@@ -23,16 +23,16 @@
         {% for diary in diary_list %}
             <tr>
                 <td>
-                    <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}">{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</a>
+                    <a href="{% url 'childcare:diary_detail' childcare_slug=childcare.slug diary_id=diary.pk %}">{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</a>
                 </td>
                 <td>
                     {{ diary.classroom }}
                 </td>
                 {% if user in childcare.employees.all or user in childcare.managers.all %}
                 <td>
-                    <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/images/" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
-                    <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/update/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
-                    <a href="/{{ childcare.slug }}/dashboard/diary/{{ diary.pk }}/delete/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    <a href="{% url 'childcare:diary_add_images' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
+                    <a href="{% url 'childcare:diary_update' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                    <a href="{% url 'childcare:diary_delete' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                 </td>
                 {% endif %}
             </tr>
@@ -58,7 +58,7 @@
     {% else %}
         <p>No diaries yet.
         {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <a href="/{{ childcare.slug }}/dashboard/diary/create/">Write your first e-diary!</a>
+            <a href="{% url 'childcare:diary_create' childcare_slug=childcare.slug %}">Write your first e-diary!</a>
         {% endif %}</p>
     {% endif %}
 {% endblock content %}

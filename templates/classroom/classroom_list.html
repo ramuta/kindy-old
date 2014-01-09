@@ -4,7 +4,7 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="create/"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
+        <li><a href="{% url 'childcare:classroom_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
     {% endif %}
 {% endblock %}
 
@@ -30,8 +30,8 @@
                 </td>
                 {% if user in childcare.employees.all or user in childcare.managers.all %}
                 <td>
-                    <a href="{{ classroom.pk }}/update/" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
-                    <a href="{{ classroom.pk }}/delete/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    <a href="{% url 'childcare:classroom_update' childcare_slug=childcare.slug classroom_id=classroom.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                    <a href="{% url 'childcare:classroom_delete' childcare_slug=childcare.slug classroom_id=classroom.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                 </td>
                 {% endif %}
             </tr>
@@ -58,7 +58,7 @@
         <p>No classrooms.
         {% if user in childcare.employees.all or user in childcare.managers.all %}
             You need at least one to publish e-diaries.
-            <a href="create/">Add a classroom.</a>
+            <a href="{% url 'childcare:classroom_create' childcare_slug=childcare.slug %}">Add a classroom.</a>
         {% endif %}</p>
     {% endif %}
 {% endblock content %}

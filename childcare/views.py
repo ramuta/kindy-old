@@ -3,8 +3,9 @@ from operator import attrgetter
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, render_to_response
 from guardian.decorators import permission_required_or_403
 from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm, ChildcareUpdateForm, InviteUsersForm
 from childcare.models import Childcare, Theme
@@ -87,8 +88,8 @@ def childcare(request, childcare_slug):
 
     classroom_list = Classroom.objects.filter(childcare=childcare)
     diary_num = Diary.objects.filter(classroom__in=classroom_list).count()
-
     news_num = News.objects.filter(childcare=childcare).count()
+
     return render(request, 'childcare/childcare_detail.html', {'childcare': childcare,
                                                                'classroom_num': classroom_num,
                                                                'manager_num': manager_num,
