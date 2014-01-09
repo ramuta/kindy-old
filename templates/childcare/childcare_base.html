@@ -5,42 +5,42 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-info-sign"></span> Childcare info</a>
+	<li><a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-info-sign"></span>Childcare info</a>
 		{% if "/"|add:childcare.slug|add:"/dashboard/childcare/" in request.path %}
 		<ul>
-			<li><a href="{% url 'childcare:childcare_update' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-edit"></span> Update childcare</a></li>
+			<li><a href="{% url 'childcare:childcare_update' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-edit"></span>Update childcare</a></li>
 		</ul>
 		{% endif %}
 	</li>
-	<li><a href="{% url 'childcare:classroom_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-eye-open"></span> Classrooms</a>
+	<li><a href="{% url 'childcare:classroom_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-eye-open"></span>Classrooms</a>
 		{% if "/"|add:childcare.slug|add:"/dashboard/classroom/" in request.path %}
 		<ul>
-			<li><a href="{% url 'childcare:classroom_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
+			<li><a href="{% url 'childcare:classroom_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span>Add classroom</a></li>
 		</ul>
 		{% endif %}
 	</li>
-	<li><a href="{% url 'childcare:diary_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-list"></span> Diary list</a>
+	<li><a href="{% url 'childcare:diary_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-list"></span>Diary list</a>
 		{% if "/"|add:childcare.slug|add:"/dashboard/diary/" in request.path %}
 		<ul>
-			<li><a href="{% url 'childcare:diary_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add a diary</a></li>
+			<li><a href="{% url 'childcare:diary_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span>Add a diary</a></li>
 		</ul>
 		{% endif %}
 	</li>
-	<li><a href="{% url 'childcare:news_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-list-alt"></span> Newsboard</a>
+	<li><a href="{% url 'childcare:news_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-list-alt"></span>Newsboard</a>
 		{% if "/"|add:childcare.slug|add:"/dashboard/newsboard/" in request.path %}
 		<ul>
-			<li><a href="{% url 'childcare:news_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add newsboard post</a></li>
+			<li><a href="{% url 'childcare:news_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span>Add newsboard post</a></li>
 		</ul>
 		{% endif %}
 	</li>
-	<li><a href="{% url 'childcare:page_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-globe"></span> Website</a>
+	<li><a href="{% url 'childcare:page_list' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-globe"></span>Website</a>
 		{% if "/"|add:childcare.slug|add:"/dashboard/website/" in request.path %}
 		<ul>
-			<li><a href="{% url 'childcare:page_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add page</a></li>
-			<li><a href="{% url 'childcare:choose_theme' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-th"></span> Choose theme</a></li>
-			<li><a href="/{{ childcare.slug }}/" target="_blank"><span class="glyphicon glyphicon-globe"></span> Go to website</a></li>
+			<li><a href="{% url 'childcare:page_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span>Add page</a></li>
+			<li><a href="{% url 'childcare:choose_theme' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-th"></span>Choose theme</a></li>
+			<li><a href="/{{ childcare.slug }}/" class="external" target="_blank"><span class="glyphicon glyphicon-globe"></span>Go to website</a></li>
 		</ul>
 		{% endif %}
 	</li>
-	<li><a href="{% url 'childcare:gallery' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-picture"></span> Gallery</a></li>
+	<li><a href="{% url 'childcare:gallery' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-picture"></span>Gallery</a></li>
 {% endblock %}

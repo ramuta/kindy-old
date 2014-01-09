@@ -116,6 +116,8 @@ hr { border-color:#ddd; }
 	background:none;
 	text-decoration:underline;
 }
+
+#sidebar ul.nav li ul li a.active.external { text-decoration:none; }
 /* END SIDEBAR */
 
 /* CONTENT */

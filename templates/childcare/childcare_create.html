@@ -14,60 +14,42 @@
 {% block content-title %}Create a childcare site{% endblock %}
 
 {% block content %}
-    <form method="post" class="form-horizontal">
-        {% csrf_token %}
-        <div class="form-group">
-            <label class="col-md-1 control-label">Name</label>
-            <div class="col-md-4">
-                <input type="text" name="name" class="name form-control">
+<form method="post" class="form-horizontal">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+        <label class="col-md-2 control-label">{{ field.label }}</label>
+        <div class="col-md-4">
+            {% if field.name == 'slug' %}
+            <div class="input-group">
+                <span class="input-group-addon">kindy.at/</span>
+                    {{ field|add_class:'form-control slug'|attr:'readonly' }}
+            {% endif %}
+
+            {% if field.name != 'slug' %}{{ field|add_class:'form-control' }}{% endif %}
+
+            {% if field.name == 'slug' %}
+                <span class="input-group-addon"><a class="glyphicon glyphicon-pencil edit" style="text-decoration:none;" href="#edit"></a></span>
             </div>
-            <div class="col-md-3">
-                <p class="form-control-static">{{ form.name.errors.as_text }}</p>
-            </div>
+            {% endif %}
         </div>
-        <div class="form-group">
-            <label class="col-md-1 control-label">URL</label>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">kindy.at/</span>
-                    <input type="text" name="slug" class="slug form-control" readonly>
-                    <span class="input-group-addon"><a href="#edit" class="glyphicon glyphicon-pencil edit" style="text-decoration:none;"></a></span>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <p class="form-control-static">{{ form.slug.errors.as_text }}</p>
-            </div>
+        <div class="col-md-4">
+            <p class="form-control-static">{{ field.errors.as_text }}</p>
         </div>
-        <div class="form-group">
-            <label class="col-md-1 control-label">Address</label>
-            <div class="col-md-4">
-                <input type="text" name="street_address" class="form-control">
-            </div>
-            <div class="col-md-3">
-                <p class="form-control-static">{{ form.street_address.errors.as_text }}</p>
-            </div>
+    </div>
+    {% endfor %}
+    <div class="form-group">
+        <div class="col-md-2 col-md-offset-2">
+            <input type="submit" value="Create" class="btn btn-default">
         </div>
-        <div class="form-group">
-            <label class="col-md-1 control-label">City</label>
-            <div class="col-md-4">
-                <input type="text" name="city" class="form-control">
-            </div>
-            <div class="col-md-3">
-                <p class="form-control-static">{{ form.city.errors.as_text }}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-2 col-md-offset-1">
-                <input type="submit" class="btn btn-default" value="Create">
-            </div>
-        </div>
-    </form>
+    </div>
+</form>
 {% endblock content %}
 
 {% block footer %}
     <script type="text/javascript">
         $(function() {
-            $('input.name').keyup(function() {
+            $('input[name="name"]').keyup(function() {
                 var slug = $(this).val().toLowerCase();
 
                 slug = slug.replace(/\ /g, '-');

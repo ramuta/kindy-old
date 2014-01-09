@@ -1,17 +1,9 @@
 {% extends 'childcare/childcare_base.html' %}
-{% load thumbnail %}
 
 {% block title %}Image gallery{% endblock title %}
 
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
-{% endblock %}
-
-{% block breadcrumb %}
-    <li>Gallery</li>
-{% endblock %}
-
-{% block action_header %}
 {% endblock %}
 
 {% block content-title %}Image gallery{% endblock %}
@@ -20,11 +12,10 @@
     {% if image_list %}
         {% for image in image_list %}
         <div class="pull-left">
-            <a href="{{ image.image.url }}" class="fancybox" rel="gallery-1" title=""><img src="{{ image.thumbnail }}"></a>
+            <a href="{{ image.image.url }}" class="fancybox" rel="gallery"><img src="{{ image.thumbnail }}"></a>
         </div>
         {% endfor %}
         <div class="clearfix"></div>
-
         <div class="pagination">
             <span class="step-links">
                 {% if image_list.has_previous %}
@@ -43,7 +34,7 @@
             </span>
         </div>
     {% else %}
-        <p>No photos were taken yet.</p>
+        <p>No photos were uploaded yet. Add some to <a href="{% url 'childcare:diary_list' childcare_slug=childcare.slug %}">diary</a> or <a href="{% url 'childcare:news_list' childcare_slug=childcare.slug %}">news</a>.</p>
     {% endif %}
 {% endblock content %}
 
