@@ -198,7 +198,7 @@ def add_page_files(request, childcare_slug, page_id):
                     obj.uploader = request.user
                     obj.save()
                     form_file.save(commit=True)
-                    return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
+            return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         formset = FileFormSet()
     return render(request, 'childcare/add_page_file.html', {'formset': formset,
@@ -276,77 +276,6 @@ def gallery_section(request, childcare_slug):
                                                               'image_list': image_list})
 
 
-'''
-@login_required()
-@permission_required_or_403('childcare_admin', (Childcare, 'slug', 'childcare_slug'))
-def managers_add_remove(request, childcare_slug):
-    childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    if request.method == 'POST':
-        form = ManagersAddForm(request.POST, instance=childcare)
-        if form.is_valid():
-            old_managers = list(childcare.managers.all())  # have to convert to list to preserve values in it
-            new_managers = form.cleaned_data['managers']
-            form.save(commit=True)
-            log.info(log_prefix+'Managers added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
-            group = Group.objects.get(name='Childcare %s: Manager' % childcare.pk)
-            for user in new_managers:
-                user.groups.add(group)
-            for old_user in old_managers:
-                if old_user not in new_managers:
-                    old_user.groups.remove(group)
-            return HttpResponseRedirect('/%s/dashboard/managers/' % childcare.slug)
-    else:
-        form = ManagersAddForm(instance=childcare)
-    return render(request, 'childcare/managers_add.html', {'form': form, 'childcare': childcare})
-
-
-@login_required()
-@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
-def employees_add_remove(request, childcare_slug):
-    childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    if request.method == 'POST':
-        form = EmployeesAddForm(request.POST, instance=childcare)
-        if form.is_valid():
-            old_employees = list(childcare.employees.all())  # have to convert to list to preserve values in it
-            new_employees = form.cleaned_data['employees']
-            form.save(commit=True)
-            group = Group.objects.get(name='Childcare %s: Employee' % childcare.pk)
-            log.info(log_prefix+'Employees added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
-            for user in new_employees:
-                user.groups.add(group)
-            for old_user in old_employees:
-                if old_user not in new_employees:
-                    old_user.groups.remove(group)
-            return HttpResponseRedirect('/%s/dashboard/employees/' % childcare.slug)
-    else:
-        form = EmployeesAddForm(instance=childcare)
-    return render(request, 'childcare/employees_add.html', {'form': form, 'childcare': childcare})
-
-
-@login_required()
-@permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
-def parents_add_remove(request, childcare_slug):
-    childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    if request.method == 'POST':
-        form = ParentsAddForm(request.POST, instance=childcare)
-        if form.is_valid():
-            old_parents = list(childcare.parents.all())  # have to convert to list to preserve values in it
-            new_parents = form.cleaned_data['parents']
-            form.save(commit=True)
-            group = Group.objects.get(name='Childcare %s: Parent' % childcare.pk)
-            log.info(log_prefix+'Parents added/removed (childcare: %s, user: %s)' % (childcare.name, request.user))
-            for user in new_parents:
-                user.groups.add(group)
-            for old_user in old_parents:
-                if old_user not in new_parents:
-                    old_user.groups.remove(group)
-            return HttpResponseRedirect('/%s/dashboard/parents/' % childcare.slug)
-    else:
-        form = ParentsAddForm(instance=childcare)
-    return render(request, 'childcare/parents_add.html', {'form': form, 'childcare': childcare})
-'''
-
-
 @login_required()
 @permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
 def managers_list(request, childcare_slug):
@@ -355,8 +284,6 @@ def managers_list(request, childcare_slug):
 
     paginator = Paginator(all_managers_list, 10)
     page = request.GET.get('page')
-
-    manager_num = User.objects.filter(childcare_managers__id=childcare.pk).count()
 
     try:
         managers_list = paginator.page(page)

@@ -9,17 +9,17 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/"><span class="glyphicon glyphicon-picture"></span> Add images</a></li>
-        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/"><span class="glyphicon glyphicon-cloud-upload"></span> Add files</a></li>
-        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/update/"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
-        <li><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
+        <li><a href="{% url 'childcare:news_add_images' childcare_slug=childcare.slug news_id=news.pk %}"><span class="glyphicon glyphicon-picture"></span> Add images</a></li>
+        <li><a href="{% url 'childcare:news_add_files' childcare_slug=childcare.slug news_id=news.pk %}"><span class="glyphicon glyphicon-cloud-upload"></span> Add files</a></li>
+        <li><a href="{% url 'childcare:news_update' childcare_slug=childcare.slug news_id=news.pk %}"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
+        <li><a href="{% url 'childcare:news_delete' childcare_slug=childcare.slug news_id=news.pk %}"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
     {% endif %}
 {% endblock action %}
 
 {% block content-title %}{{ news }}{% endblock %}
 
 {% block content %}
-    <p>{{ news.author.first_name }} {{ news.author.last_name }} | {{ news.created }}</p>
+    <p><strong>{{ news.author.first_name }} {{ news.author.last_name }} | {{ news.created }}</strong></p>
     <p>{{ news.content|safe }}</p>
 
     {% if news_image_list %}
@@ -31,7 +31,7 @@
                     <a href="{{ image.image.url }}" class="fancybox" rel="gallery" title="{{ news }}"><img src="{{ image.thumbnail }}"></a>
 
                     {% if user in childcare.employees.all or user in childcare.managers.all %}
-                        <p><a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/image/{{ image.pk }}/delete/"><span class="glyphicon glyphicon-remove"></span> Delete</a></p>
+                        <p><a href="{% url 'childcare:news_image_delete' childcare_slug=childcare.slug news_id=news.pk image_id=image.pk %}"><span class="glyphicon glyphicon-remove"></span> Delete</a></p>
                     {% endif %}
                 </div>
             {% endif %}
@@ -40,7 +40,7 @@
         {% if user in childcare.employees.all or user in childcare.managers.all %}
         <hr>
         <p><strong>Gallery</strong></p>
-        No images were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/images/" class="btn btn-xs btn-default">Add images</a>
+        No images were added yet to this news. <a href="{% url 'childcare:news_add_images' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-xs btn-default">Add images</a>
         {% endif %}
     {% endif %}
 
@@ -53,7 +53,7 @@
             {% if file.file %}
                 <li><a href="{{ file.file.url }}">{{ file.description }} ({{ file.file.url }})</a>
                     {% if user in childcare.employees.all or user in childcare.managers.all %}
-                        | <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/file/{{ file.pk }}/delete/">Delete</a></li>
+                        | <a href="{% url 'childcare:news_image_delete' childcare_slug=childcare.slug news_id=news.pk file_id=file.pk %}">Delete</a></li>
                     {% endif %}
                 {% endif %}
         {% endfor %}
@@ -63,7 +63,7 @@
         <div class="clearfix"></div>
         <hr>
         <p><strong>Attachments</strong></p>
-        No attachments were added yet to this news. <a href="/{{ childcare.slug }}/dashboard/newsboard/{{ news.pk }}/files/" class="btn btn-xs btn-default">Add attachments</a>
+        No attachments were added yet to this news. <a href="{% url 'childcare:news_add_files' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-xs btn-default">Add attachments</a>
         {% endif %}
     {% endif %}
 {% endblock content %}
