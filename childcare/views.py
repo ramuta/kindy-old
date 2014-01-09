@@ -68,7 +68,7 @@ def childcare_update(request, childcare_slug):
         if form.is_valid():
             form.save()
             log.info(log_prefix+'Childcare updated (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+            return HttpResponseRedirect(reverse('childcare:childcare_info', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = ChildcareUpdateForm(instance=childcare)
     return render(request, 'childcare/childcare_update.html', {'form': form,
