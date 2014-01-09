@@ -53,7 +53,7 @@ def childcare_create(request):
             classroom = Classroom(name='%s classroom' % childcare, childcare=childcare)
             classroom.save()
             log.info(log_prefix+'Childcare created (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/' % childcare.slug)
+            return HttpResponseRedirect(reverse('childcare:childcare_info', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = ChildcareCreateForm()
     return render(request, 'childcare/childcare_create.html', {'form': form})
@@ -112,7 +112,7 @@ def website_page_create(request, childcare_slug):
             obj.save
             form.save(commit=True)
             log.info(log_prefix+'Page created (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
+            return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = WebsitePageCreateForm()
     return render(request, 'childcare/website_page_create.html', {'form': form, 'childcare': childcare})
@@ -140,7 +140,7 @@ def website_page_update(request, childcare_slug, page_id):
         if form.is_valid():
             form.save()
             log.info(log_prefix+'Page updated (%s: %s, user: %s)' % (childcare.name, page.title, request.user))
-            return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare.slug, page.pk))
+            return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = WebsitePageCreateForm(instance=page)
     return render(request, 'childcare/website_page_update.html', {'form': form,
@@ -156,7 +156,7 @@ def website_page_delete(request, childcare_slug, page_id):
     if request.method == 'POST':
         page.delete()
         log.info(log_prefix+'Page deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
+        return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'childcare/website_page_delete.html', {'childcare': childcare,
                                                                   'page': page})
 
@@ -198,7 +198,7 @@ def add_page_files(request, childcare_slug, page_id):
                     obj.uploader = request.user
                     obj.save()
                     form_file.save(commit=True)
-                    return HttpResponseRedirect('/%s/dashboard/page/%s' % (childcare_slug, page.pk))
+                    return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         formset = FileFormSet()
     return render(request, 'childcare/add_page_file.html', {'formset': formset,
@@ -214,7 +214,7 @@ def page_file_delete(request, childcare_slug, page_id, file_id):
     if request.method == 'POST':
         file.delete()
         log.info(log_prefix+'Page file deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/page/%s/' % (childcare_slug, page.pk))
+        return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'childcare/page_file_delete.html', {'childcare': childcare,
                                                                'file': file})
 
@@ -228,7 +228,7 @@ def website_first_page_edit(request, childcare_slug):
         if form.is_valid():
             form.save()
             log.info(log_prefix+'About edited (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
+            return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = FirstPageForm(instance=childcare)
     return render(request, 'childcare/first_page_edit.html', {'form': form, 'childcare': childcare})
@@ -243,7 +243,7 @@ def website_choose_theme(request, childcare_slug):
         if form.is_valid():
             form.save()
             log.info(log_prefix+'Theme changed (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/pages/' % childcare.slug)
+            return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = ChooseThemeForm(instance=childcare)
     return render(request, 'childcare/website_choose_theme.html', {'form': form, 'childcare': childcare})
@@ -433,11 +433,11 @@ def invite_users(request, childcare_slug):
                                       role=role)
                 log.info(log_prefix+'User invited (childcare: %s, user: %s)' % (childcare.name, request.user))
             if role == 'Parent':
-                return HttpResponseRedirect('/%s/dashboard/parents/' % childcare.slug)
+                return HttpResponseRedirect(reverse('childcare:parent_list', kwargs={'childcare_slug': childcare.slug}))
             elif role == 'Employee':
-                return HttpResponseRedirect('/%s/dashboard/employees' % childcare.slug)
+                return HttpResponseRedirect(reverse('childcare:employee_list', kwargs={'childcare_slug': childcare.slug}))
             elif role == 'Manager':
-                return HttpResponseRedirect('/%s/dashboard/managers' % childcare.slug)
+                return HttpResponseRedirect(reverse('childcare:manager_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = InviteUsersForm(request=request, childcare=childcare)
     return render(request, 'childcare/invite_users.html', {'form': form, 'childcare': childcare})
@@ -453,7 +453,7 @@ def remove_manager(request, childcare_slug, username):
         user.groups.remove(group)
         childcare.managers.remove(user)
         log.info(log_prefix+'Manager removed (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/managers/' % childcare_slug)
+        return HttpResponseRedirect(reverse('childcare:manager_list', kwargs={'childcare_slug': childcare.slug}))
     manager_num = User.objects.filter(childcare_managers__id=childcare.pk).count()
     if manager_num == 1:
         title = 'Sorry'
@@ -473,7 +473,7 @@ def remove_employee(request, childcare_slug, username):
         user.groups.remove(group)
         childcare.employees.remove(user)
         log.info(log_prefix+'Employee removed (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/employees/' % childcare_slug)
+        return HttpResponseRedirect(reverse('childcare:employee_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'childcare/user_remove.html', {'childcare': childcare, 'user': user, 'role': 'employee'})
 
 
@@ -487,5 +487,5 @@ def remove_parent(request, childcare_slug, username):
         user.groups.remove(group)
         childcare.parents.remove(user)
         log.info(log_prefix+'Parent removed (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/parents/' % childcare_slug)
+        return HttpResponseRedirect(reverse('childcare:parent_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'childcare/user_remove.html', {'childcare': childcare, 'user': user, 'role': 'parent'})

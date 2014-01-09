@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
@@ -29,7 +30,8 @@ def childcare_news_create(request, childcare_slug):
             obj.save()
             news = form.save(commit=True)
             log.info(log_prefix+'News created (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+            return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                               'news_id': news.pk}))
     else:
         form = NewsCreateForm()
     return render(request, 'newsboard/childcare_news_create.html', {'form': form, 'childcare': childcare})
@@ -58,7 +60,8 @@ def childcare_news_update(request, childcare_slug, news_id):
         if form.is_valid():
             form.save()
             log.info(log_prefix+'News updated (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+            return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                                 'news_id': news.pk}))
     else:
         form = NewsUpdateForm(instance=news)
     return render(request, 'newsboard/childcare_news_update.html', {'form': form,
@@ -74,7 +77,7 @@ def childcare_news_delete(request, childcare_slug, news_id):
     if request.method == 'POST':
         news.delete()
         log.info(log_prefix+'News deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/newsboard/' % childcare_slug)
+        return HttpResponseRedirect(reverse('childcare:news_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'newsboard/childcare_news_delete.html', {'childcare': childcare,
                                                                     'news': news})
 
@@ -101,7 +104,8 @@ def add_news_images(request, childcare_slug, news_id):
                     thumb_url = utils_generate_thumbnail(object.image)
                     object.thumbnail = thumb_url
                     object.save()
-            return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+            return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                                 'news_id': news.pk}))
     else:
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_image.html', {'formset': formset,
@@ -118,7 +122,8 @@ def news_image_delete(request, childcare_slug, news_id, image_id):
     if request.method == 'POST':
         image.delete()
         log.info(log_prefix+'News image deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/newsboard/%s/' % (childcare_slug, news.pk))
+        return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                             'news_id': news.pk}))
     return render(request, 'newsboard/news_image_delete.html', {'childcare': childcare,
                                                                 'image': image})
 
@@ -141,7 +146,8 @@ def add_news_files(request, childcare_slug, news_id):
                     obj.uploader = request.user
                     obj.save()
                     form_file.save(commit=True)
-                    return HttpResponseRedirect('/%s/dashboard/newsboard/%s' % (childcare_slug, news.pk))
+            return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                                 'news_id': news.pk}))
     else:
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_file.html', {'formset': formset,
@@ -158,7 +164,8 @@ def news_file_delete(request, childcare_slug, news_id, file_id):
     if request.method == 'POST':
         file.delete()
         log.info(log_prefix+'News file deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/newsboard/%s/' % (childcare_slug, news.pk))
+        return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                             'news_id': news.pk}))
     return render(request, 'newsboard/news_file_delete.html', {'childcare': childcare,
                                                                'file': file})
 
