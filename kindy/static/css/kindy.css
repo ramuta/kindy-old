@@ -85,6 +85,7 @@ hr { border-color:#ddd; }
 #sidebar ul.nav li a {
 	color:#fff;
 	display:block;
+	font-size:1.1em;
 	outline:none;
 	padding:20px;
 	padding-left:40px;
@@ -94,7 +95,7 @@ hr { border-color:#ddd; }
 	-webkit-transition:background 0.2s;
 }
 
-#sidebar ul.nav li a span.glyphicon { margin-right:5px; }
+#sidebar ul.nav li a span.glyphicon { margin-right:10px; }
 #sidebar ul.nav li a:hover, #sidebar ul.nav li a.active { background:#445164; }
 #sidebar ul.nav li a:focus { background:none; }
 
@@ -106,6 +107,7 @@ hr { border-color:#ddd; }
 
 #sidebar ul.nav li ul li a {
 	background:none;
+	font-size:1em;
 	font-style:italic;
 }
 

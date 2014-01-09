@@ -11,14 +11,14 @@
 
 {% block sidebar %}
     <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-    <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span> Profile</a>
+    <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span>Profile</a>
     	{% if profile.user == user %}
         <ul>
-            <li><a href="{% url 'userena_profile_edit' user.username %}"><span class="glyphicon glyphicon-edit"></span> Edit details</a></li>
-            <li><a href="{% url 'userena_password_change' user.username %}"><span class="glyphicon glyphicon-lock"></span> Change password</a></li>
-            <li><a href="{% url 'userena_email_change' user.username %}"><span class="glyphicon glyphicon-envelope"></span> Change email</a></li>
+            <li><a href="{% url 'userena_profile_edit' user.username %}"><span class="glyphicon glyphicon-edit"></span>Edit details</a></li>
+            <li><a href="{% url 'userena_password_change' user.username %}"><span class="glyphicon glyphicon-lock"></span>Change password</a></li>
+            <li><a href="{% url 'userena_email_change' user.username %}"><span class="glyphicon glyphicon-envelope"></span>Change email</a></li>
         </ul>
         {% endif %}
     </li>
-    <li><a href="/childcare/create/"><span class="glyphicon glyphicon-plus"></span> Create childcare</a></li>
+    <li><a href="/childcare/create/"><span class="glyphicon glyphicon-plus"></span>Create childcare</a></li>
 {% endblock %}

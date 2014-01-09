@@ -26,6 +26,10 @@
 		<label class="col-md-1 control-label">{{ field.label }}</label>
 		<div class="col-md-3">
 			{{ field|add_class:'form-control' }}
+
+			{% if field.name == 'content' and field.errors %}
+			<p>{{ field.errors.as_text }}</p>
+			{% endif %}
 		</div>
 		{% if field.name != 'content' %}
 		<div class="col-md-3">
@@ -33,13 +37,6 @@
 		</div>
 		{% endif %}
 	</div>
-	{% if field.name == 'content' and field.errors %}
-	<div class="form-group">
-		<div class="col-md-3 col-md-offset-1">
-			<p>{{ field.errors.as_text }}</p>
-		</div>
-	</div>
-	{% endif %}
 	{% endif %}
 	{% endfor %}
 	<div class="form-group">
