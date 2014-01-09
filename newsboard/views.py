@@ -141,7 +141,7 @@ def add_news_files(request, childcare_slug, news_id):
             log.info(log_prefix+'News files added (childcare: %s, user: %s)' % (childcare.name, request.user))
             for form_file in formset:
                 obj = form_file.save(commit=False)
-                if obj.file:  # save only forms with images
+                if obj.file:  # save only forms with files
                     obj.news = news
                     obj.uploader = request.user
                     obj.save()
