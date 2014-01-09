@@ -3,7 +3,6 @@
 {% block sidebar-title %}Dashboard{% endblock %}
 
 {% block sidebar %}
-	<li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
 	<li><a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-info-sign"></span>Childcare info</a>
 		{% if "/"|add:childcare.slug|add:"/dashboard/childcare/" in request.path %}
 		<ul>

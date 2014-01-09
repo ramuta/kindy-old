@@ -19,12 +19,9 @@
 	<body class="{% block body-class %}{% endblock %}">
 		<div id="header">
 			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
-            {% if childcare %}
-            <p class="pull-left">
-                <span class="name">{{ childcare }}</span> |
-                <a href="/{{ childcare.slug }}/" target="_blank">Go to website</a>
-            </p>
-            {% endif %}
+			{% if childcare %}
+			<p class="pull-left"><span class="name">{{ childcare }}</span> | <a href="/{{ childcare.slug }}/" target="_blank">Go to website</a></p>
+			{% endif %}
 			<p class="pull-right">
 			{% if user.is_authenticated %}
 				<span class="glyphicon glyphicon-home"></span> <a href="/">Home</a> |
@@ -38,6 +35,7 @@
 		<div id="sidebar">
 			<p class="name">{% block sidebar-title %}{% endblock %}</p>
 			<ul class="nav">
+				<li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
 				{% block sidebar %}{% endblock %}
 			</ul>
 		</div>
