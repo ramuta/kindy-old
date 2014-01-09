@@ -57,7 +57,9 @@
 		<script type="text/javascript" src="{{ STATIC_URL }}js/functions.js"></script>
 		<script type="text/javascript">
 			$(function() {
-				$('#sidebar ul.nav a[href="{{ request.path }}"]').addClass('active');
+				$('#sidebar ul.nav a').each(function() {
+					if('{{ request.path }}'.match($(this).attr('href'))) $(this).addClass('active');
+				});
 			});
 		</script>
 		{% block footer %}{% endblock %}

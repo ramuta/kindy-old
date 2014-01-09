@@ -1,7 +1,7 @@
 {% extends 'childcare/childcare_base.html' %}
 {% load widget_tweaks %}
 
-{% block title %}{{ classroom }} | Daily diary{% endblock title %}
+{% block title %}Create a diary{% endblock title %}
 
 {% block content-title %}Create a diary{% endblock %}
 
@@ -18,6 +18,10 @@
 			{% else %}
 			{{ field|add_class:'form-control' }}
 			{% endif %}
+
+			{% if field.name == 'content' and field.errors %}
+			<p>{{ field.errors.as_text }}</p>
+			{% endif %}
 		</div>
 		{% if field.name != 'content' %}
 		<div class="col-md-3">
@@ -25,13 +29,6 @@
 		</div>
 		{% endif %}
 	</div>
-	{% if field.name == 'content' and field.errors %}
-	<div class="form-group">
-		<div class="col-md-3 col-md-offset-1">
-			<p>{{ field.errors.as_text }}</p>
-		</div>
-	</div>
-	{% endif %}
 	{% endfor %}
 	<div class="form-group">
 		<div class="col-md-2 col-md-offset-1">
