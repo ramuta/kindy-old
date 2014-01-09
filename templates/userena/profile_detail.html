@@ -2,9 +2,13 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block title %}{% blocktrans with profile.user.username as username %}{{ username }}'s profile.{% endblocktrans %}{% endblock %}
+{% block title %}
+  {% if profile.user.get_full_name %}{{ profile.user.get_full_name }}{% else %}{{ profile.user.username }}{% endif %}'s profile
+{% endblock %}
 
-{% block content-title %}{{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}{% endblock %}
+{% block content-title %}
+  {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}
+{% endblock %}
 
 {% block content %}
   <div id="details">
@@ -24,7 +28,7 @@
         <p>
         Date of birth: {{ profile.date_of_birth }}
         <br>
-        {{ profile.current_town }}, {{ profile.current_country }}
+        Place: {{ profile.current_town }}, {{ profile.current_country }}
         </p>
       {% endblock %}
     {% endblock %}
