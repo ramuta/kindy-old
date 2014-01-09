@@ -5,6 +5,10 @@
 
 {% block title %}{% trans "Edit profile" %}{% endblock %}
 
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/datepicker.css">
+{% endblock %}
+
 {% block content-title %}Edit profile{% endblock %}
 
 {% block content %}
@@ -31,4 +35,15 @@
 		</div>
 	</div>
 </form>
+{% endblock %}
+
+{% block footer %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript">
+		$('input[name="date_of_birth"]').datepicker({
+			format: 'yyyy-mm-dd'
+		}).on('changeDate', function() {
+			$(this).datepicker('hide');
+		});
+	</script>
 {% endblock %}
