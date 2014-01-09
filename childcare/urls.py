@@ -5,7 +5,7 @@ from newsboard import views as newsboard_views
 
 urlpatterns = patterns('',
                        #childcare
-                       url(r'^childcare/info/$', views.childcare, name='childcare_info'),
+                       url(r'^childcare/$', views.childcare, name='childcare_info'),
                        url(r'^childcare/update/$', views.childcare_update, name='childcare_update'),
 
                        #users
@@ -45,7 +45,7 @@ urlpatterns = patterns('',
 
                        # website
                        url(r'^website/page/create/$', views.website_page_create, name='page_create'),
-                       url(r'^website/page/list/$', views.website_pages_list, name='page_list'),
+                       url(r'^website/$', views.website_pages_list, name='page_list'),
                        #url(r'^website/page/(?P<page_id>\d+)/$', views.website_page_detail),
                        url(r'^website/page/(?P<page_id>\d+)/files/$', views.add_page_files, name='page_add_files'),
                        url(r'^website/page/(?P<page_id>\d+)/delete/$', views.website_page_delete, name='page_delete'),
