@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -30,7 +31,7 @@ def classroom_create(request, childcare_slug):
             obj.save()
             form.save(commit=True)
             log.info(log_prefix+'Classroom created (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/classroom/' % childcare_slug)
+            return HttpResponseRedirect(reverse('childcare:classroom_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = ClassroomCreateForm()
     return render(request, 'classroom/classroom_create.html', {'form': form, 'childcare': childcare})
@@ -49,7 +50,7 @@ def diary_create(request, childcare_slug):
                 obj.save()
                 diary = form.save(commit=True)
                 log.info(log_prefix+'Diary created (childcare: %s, user: %s)' % (childcare.name, request.user))
-                return HttpResponseRedirect('/%s/dashboard/diary/%s' % (childcare_slug, diary.pk))
+                return HttpResponseRedirect(reverse('childcare:diary_list', kwargs={'childcare_slug': childcare.slug}))
             except IntegrityError:
                 return render(request, 'classroom/error_diary_already_written.html', {'childcare': childcare})
     else:
@@ -103,7 +104,8 @@ def diary_update(request, childcare_slug, diary_id):
         if form.is_valid():
             form.save()
             log.info(log_prefix+'Diary updated (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
+            return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                                  'diary_id': diary.pk}))
     else:
         form = DiaryUpdateForm(instance=diary)
     return render(request, 'classroom/diary_update.html', {'form': form,
@@ -119,7 +121,8 @@ def diary_delete(request, childcare_slug, diary_id):
     if request.method == 'POST':
         diary.delete()
         log.info(log_prefix+'Diary deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/diary/' % childcare_slug)
+        return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                              'diary_id': diary.pk}))
     return render(request, 'classroom/diary_delete.html', {'childcare': childcare,
                                                            'diary': diary})
 
@@ -147,7 +150,8 @@ def add_diary_images(request, childcare_slug, diary_id):
                     thumb_url = utils_generate_thumbnail(object.image)
                     object.thumbnail = thumb_url
                     object.save()
-            return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
+            return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                                  'diary_id': diary.pk}))
     else:
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,
@@ -164,7 +168,7 @@ def diary_image_delete(request, childcare_slug, diary_id, image_id):
     if request.method == 'POST':
         diary_image.delete()
         log.info(log_prefix+'Diary image deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/diary/%s/' % (childcare_slug, diary.pk))
+        return HttpResponseRedirect(reverse('childcare:diary_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'classroom/diary_image_delete.html', {'childcare': childcare,
                                                                  'image': diary_image})
 
@@ -198,7 +202,7 @@ def classroom_delete(request, childcare_slug, classroom_id):
         classroom.disabled = True
         classroom.save()
         log.info(log_prefix+'Classroom deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect('/%s/dashboard/classroom/' % childcare_slug)
+        return HttpResponseRedirect(reverse('childcare:classroom_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'classroom/classroom_delete.html', {'childcare': childcare,
                                                                'classroom': classroom})
 
@@ -213,7 +217,7 @@ def classroom_update(request, childcare_slug, classroom_id):
         if form.is_valid():
             form.save()
             log.info(log_prefix+'Classroom updated (childcare: %s, user: %s)' % (childcare.name, request.user))
-            return HttpResponseRedirect('/%s/dashboard/classroom/' % childcare_slug)
+            return HttpResponseRedirect(reverse('childcare:classroom_list', kwargs={'childcare_slug': childcare.slug}))
     else:
         form = ClassroomCreateForm(instance=classroom)
     return render(request, 'classroom/classroom_update.html', {'childcare': childcare,
