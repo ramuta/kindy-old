@@ -11,7 +11,7 @@
 
 {% block sidebar %}
     {% if user.username %}
-    <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span>Profile</a>
+    <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span>My profile</a>
     	{% if profile.user == user %}
         <ul>
             <li><a href="{% url 'userena_profile_edit' user.username %}"><span class="glyphicon glyphicon-edit"></span>Edit details</a></li>
