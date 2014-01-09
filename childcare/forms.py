@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField, ValidationError
+from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField, Select, ValidationError
 from userena.forms import SignupForm
 from .models import Childcare
 import autocomplete_light
@@ -54,6 +54,8 @@ class FirstPageForm(ModelForm):
 
 class WebsitePageCreateForm(ModelForm):
     content = CharField(widget=CKEditorWidget(config_name='custom'))
+    CHOICES = (('1', '1',), ('2', '2',), ('3', '3',), ('4', '4',), ('5', '5',), ('6', '6',), ('7', '7',), ('8', '8',), ('9', '9',), ('10', '10',),)
+    order = ChoiceField(widget=Select, choices=CHOICES)
 
     class Meta:
         model = Page
