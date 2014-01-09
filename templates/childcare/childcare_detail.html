@@ -16,6 +16,15 @@
 {% block content %}
     <div class="row">
         <div class="col-md-4 info-box">
+            <a href="classroom/"><span class="num">{{ classroom_num }}</span><br>
+                {% if classroom_num == 1 %}
+                    CLASSROOM
+                {% else %}
+                    CLASSROOMS
+                {% endif %}
+            </a>
+        </div>
+        <div class="col-md-4 info-box">
             <a href="diary/"><span class="num">{{ diary_num }}</span><br>
                 {% if diary_num == 1 %}
                     DIARY
@@ -26,15 +35,6 @@
         </div>
         <div class="col-md-4 info-box">
             <a href="newsboard/"><span class="num">{{ news_num }}</span><br>NEWS</a>
-        </div>
-        <div class="col-md-4 info-box">
-            <a href="classroom/"><span class="num">{{ classroom_num }}</span><br>
-                {% if classroom_num == 1 %}
-                    CLASSROOM
-                {% else %}
-                    CLASSROOMS
-                {% endif %}
-            </a>
         </div>
         <div class="col-md-4 info-box">
             <a href="managers/"><span class="num">{{ manager_num }}</span><br>
