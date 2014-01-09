@@ -6,7 +6,7 @@
 
 {% block content %}
     <p>File has to be <strong>smaller than {{ file_size }} MB</strong>. You can upload up to 5 files at once.</p>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ formset.management_form }}
     <table>

@@ -121,8 +121,7 @@ def diary_delete(request, childcare_slug, diary_id):
     if request.method == 'POST':
         diary.delete()
         log.info(log_prefix+'Diary deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
-                                                                              'diary_id': diary.pk}))
+        return HttpResponseRedirect(reverse('childcare:diary_list', kwargs={'childcare_slug': childcare.slug}))
     return render(request, 'classroom/diary_delete.html', {'childcare': childcare,
                                                            'diary': diary})
 

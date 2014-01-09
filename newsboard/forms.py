@@ -39,9 +39,9 @@ class AddNewsFileForm(ModelForm):
 
     def clean(self):
         cleaned_data = super(AddNewsFileForm, self).clean()
-        file = cleaned_data.get('file')
+        news_file = cleaned_data.get('file')
 
-        if file._size > get_max_size():
+        if news_file._size > get_max_size():
             raise ValidationError('File is too large ( > %s MB )' % get_max_size_in_mb())
 
         return cleaned_data
