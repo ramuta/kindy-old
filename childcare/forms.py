@@ -54,8 +54,6 @@ class FirstPageForm(ModelForm):
 
 class WebsitePageCreateForm(ModelForm):
     content = CharField(widget=CKEditorWidget(config_name='custom'))
-    CHOICES = (('1', '1',), ('2', '2',), ('3', '3',), ('4', '4',), ('5', '5',), ('6', '6',), ('7', '7',), ('8', '8',), ('9', '9',), ('10', '10',),)
-    order = ChoiceField(widget=Select, choices=CHOICES)
 
     class Meta:
         model = Page

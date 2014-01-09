@@ -105,7 +105,7 @@ def childcare(request, childcare_slug):
 def website_page_create(request, childcare_slug):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     if request.method == 'POST':
-        form = WebsitePageCreateForm(request.POST)
+        form = WebsitePageCreateForm(request.POST, instance=childcare)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.childcare = childcare
@@ -114,7 +114,7 @@ def website_page_create(request, childcare_slug):
             log.info(log_prefix+'Page created (childcare: %s, user: %s)' % (childcare.name, request.user))
             return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
-        form = WebsitePageCreateForm()
+        form = WebsitePageCreateForm(instance=childcare)
     return render(request, 'childcare/website_page_create.html', {'form': form, 'childcare': childcare})
 
 
