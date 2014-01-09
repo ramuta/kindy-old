@@ -129,6 +129,7 @@ def add_news_files(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id)
     ImageFormSet = formset_factory(AddNewsFileForm, extra=5)
+    file_size = get_max_size_in_mb()
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
@@ -144,7 +145,8 @@ def add_news_files(request, childcare_slug, news_id):
     else:
         formset = ImageFormSet()
     return render(request, 'newsboard/add_news_file.html', {'formset': formset,
-                                                            'childcare': childcare})
+                                                            'childcare': childcare,
+                                                            'file_size': file_size})
 
 
 @login_required
