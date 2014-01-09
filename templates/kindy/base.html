@@ -20,8 +20,10 @@
 		<div id="header">
 			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
             {% if childcare %}
+            <p class="pull-left">
                 <span class="name">{{ childcare }}</span> |
                 <a href="/{{ childcare.slug }}/" target="_blank">Go to website</a>
+            </p>
             {% endif %}
 			<p class="pull-right">
 			{% if user.is_authenticated %}
