@@ -1,8 +1,6 @@
 {% extends 'kindy/base.html' %}
 
-{% block sidebar-title %}
-	<a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}">Dashboard</a>
-{% endblock %}
+{% block sidebar-title %}Dashboard{% endblock %}
 
 {% block sidebar %}
 	<li><a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-info-sign"></span>Childcare info</a>

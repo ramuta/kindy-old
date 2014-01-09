@@ -3,9 +3,9 @@
 
 {% block sidebar-title %}
 	{% if user.username == profile.user.username %}
-	<a href="/accounts/{{ profile.user.username }}/">Profile</a>
+    Profile
 	{% else %}
-	<a href="/">Home</a>
+    Home
 	{% endif %}
 {% endblock %}
 
