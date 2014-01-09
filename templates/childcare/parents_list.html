@@ -4,7 +4,7 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="/{{ childcare.slug }}/dashboard/users/invite/"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></li>
+        <li><a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></li>
     {% endif %}
 {% endblock %}
 
@@ -34,7 +34,7 @@
                     </td>
                     {% if user in childcare.employees.all or user in childcare.managers.all %}
                     <td>
-                        <a href="/{{ childcare.slug }}/dashboard/parents/{{ parent.username }}/remove/" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                        <a href="{% url 'childcare:parent_remove' childcare_slug=childcare.slug username=parent %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                     </td>
                     {% endif %}
                 </tr>
@@ -58,6 +58,6 @@
             </span>
         </div>
     {% else %}
-        <p>No parents added yet. <a href="/{{ childcare.slug }}/dashboard/users/invite/" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></p>
+        <p>No parents added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></p>
     {% endif %}
 {% endblock content %}

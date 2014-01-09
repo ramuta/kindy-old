@@ -16,6 +16,7 @@ urlpatterns = patterns('',
                        url(r'^childcare/managers/$', views.managers_list, name='manager_list'),
                        url(r'^childcare/employees/$', views.employees_list, name='employee_list'),
                        url(r'^childcare/parents/$', views.parents_list, name='parent_list'),
+                       #url(r'^childcare/users/$', views.users_list, name='user_list'),
 
                        # classroom
                        url(r'^classroom/create/$', classroom_views.classroom_create, name='classroom_create'),
@@ -46,7 +47,6 @@ urlpatterns = patterns('',
                        # website
                        url(r'^website/page/create/$', views.website_page_create, name='page_create'),
                        url(r'^website/$', views.website_pages_list, name='page_list'),
-                       #url(r'^website/page/(?P<page_id>\d+)/$', views.website_page_detail),
                        url(r'^website/page/(?P<page_id>\d+)/files/$', views.add_page_files, name='page_add_files'),
                        url(r'^website/page/(?P<page_id>\d+)/delete/$', views.website_page_delete, name='page_delete'),
                        url(r'^website/page/(?P<page_id>\d+)/update/$', views.website_page_update, name='page_update'),
