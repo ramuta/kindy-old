@@ -2,7 +2,7 @@
 
 {% block title %}Home{% endblock %}
 
-{% block sidebar-title %}<a href="/">Home</a>{% endblock %}
+{% block sidebar-title %}Home{% endblock %}
 
 {% block sidebar %}
     <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
@@ -15,22 +15,16 @@
 {% endblock %}
 
 {% block content %}
-    {% if all_childcare_list %}
-        <div class="row">
+    <div class="row">
+        {% if all_childcare_list %}
             {% for childcare in all_childcare_list %}
             <div class="col-md-4 info-box">
-                <a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}" class="static">{{ childcare }}</a>
+                <a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}" class="static"><span class="glyphicon glyphicon-home"></span><br>{{ childcare }}</a>
             </div>
             {% endfor %}
-            <div class="col-md-4 info-box" style="opacity:0.9;">
-                <a href="/childcare/create/" class="static">Create new childcare</a>
-            </div>
+        {% endif %}
+        <div class="col-md-4 info-box">
+            <a href="/childcare/create/" class="static"><span class="glyphicon glyphicon-plus"></span><br>Create childcare</a>
         </div>
-    {% else %}
-        <div class="row">
-            <div class="col-md-4 info-box">
-                <a href="/childcare/create/" class="static">Create childcare</a>
-            </div>
-        </div>
-    {% endif %}
+    </div>
 {% endblock %}

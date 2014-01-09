@@ -11,6 +11,7 @@
 
 {% block sidebar %}
     <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+    {% if user.username %}
     <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span>Profile</a>
     	{% if profile.user == user %}
         <ul>
@@ -21,4 +22,5 @@
         {% endif %}
     </li>
     <li><a href="/childcare/create/"><span class="glyphicon glyphicon-plus"></span>Create childcare</a></li>
+    {% endif %}
 {% endblock %}
