@@ -35,15 +35,15 @@
                 {% if user in childcare.employees.all or user in childcare.managers.all %}
                 <td>
                     <a href="{% url 'childcare:news_add_images' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
-                    <a href="{% url 'childcare:news_add_files' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add files</a>
+                    <a href="{% url 'childcare:news_add_files' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-cloud-upload"></span> Add files</a>
                     <a href="{% url 'childcare:news_update' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
                     <a href="{% url 'childcare:news_delete' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                 </td>
                 <td>
                     {% if news.public %}
-                        On website
+                        On website.
                     {% else %}
-                        For registered users only
+                        For registered users only.
                     {% endif %}
                 </td>
                 {% endif %}
