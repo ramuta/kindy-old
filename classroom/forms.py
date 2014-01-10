@@ -3,7 +3,6 @@ from django.forms.extras.widgets import SelectDateWidget
 from classroom.models import Classroom, Diary, DiaryImage
 from django.forms import ModelForm, DateField, ModelChoiceField, ValidationError, CharField
 from utils.files_images import get_max_size_in_mb, get_max_size
-from ckeditor.widgets import CKEditorWidget
 
 
 class ClassroomCreateForm(ModelForm):
@@ -22,7 +21,6 @@ class DiaryCreateForm(ModelForm):
         self.fields['classroom'] = ModelChoiceField(queryset=Classroom.objects.filter(childcare__id=self._childcare.pk,
                                                                                       disabled=False))
     date = DateField(widget=SelectDateWidget, initial=datetime.date.today)
-    content = CharField(widget=CKEditorWidget(config_name='custom'))
 
     class Meta:
         model = Diary
@@ -49,8 +47,6 @@ class AddDiaryImageForm(ModelForm):
 
 
 class DiaryUpdateForm(ModelForm):
-    content = CharField(widget=CKEditorWidget())
-
     class Meta:
         model = Diary
         fields = ('content',)

@@ -23,12 +23,6 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('userena.urls')),
     url(r'^activate/(?P<activation_key>\w+)/$', userena_views.activate, {'success_url': '/'}, name='userena_activate'),
 
-    #autocomplete
-    url(r'autocomplete/', include('autocomplete_light.urls')),
-
-    #ckeditor
-    url(r'^ckeditor/', include('ckeditor.urls')),
-
     #childcare
     url(r'^childcare/create/$', childcare_views.childcare_create),
     url(r'^(?P<childcare_slug>[\w\-]+)/dashboard/', include('childcare.urls', namespace="childcare")),

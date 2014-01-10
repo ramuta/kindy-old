@@ -1,11 +1,9 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField, ValidationError
+from django.forms import ModelForm, CharField, EmailField, Form, ChoiceField, ValidationError
 from .models import Childcare
-import autocomplete_light
 from utils.files_images import get_max_size, get_max_size_in_mb
 from utils.slugify import get_forbidden_words_list
 from website.models import Page, PageFile
-from ckeditor.widgets import CKEditorWidget
 
 
 class ChildcareCreateForm(ModelForm):
@@ -41,8 +39,6 @@ class ChildcareUpdateForm(ModelForm):
 
 
 class FirstPageForm(ModelForm):
-    description = CharField(widget=CKEditorWidget(config_name='custom'))
-
     class Meta:
         model = Childcare
         fields = (
@@ -51,8 +47,6 @@ class FirstPageForm(ModelForm):
 
 
 class WebsitePageCreateForm(ModelForm):
-    content = CharField(widget=CKEditorWidget(config_name='custom'))
-
     class Meta:
         model = Page
         fields = ('title',
