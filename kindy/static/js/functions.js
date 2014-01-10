@@ -13,8 +13,8 @@ function texteditor(el) {
 	$(function() {
 		$.getScript('/static/js/texteditor.js', function() {
 			$(el).cleditor({
-				height: '300px',
-				width: '200%',
+				height: '350px',
+				width: '250%',
 				controls: 'bold italic underline style | color removeformat | bullets numbering | alignleft center alignright | undo redo | image link unlink | source',
 				bodyStyle: 'font:normal 14px/1 Ubuntu, Helvetica, Arial, sans-serif; margin:10px;'
 			});
