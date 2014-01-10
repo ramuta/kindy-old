@@ -364,13 +364,14 @@ def invite_users(request, childcare_slug):
                 user = User.objects.get(email=email)
                 add_current_user(user=user, role=role, childcare=childcare, inviter=inviter)
                 log.info(log_prefix+'User added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            except user.DoesNotExist:  # if user doesn't exist, create them and add to the role
-                invite_new_kindy_user(email=email,
-                                      first_name=first_name,
-                                      last_name=last_name,
-                                      inviter=inviter,
-                                      childcare=childcare,
-                                      role=role)
+            except:  # if user doesn't exist, create them and add to the role
+                if user == None:
+                    invite_new_kindy_user(email=email,
+                                          first_name=first_name,
+                                          last_name=last_name,
+                                          inviter=inviter,
+                                          childcare=childcare,
+                                          role=role)
                 log.info(log_prefix+'User invited (childcare: %s, user: %s)' % (childcare.name, request.user))
             if role == 'Parent':
                 return HttpResponseRedirect(reverse('childcare:parent_list', kwargs={'childcare_slug': childcare.slug}))
