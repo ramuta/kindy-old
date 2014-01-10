@@ -4,10 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render, render_to_response
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
-from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, ManagersAddForm, EmployeesAddForm, ParentsAddForm, AddPageFileForm, ChildcareUpdateForm, InviteUsersForm
+from childcare.forms import ChildcareCreateForm, WebsitePageCreateForm, FirstPageForm, ChooseThemeForm, AddPageFileForm, ChildcareUpdateForm, InviteUsersForm
 from childcare.models import Childcare, Theme
 from classroom.models import Classroom, DiaryImage, Diary
 from newsboard.models import News, NewsImage
