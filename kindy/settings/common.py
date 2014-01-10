@@ -130,7 +130,6 @@ INSTALLED_APPS = (
     'guardian',
     'easy_thumbnails',
     'widget_tweaks',
-    'autocomplete_light',
     'localflavor',
     'ckeditor',
     'south',

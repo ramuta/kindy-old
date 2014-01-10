@@ -323,30 +323,6 @@ def parents_list(request, childcare_slug):
                                                            'parents_list': parents_list})
 
 
-
-@login_required()
-@permission_required_or_403('childcare_view', (Childcare, 'slug', 'childcare_slug'))
-def users_list(request, childcare_slug):
-    childcare = get_object_or_404(Childcare, slug=childcare_slug)
-    all_parents_list = childcare.parents.all()
-    all_employees_list = childcare.employees.all()
-    all_managers_list = childcare.managers.all()
-
-    all_users_list = list(chain(all_managers_list, all_employees_list, all_parents_list))
-
-    paginator = Paginator(all_users_list, 10)
-    page = request.GET.get('page')
-
-    try:
-        users_list = paginator.page(page)
-    except PageNotAnInteger:
-        users_list = paginator.page(1)
-    except EmptyPage:
-        users_list = paginator.page(paginator.num_pages)
-    return render(request, 'childcare/users_list.html', {'childcare': childcare,
-                                                         'users_list': users_list})
-
-
 @login_required()
 @permission_required_or_403('childcare_employee', (Childcare, 'slug', 'childcare_slug'))
 def invite_users(request, childcare_slug):

@@ -16,7 +16,6 @@ urlpatterns = patterns('',
                        url(r'^childcare/managers/$', views.managers_list, name='manager_list'),
                        url(r'^childcare/employees/$', views.employees_list, name='employee_list'),
                        url(r'^childcare/parents/$', views.parents_list, name='parent_list'),
-                       #url(r'^childcare/users/$', views.users_list, name='user_list'),
 
                        # classroom
                        url(r'^classroom/create/$', classroom_views.classroom_create, name='classroom_create'),

@@ -1,9 +1,7 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField, Select, ValidationError
-from userena.forms import SignupForm
+from django.forms import ModelForm, ModelMultipleChoiceField, CharField, EmailField, Form, ChoiceField, ValidationError
 from .models import Childcare
 import autocomplete_light
-from utils import autocomplete_light_registry
 from utils.files_images import get_max_size, get_max_size_in_mb
 from utils.slugify import get_forbidden_words_list
 from website.models import Page, PageFile
@@ -67,48 +65,6 @@ class ChooseThemeForm(ModelForm):
         model = Childcare
         fields = (
             'theme',
-        )
-
-
-class ManagersAddForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ManagersAddForm, self).__init__(*args, **kwargs)
-        self.fields['managers'] = ModelMultipleChoiceField(
-            queryset=User.objects.all(),
-            widget=autocomplete_light.MultipleChoiceWidget('UserAutocomplete'))
-
-    class Meta:
-        model = Childcare
-        fields = (
-            'managers',
-        )
-
-
-class EmployeesAddForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(EmployeesAddForm, self).__init__(*args, **kwargs)
-        self.fields['employees'] = ModelMultipleChoiceField(
-            queryset=User.objects.all(),
-            widget=autocomplete_light.MultipleChoiceWidget('UserAutocomplete'))
-
-    class Meta:
-        model = Childcare
-        fields = (
-            'employees',
-        )
-
-
-class ParentsAddForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ParentsAddForm, self).__init__(*args, **kwargs)
-        self.fields['parents'] = ModelMultipleChoiceField(
-            queryset=User.objects.all(),
-            widget=autocomplete_light.MultipleChoiceWidget('UserAutocomplete'))
-
-    class Meta:
-        model = Childcare
-        fields = (
-            'parents',
         )
 
 
