@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block sidebar %}
+    <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
     {% if user.username %}
     <li><a href="/accounts/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span>My profile</a>
     	{% if profile.user == user %}
