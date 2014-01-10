@@ -3,6 +3,10 @@
 
 {% block title %}Update newsboard post{% endblock title %}
 
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="/static/css/texteditor.css">
+{% endblock %}
+
 {% block content-title %}Update newsboard post {{ news }}{% endblock %}
 
 {% block content %}
@@ -48,4 +52,10 @@
 		</div>
 	</div>
 </form>
+{% endblock %}
+
+{% block footer %}
+	<script type="text/javascript">
+		texteditor('#id_content');
+	</script>
 {% endblock %}

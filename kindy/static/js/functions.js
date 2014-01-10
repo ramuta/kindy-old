@@ -9,6 +9,19 @@ function gallery(el) {
 	});
 }
 
+function texteditor(el) {
+	$(function() {
+		$.getScript('/static/js/texteditor.js', function() {
+			$(el).cleditor({
+				height: '300px',
+				width: '200%',
+				controls: 'bold italic underline style | color removeformat | bullets numbering | alignleft center alignright | undo redo | image link unlink | source',
+				bodyStyle: 'font:normal 14px/1 Ubuntu, Helvetica, Arial, sans-serif; margin:10px;'
+			});
+		});
+	});
+}
+
 $(function() {
 	$('form').submit(function() {
 		$(this).find('input[type="submit"]').val('Loading...').prop('disabled', true);

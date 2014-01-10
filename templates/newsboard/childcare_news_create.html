@@ -1,12 +1,15 @@
 {% extends 'childcare/childcare_base.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Create newsboard post{% endblock title %}
+{% block title %}Create newsboard post{% endblock %}
+
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="/static/css/texteditor.css">
+{% endblock %}
 
 {% block content-title %}Create newsboard post{% endblock %}
 
 {% block content %}
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
 <form method="post" class="form-horizontal">
 	{% csrf_token %}
 	{% for field in form %}
@@ -45,4 +48,10 @@
 		</div>
 	</div>
 </form>
+{% endblock %}
+
+{% block footer %}
+	<script type="text/javascript">
+		texteditor('#id_content');
+	</script>
 {% endblock %}

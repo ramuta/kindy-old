@@ -13,6 +13,13 @@
 }
 /* END CUSTOM FONTS */
 
+/* CLASSES */
+.cleditorMain {
+	border-color:#ccc!important;
+	border-radius:4px;
+}
+/* END CLASSES */
+
 /* MAIN DEFINITIONS */
 html, body { height:100%; }
 

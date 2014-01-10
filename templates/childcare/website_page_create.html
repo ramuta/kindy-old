@@ -3,10 +3,13 @@
 
 {% block title %}Create a website page{% endblock title %}
 
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="/static/css/texteditor.css">
+{% endblock %}
+
 {% block content-title %}Create a website page{% endblock %}
 
 {% block content %}
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
 <form method="post" class="form-horizontal">
 	{% csrf_token %}
 	{% for field in form %}
@@ -32,3 +35,9 @@
 	</div>
 </form>
 {% endblock content %}
+
+{% block footer %}
+	<script type="text/javascript">
+		texteditor('#id_content');
+	</script>
+{% endblock %}
