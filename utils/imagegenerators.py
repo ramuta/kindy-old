@@ -31,5 +31,4 @@ def utils_generate_thumbnail(object):
     thumbnailer.generate = True  # so a not generate a thumb if sthg went wrong
     thumbnail_options = {'crop': True, 'size': (100, 100), 'upscale': True}
     thumbnail = thumbnailer.get_thumbnail(thumbnail_options)
-    object.thumbnail = thumbnail.url
-    object.save()
+    return thumbnail.url
