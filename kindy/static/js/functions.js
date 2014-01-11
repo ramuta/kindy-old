@@ -11,7 +11,7 @@ function gallery(el) {
 
 function texteditor(el) {
 	$(function() {
-		$.getScript('/static/js/texteditor.js', function() {
+		$.getScript('http://getkindy.s3.amazonaws.com/js/texteditor.js', function() {
 			$(el).cleditor({
 				height: '350px',
 				width: '250%',
