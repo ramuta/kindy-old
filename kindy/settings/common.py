@@ -135,6 +135,10 @@ INSTALLED_APPS = (
     'storages',
     'boto',
     'logentries',
+    'celery',
+    'redis',
+    'billiard',
+    'kombu',
 
     'accounts',
     'childcare',

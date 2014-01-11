@@ -1,4 +1,3 @@
-import autocomplete_light
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -7,7 +6,6 @@ from django.conf import settings
 from utils.deployment import is_local_env
 from userena import views as userena_views
 
-autocomplete_light.autodiscover()
 admin.autodiscover()
 
 urlpatterns = patterns('',

@@ -9,6 +9,8 @@ from childcare.models import Childcare
 from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm
 from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
+from utils.background_tasks import scale_worker
+from utils.deployment import is_local_env
 from utils.files_images import get_max_size_in_mb
 from utils.imagegenerators import utils_generate_thumbnail
 
@@ -137,6 +139,9 @@ def add_diary_images(request, childcare_slug, diary_id):
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
             log.info(log_prefix+'Diary images added (childcare: %s, user: %s)' % (childcare.name, request.user))
+            # run worker (scale to 1)
+            if not is_local_env():
+                scale_worker(1)
             for form_image in formset:
                 obj = form_image.save(commit=False)
                 if obj.image:  # save only forms with images
@@ -145,10 +150,12 @@ def add_diary_images(request, childcare_slug, diary_id):
                     obj.save()
                     object = form_image.save(commit=True)
                     # generate thumbnail
-                    #utils_generate_thumbnail(object)
-                    thumb_url = utils_generate_thumbnail(object.image)
+                    thumb_url = utils_generate_thumbnail.delay(object.image)
                     object.thumbnail = thumb_url
                     object.save()
+            # downscale worker
+            if not is_local_env():
+                scale_worker(0)
             return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
                                                                                   'diary_id': diary.pk}))
     else:
@@ -167,7 +174,8 @@ def diary_image_delete(request, childcare_slug, diary_id, image_id):
     if request.method == 'POST':
         diary_image.delete()
         log.info(log_prefix+'Diary image deleted (childcare: %s, user: %s)' % (childcare.name, request.user))
-        return HttpResponseRedirect(reverse('childcare:diary_list', kwargs={'childcare_slug': childcare.slug}))
+        return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                              'diary_id': diary.pk}))
     return render(request, 'classroom/diary_image_delete.html', {'childcare': childcare,
                                                                  'image': diary_image})
 

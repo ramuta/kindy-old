@@ -1,26 +1,8 @@
-'''
-from imagekit import ImageSpec, register
-from pilkit.processors import ResizeToFill
-
-
-class ChildThumbnail(ImageSpec):
-    processors = [ResizeToFill(100, 100)]
-    format = 'JPEG'
-    options = {'quality': 80}
-
-
-class GalleryThumbnail(ImageSpec):
-    processors = [ResizeToFill(80, 80)]
-    format = 'JPEG'
-    options = {'quality': 80}
-
-register.generator('child:thumbnail', ChildThumbnail)
-register.generator('gallery:thumbnail', GalleryThumbnail)
-'''
 import os
 import uuid
 from django.contrib.contenttypes.models import ContentType
-from easy_thumbnails.files import generate_all_aliases, get_thumbnailer
+from easy_thumbnails.files import get_thumbnailer
+from kindy.celery import app
 
 
 def get_file_path(instance, filename):
@@ -43,6 +25,7 @@ def get_file_path(instance, filename):
         return os.path.join('files/page/', filename)
 
 
+@app.task
 def utils_generate_thumbnail(object):
     thumbnailer = get_thumbnailer(object)
     thumbnailer.generate = True  # so a not generate a thumb if sthg went wrong
