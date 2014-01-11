@@ -140,8 +140,9 @@ def add_diary_images(request, childcare_slug, diary_id):
         if formset.is_valid():
             log.info(log_prefix+'Diary images added (childcare: %s, user: %s)' % (childcare.name, request.user))
             # run worker (scale to 1)
+            '''
             if not is_local_env():
-                scale_worker(1)
+                scale_worker(1)'''
             for form_image in formset:
                 obj = form_image.save(commit=False)
                 if obj.image:  # save only forms with images
@@ -154,8 +155,9 @@ def add_diary_images(request, childcare_slug, diary_id):
                     object.thumbnail = thumb_url
                     object.save()
             # downscale worker
+            '''
             if not is_local_env():
-                scale_worker(0)
+                scale_worker(0)'''
             return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
                                                                                   'diary_id': diary.pk}))
     else:
