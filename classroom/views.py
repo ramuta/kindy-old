@@ -137,15 +137,17 @@ def add_diary_images(request, childcare_slug, diary_id):
     diary = get_object_or_404(Diary, pk=diary_id)
     ImageFormSet = formset_factory(AddDiaryImageForm, extra=5)
     image_size = get_max_size_in_mb()
+    q = Queue(connection=conn)
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
             log.info(log_prefix+'Diary images added (childcare: %s, user: %s)' % (childcare.name, request.user))
             # run worker (scale to 1)
             LOCAL_ENV = is_local_env()
+            '''
             if LOCAL_ENV:
                 q = Queue(connection=conn)
-            '''
+
             if not is_local_env():
                 scale_worker(1)'''
             for form_image in formset:
@@ -159,7 +161,7 @@ def add_diary_images(request, childcare_slug, diary_id):
                     if LOCAL_ENV:
                         thumb_url = utils_generate_thumbnail(object.image)
                     else:
-                        thumb_url = q.enqueue(utils_generate_thumbnail(object.image), 'http://number23.org/wp-content/themes/san-fran/images/no-thumbnail.png')
+                        thumb_url = q.enqueue(utils_generate_thumbnail, object.image)
                     object.thumbnail = thumb_url
                     object.save()
             # downscale worker
