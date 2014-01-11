@@ -10,22 +10,38 @@
 {% block content-title %}Edit About us for {{ childcare }} website{% endblock %}
 
 {% block content %}
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
-<form method="post">
+<form method="post" class="form-horizontal">
 	{% csrf_token %}
 	{% for field in form %}
 	<div class="form-group">
-		<label>{{ field.label }}</label>
-		{{ field|add_class:'form-control' }}
+		<label class="col-md-1 control-label">{{ field.label }}</label>
+		<div class="col-md-3">
+			{{ field|add_class:'form-control' }}
+		</div>
+		{% if field.name != 'description' %}
+		<div class="col-md-3">
+			<p class="form-control-static">{{ field.errors.as_text }}</p>
+		</div>
+		{% endif %}
 	</div>
-	<p>{{ field.errors.as_text }}</p>
+	{% if field.name == 'description' and field.errors %}
+	<div class="form-group">
+		<div class="col-md-3 col-md-offset-1">
+			<p>{{ field.errors.as_text }}</p>
+		</div>
+	</div>
+	{% endif %}
 	{% endfor %}
-	<input type="submit" value="Update" class="btn btn-default">
+	<div class="form-group">
+		<div class="col-md-2 col-md-offset-1">
+			<input type="submit" value="Update" class="btn btn-default">
+		</div>
+	</div>
 </form>
 {% endblock content %}
 
 {% block footer %}
 	<script type="text/javascript">
-		texteditor('#id_content');
+		texteditor('#id_description');
 	</script>
 {% endblock %}

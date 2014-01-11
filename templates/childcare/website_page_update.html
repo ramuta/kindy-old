@@ -10,7 +10,6 @@
 {% block content-title %}Update a website page {{ page }}{% endblock %}
 
 {% block content %}
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>
 <form method="post" class="form-horizontal">
 	{% csrf_token %}
 	{% for field in form %}
