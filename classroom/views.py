@@ -161,7 +161,7 @@ def add_diary_images(request, childcare_slug, diary_id):
                     if LOCAL_ENV:
                         thumb_url = utils_generate_thumbnail(object.image)
                     else:
-                        thumb_url = q.enqueue(utils_generate_thumbnail, object.image)
+                        thumb_url = q.enqueue(utils_generate_thumbnail(object.image), object.image)
                     object.thumbnail = thumb_url
                     object.save()
             # downscale worker
