@@ -5,6 +5,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -15,6 +16,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+'''
+
+DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
