@@ -3,6 +3,10 @@
 
 {% block title %}Edit About us{% endblock title %}
 
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/texteditor.css">
+{% endblock %}
+
 {% block content-title %}Edit About us for {{ childcare }} website{% endblock %}
 
 {% block content %}
@@ -19,3 +23,9 @@
 	<input type="submit" value="Update" class="btn btn-default">
 </form>
 {% endblock content %}
+
+{% block footer %}
+	<script type="text/javascript">
+		texteditor('#id_content');
+	</script>
+{% endblock %}
