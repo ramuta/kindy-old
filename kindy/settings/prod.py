@@ -1,5 +1,6 @@
 from common import *
 import os
+#import dj_database_url
 
 DEBUG = False
 
@@ -18,7 +19,7 @@ DATABASES = {
 }
 '''
 
-DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -82,7 +83,7 @@ EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD"]
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
