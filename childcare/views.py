@@ -174,7 +174,7 @@ def website_pages_list(request, childcare_slug):
 def add_page_files(request, childcare_slug, page_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     page = get_object_or_404(Page, pk=page_id)
-    FileFormSet = formset_factory(AddPageFileForm, extra=5)
+    FileFormSet = formset_factory(AddPageFileForm, extra=1)
     if request.method == 'POST':
         formset = FileFormSet(request.POST, request.FILES)
         if formset.is_valid():

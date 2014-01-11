@@ -135,21 +135,12 @@ def diary_delete(request, childcare_slug, diary_id):
 def add_diary_images(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
-    ImageFormSet = formset_factory(AddDiaryImageForm, extra=5)
+    ImageFormSet = formset_factory(AddDiaryImageForm, extra=1)
     image_size = get_max_size_in_mb()
-    q = Queue(connection=conn)
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
             log.info(log_prefix+'Diary images added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            # run worker (scale to 1)
-            LOCAL_ENV = is_local_env()
-            '''
-            if LOCAL_ENV:
-                q = Queue(connection=conn)
-
-            if not is_local_env():
-                scale_worker(1)'''
             for form_image in formset:
                 obj = form_image.save(commit=False)
                 if obj.image:  # save only forms with images
@@ -158,18 +149,9 @@ def add_diary_images(request, childcare_slug, diary_id):
                     obj.save()
                     object = form_image.save(commit=True)
                     # generate thumbnail
-                    if LOCAL_ENV:
-                        utils_generate_thumbnail(object)
-                    else:
-                        result = q.enqueue(utils_generate_thumbnail(object), object)
-            # downscale worker
-            print('We got result: %s' % result)
-            '''
-            if not is_local_env():
-                scale_worker(0)'''
-            return HttpResponseRedirect(reverse('childcare:diary_list', kwargs={'childcare_slug': childcare.slug
-                                                                                  #,'diary_id': diary.pk
-            }))
+                    utils_generate_thumbnail(object)
+            return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                                  'diary_id': diary.pk}))
     else:
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,

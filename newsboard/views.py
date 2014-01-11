@@ -87,7 +87,7 @@ def childcare_news_delete(request, childcare_slug, news_id):
 def add_news_images(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id)
-    ImageFormSet = formset_factory(AddNewsImageForm, extra=5)
+    ImageFormSet = formset_factory(AddNewsImageForm, extra=1)
     image_size = get_max_size_in_mb()
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
@@ -101,9 +101,7 @@ def add_news_images(request, childcare_slug, news_id):
                     obj.save()
                     object = form_image.save(commit=True)
                     # generate thumbnail
-                    thumb_url = utils_generate_thumbnail(object.image)
-                    object.thumbnail = thumb_url
-                    object.save()
+                    utils_generate_thumbnail(object)
             return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
                                                                                  'news_id': news.pk}))
     else:
@@ -133,7 +131,7 @@ def news_image_delete(request, childcare_slug, news_id, image_id):
 def add_news_files(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id)
-    ImageFormSet = formset_factory(AddNewsFileForm, extra=5)
+    ImageFormSet = formset_factory(AddNewsFileForm, extra=1)
     file_size = get_max_size_in_mb()
     if request.method == 'POST':
         formset = ImageFormSet(request.POST, request.FILES)
