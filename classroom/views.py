@@ -159,12 +159,9 @@ def add_diary_images(request, childcare_slug, diary_id):
                     object = form_image.save(commit=True)
                     # generate thumbnail
                     if LOCAL_ENV:
-                        thumb_url = utils_generate_thumbnail(object.image)
+                        utils_generate_thumbnail(object)
                     else:
-                        object.thumbnail = q.enqueue(utils_generate_thumbnail(object.image), object.image)
-                        object.save()
-                    #object.thumbnail = thumb_url
-                    #object.save()
+                        q.enqueue(utils_generate_thumbnail(object), object)
             # downscale worker
             '''
             if not is_local_env():

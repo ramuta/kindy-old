@@ -27,8 +27,9 @@ def get_file_path(instance, filename):
 
 @app.task
 def utils_generate_thumbnail(object):
-    thumbnailer = get_thumbnailer(object)
+    thumbnailer = get_thumbnailer(object.image)
     thumbnailer.generate = True  # so a not generate a thumb if sthg went wrong
     thumbnail_options = {'crop': True, 'size': (100, 100), 'upscale': True}
     thumbnail = thumbnailer.get_thumbnail(thumbnail_options)
-    return thumbnail.url
+    object.thumbnail = thumbnail.url
+    object.save()
