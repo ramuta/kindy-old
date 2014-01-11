@@ -2,7 +2,7 @@ Hi!
 
 I added you to the {{ childcare.name }} dashboard as {{ role }}.
 
-You can access it with this link: http://www.kindy.at/{{ childcare.slug }}/dashboard/.
+You can access it with this link: http://www.kindy.at/{{ childcare.slug }}/dashboard/childcare/.
 
 Sincerely,
 {{ inviter }}
