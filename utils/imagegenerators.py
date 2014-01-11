@@ -31,3 +31,4 @@ def utils_generate_thumbnail(object):
     thumbnail = thumbnailer.get_thumbnail(thumbnail_options)
     object.thumbnail = thumbnail.url
     object.save()
+    return thumbnail.url

@@ -167,8 +167,9 @@ def add_diary_images(request, childcare_slug, diary_id):
             '''
             if not is_local_env():
                 scale_worker(0)'''
-            return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
-                                                                                  'diary_id': diary.pk}))
+            return HttpResponseRedirect(reverse('childcare:diary_list', kwargs={'childcare_slug': childcare.slug
+                                                                                  #,'diary_id': diary.pk
+            }))
     else:
         formset = ImageFormSet()
     return render(request, 'classroom/add_diary_image.html', {'formset': formset,
