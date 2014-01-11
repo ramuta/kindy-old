@@ -161,8 +161,9 @@ def add_diary_images(request, childcare_slug, diary_id):
                     if LOCAL_ENV:
                         utils_generate_thumbnail(object)
                     else:
-                        q.enqueue(utils_generate_thumbnail(object), object)
+                        result = q.enqueue(utils_generate_thumbnail(object), object)
             # downscale worker
+            print('We got result: %s' % result)
             '''
             if not is_local_env():
                 scale_worker(0)'''
