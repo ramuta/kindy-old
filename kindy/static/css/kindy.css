@@ -148,6 +148,7 @@ hr { border-color:#ddd; }
 }
 
 #content .nav p.title {
+	color:#333;
 	float:left;
 	font-size:2em;
 	margin-bottom:5px;
@@ -165,11 +166,14 @@ hr { border-color:#ddd; }
 #content .nav ul.actions li { float:left; }
 
 #content .nav ul.actions li a {
-	color:#333;
+	background:none;
+	color:#555;
 	display:block;
 	padding:10px;
 	text-decoration:none;
 }
+
+#content .nav ul.actions li a:hover { color:#333; }
 
 #content .nav ul.actions li ul li { float:none; }
 
