@@ -5,14 +5,10 @@ from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from guardian.decorators import permission_required_or_403
-from rq import Queue
 from childcare.models import Childcare
 from classroom.forms import ClassroomCreateForm, DiaryCreateForm, AddDiaryImageForm, DiaryUpdateForm
 from classroom.models import Classroom, Diary, DiaryImage
 from django.db import IntegrityError
-from kindy.worker import conn
-from utils.background_tasks import scale_worker
-from utils.deployment import is_local_env
 from utils.files_images import get_max_size_in_mb
 from utils.imagegenerators import utils_generate_thumbnail
 
