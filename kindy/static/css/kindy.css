@@ -189,6 +189,11 @@ hr { border-color:#ddd; }
 	padding:20px;
 	text-align:center;
 	text-decoration:none;
+	transition:box-shadow 0.2s;
+}
+
+#content .info-box a:hover {
+	box-shadow:0 0 10px #2a6496;
 }
 
 #content .info-box a.static {

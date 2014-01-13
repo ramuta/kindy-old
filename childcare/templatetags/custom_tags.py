@@ -5,5 +5,5 @@ register = template.Library()
 
 
 @register.simple_tag
-def is_local():
+def is_not_local():
     return is_local_env()
