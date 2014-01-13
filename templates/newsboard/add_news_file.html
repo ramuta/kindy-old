@@ -1,23 +1,36 @@
 {% extends 'childcare/childcare_base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Add news files{% endblock title %}
 
 {% block content-title %}Add news files{% endblock %}
 
 {% block content %}
-    <p>File has to be <strong>smaller than {{ file_size }} MB</strong>. You can upload one file at once (and add more later).</p>
-    <form method="post" enctype="multipart/form-data">
+  <p>File has to be <strong>smaller than {{ file_size }} MB</strong>. You can upload one file at once (and add more later).</p>
+  <form method="post" enctype="multipart/form-data" class="form-horizontal">
     {% csrf_token %}
     {{ formset.management_form }}
-    <table>
-        {% for form in formset.forms %}
-          <tr>
-            <td>
-              {{ form.as_p }}
-            </td>
-          </tr>
-        {% endfor %}
-    </table>
-    <input type="submit" />
+    {% for form in formset.forms %}
+      {% for field in form %}
+      <div class="form-group">
+        <label class="col-md-2 control-label">{{ field.label }}</label>
+        <div class="col-md-3">
+          {% if field.name == 'file' %}
+          {{ field|add_class:'form-control-static' }}
+          {% else %}
+          {{ field|add_class:'form-control' }}
+          {% endif %}
+        </div>
+        <div class="col-md-3">
+          <p class="form-control-static">{{ field.errors.as_text }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    {% endfor %}
+    <div class="form-group">
+      <div class="col-md-2 col-md-offset-2">
+        <input type="submit" value="Upload" class="btn btn-default">
+      </div>
+    </div>
   </form>
 {% endblock content %}

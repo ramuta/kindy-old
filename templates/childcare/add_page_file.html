@@ -6,18 +6,30 @@
 {% block content-title %}Add page file{% endblock %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data" class="form-horizontal">
     {% csrf_token %}
     {{ formset.management_form }}
-    <table>
-        {% for form in formset.forms %}
-          <tr>
-            <td>
-              {{ form.as_p }}
-            </td>
-          </tr>
-        {% endfor %}
-    </table>
-    <input type="submit" value="Upload files">
+    {% for form in formset.forms %}
+      {% for field in form %}
+      <div class="form-group">
+        <label class="col-md-2 control-label">{{ field.label }}</label>
+        <div class="col-md-3">
+          {% if field.name == 'file' %}
+          {{ field|add_class:'form-control-static' }}
+          {% else %}
+          {{ field|add_class:'form-control' }}
+          {% endif %}
+        </div>
+        <div class="col-md-3">
+          <p class="form-control-static">{{ field.errors.as_text }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    {% endfor %}
+    <div class="form-group">
+      <div class="col-md-2 col-md-offset-2">
+        <input type="submit" value="Upload" class="btn btn-default">
+      </div>
+    </div>
   </form>
-{% endblock %}
+{% endblock content %}

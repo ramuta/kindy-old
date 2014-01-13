@@ -9,9 +9,10 @@ function gallery(el) {
 	});
 }
 
+// WYSIWYG TEXT EDITOR
 function texteditor(el) {
 	$(function() {
-		$.getScript('http://getkindy.s3.amazonaws.com/js/texteditor.js', function() {
+		$.getScript('//getkindy.s3.amazonaws.com/js/texteditor.js', function() {
 			$(el).cleditor({
 				height: '350px',
 				width: '250%',
@@ -22,7 +23,9 @@ function texteditor(el) {
 	});
 }
 
+// SITE WIDE FUNCTIONS
 $(function() {
+	// DISABLE SUBMIT BUTTON WHEN FORM IS SUBMITED
 	$('form').submit(function() {
 		$(this).find('input[type="submit"]').val('Loading...').prop('disabled', true);
 	});
