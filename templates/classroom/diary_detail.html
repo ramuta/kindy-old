@@ -4,14 +4,16 @@
 {% block title %}A diary for {{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}{% endblock title %}
 
 {% block header %}
+    {% if diary_image_list %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
+    {% endif %}
 {% endblock %}
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <li><a href="{% url 'childcare:diary_add_images' childcare_slug=childcare.slug diary_id=diary.pk %}"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
-        <li><a href="{% url 'childcare:diary_delete' childcare_slug=childcare.slug diary_id=diary.pk %}"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
-        <li><a href="{% url 'childcare:diary_update' childcare_slug=childcare.slug diary_id=diary.pk %}"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
+    <li><a href="{% url 'childcare:diary_add_images' childcare_slug=childcare.slug diary_id=diary.pk %}"><span class="glyphicon glyphicon-plus"></span> Add images</a></li>
+    <li><a href="{% url 'childcare:diary_delete' childcare_slug=childcare.slug diary_id=diary.pk %}"><span class="glyphicon glyphicon-remove"></span> Delete</a></li>
+    <li><a href="{% url 'childcare:diary_update' childcare_slug=childcare.slug diary_id=diary.pk %}"><span class="glyphicon glyphicon-edit"></span> Update</a></li>
     {% endif %}
 {% endblock action %}
 
@@ -46,8 +48,9 @@
 {% endblock content %}
 
 {% block footer %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/fancybox.js"></script>
+    {% if diary_image_list %}
     <script type="text/javascript">
         gallery('a.fancybox');
     </script>
+    {% endif %}
 {% endblock %}

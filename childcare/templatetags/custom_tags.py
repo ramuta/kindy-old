@@ -1,9 +1,9 @@
 from django import template
-from utils.deployment import is_local_env
+from utils.custom_template_tags import condition_tag
 
 register = template.Library()
 
-
-@register.simple_tag
-def is_not_local():
-    return is_local_env()
+@register.tag
+@condition_tag
+def if_local(object):
+    return True

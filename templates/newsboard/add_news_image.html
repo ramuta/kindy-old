@@ -1,24 +1,33 @@
 {% extends 'childcare/childcare_base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Add news images{% endblock title %}
 
 {% block content-title %}Add news images{% endblock %}
 
 {% block content %}
-    <p>Image has to be <strong>smaller than {{ image_size }} MB</strong>. You can upload one image at once (and add more later).</p>
-    <p>If you need to resize your photo, you can use online services like <a href="http://www.resize-photos.com/" target='_blank'>www.resize-photos.com</a>.</p>
-    <form method="post" action="" enctype="multipart/form-data">
+  <p>Image has to be <strong>smaller than {{ image_size }} MB</strong>. You can upload one image at once (and add more later).</p>
+  <p>If you need to resize your photo, you can use online services like <a href="http://www.resize-photos.com/" target='_blank'>www.resize-photos.com</a>.</p>
+  <form method="post" enctype="multipart/form-data" class="form-horizontal">
     {% csrf_token %}
     {{ formset.management_form }}
-    <table>
-        {% for form in formset.forms %}
-          <tr>
-            <td>
-              {{ form.as_p }}
-            </td>
-          </tr>
-        {% endfor %}
-    </table>
-    <input type="submit" />
+    {% for form in formset.forms %}
+      {% for field in form %}
+      <div class="form-group">
+        <label class="col-md-1 control-label">{{ field.label }}</label>
+        <div class="col-md-3">
+          {{ field|add_class:'form-control-static' }}
+        </div>
+        <div class="col-md-3">
+          <p class="form-control-static">{{ field.errors.as_text }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    {% endfor %}
+    <div class="form-group">
+      <div class="col-md-2 col-md-offset-1">
+        <input type="submit" value="Upload" class="btn btn-default">
+      </div>
+    </div>
   </form>
 {% endblock content %}

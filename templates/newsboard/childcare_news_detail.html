@@ -2,7 +2,9 @@
 {% load thumbnail %}
 
 {% block header %}
+    {% if news_image_list %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
+    {% endif %}
 {% endblock %}
 
 {% block title %}{{ news }}{% endblock title %}
@@ -69,8 +71,9 @@
 {% endblock content %}
 
 {% block footer %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/fancybox.js"></script>
+    {% if news_image_list %}
     <script type="text/javascript">
         gallery('a.fancybox');
     </script>
+    {% endif %}
 {% endblock %}

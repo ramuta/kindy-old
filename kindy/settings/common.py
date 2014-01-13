@@ -139,7 +139,6 @@ INSTALLED_APPS = (
     'redis',
     'billiard',
     'kombu',
-
     'accounts',
     'childcare',
     'newsboard',
