@@ -1,9 +1,16 @@
+import os
 from django import template
-from utils.custom_template_tags import condition_tag
 
 register = template.Library()
 
+
 @register.tag
-@condition_tag
-def if_local(object):
-    return True
+def is_local():
+    try:
+        LOCAL_ENV = os.environ["DJANGO_LOCAL_DEV"]
+        if LOCAL_ENV == 0 or LOCAL_ENV == '0':
+            return False
+        else:
+            return True
+    except KeyError:
+        return True
