@@ -3,7 +3,9 @@
 {% block title %}Image gallery{% endblock title %}
 
 {% block header %}
+    {% if image_list %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fancybox.css">
+    {% endif %}
 {% endblock %}
 
 {% block content-title %}Image gallery{% endblock %}
@@ -39,8 +41,9 @@
 {% endblock content %}
 
 {% block footer %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/fancybox.js"></script>
+    {% if image_list %}
     <script type="text/javascript">
         gallery('a.fancybox');
     </script>
+    {% endif %}
 {% endblock %}
