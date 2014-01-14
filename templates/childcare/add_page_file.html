@@ -11,7 +11,7 @@
     {{ formset.management_form }}
     {% for form in formset.forms %}
       {% for field in form %}
-      <div class="form-group">
+      <div class="form-group{% if field.errors %} has-error{% endif %}">
         <label class="col-md-2 control-label">{{ field.label }}</label>
         <div class="col-md-3">
           {% if field.name == 'file' %}

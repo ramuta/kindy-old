@@ -1,6 +1,8 @@
 // FANCYBOX FOR IMAGE GALLERIES
 function gallery(el) {
 	$(function() {
+		$.ajaxSetup({ cache: true });
+
 		$.getScript('//getkindy.s3.amazonaws.com/js/fancybox.js', function() {
 			$(el).fancybox({
 				type: 'image', // NOT NECESSARY WHEN/IF URL IS IMAGE (.JPG, .PNG, ...)
@@ -14,6 +16,8 @@ function gallery(el) {
 // WYSIWYG TEXT EDITOR
 function texteditor(el) {
 	$(function() {
+		$.ajaxSetup({ cache: true });
+
 		$.getScript('//getkindy.s3.amazonaws.com/js/texteditor.js', function() {
 			$(el).cleditor({
 				height: '350px',
