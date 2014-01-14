@@ -24,10 +24,10 @@
             {% for manager in managers_list %}
                 <tr>
                     <td>
-                        {% if manager.first_name and manager.last_name %}
+                        {% if manager.get_full_name %}
                         <a href="/accounts/{{ manager.username }}">{{ manager.first_name }} {{ manager.last_name }}</a>
                         {% else %}
-                        <a href="/accounts/{{ manager.username }}">{{ manager.username }}</a> <small>(not set)</small>
+                        <a href="/accounts/{{ manager.username }}"><small>(name not set)</small></a>
                         {% endif %}
                     </td>
                     <td>

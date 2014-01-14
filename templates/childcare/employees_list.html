@@ -24,7 +24,11 @@
             {% for employee in employees_list %}
                 <tr>
                     <td>
-                        <a href="/accounts/{{ employee.username }}">{{ employee.first_name }} {{ employee.last_name }}</a>
+                        {% if employee.get_full_name %}
+                        <a href="/accounts/{{ employee.username }}">{{ employee.get_full_name }}</a>
+                        {% else %}
+                        <a href="/accounts/{{ employee.username }}"><small>(name not set)</small></a>
+                        {% endif %}
                     </td>
                     <td>
                         {{ employee.username }}

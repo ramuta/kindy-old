@@ -24,7 +24,11 @@
             {% for parent in parents_list %}
                 <tr>
                     <td>
-                        <a href="/accounts/{{ parent.username }}">{{ parent.first_name }} {{ parent.last_name }}</a>
+                        {% if parent.get_full_name %}
+                        <a href="/accounts/{{ parent.username }}">{{ parent.get_full_name }}</a>
+                        {% else %}
+                        <a href="/accounts/{{ parent.username }}"><small>(name not set)</small></a>
+                        {% endif %}
                     </td>
                     <td>
                         {{ parent.username }}
