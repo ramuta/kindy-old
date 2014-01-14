@@ -4,7 +4,7 @@
 
 {% block action %}
     {% if user in childcare.managers.all %}
-        <li><a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Invite manager</a></li>
+        <li><a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}?role=Manager"><span class="glyphicon glyphicon-plus"></span> Invite manager</a></li>
     {% endif %}
 {% endblock %}
 
