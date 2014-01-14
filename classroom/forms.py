@@ -40,8 +40,11 @@ class AddDiaryImageForm(ModelForm):
         cleaned_data = super(AddDiaryImageForm, self).clean()
         image = cleaned_data.get('image')
 
-        if image._size > get_max_size():
-            raise ValidationError('Image is too large ( > %s MB )' % get_max_size_in_mb())
+        if image:
+            if image._size > get_max_size():
+                raise ValidationError('Image is too large ( > %s MB )' % get_max_size_in_mb())
+        else:
+            raise ValidationError('Image field must not be empty.')
 
         return cleaned_data
 

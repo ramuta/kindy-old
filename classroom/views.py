@@ -131,26 +131,26 @@ def diary_delete(request, childcare_slug, diary_id):
 def add_diary_images(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
-    ImageFormSet = formset_factory(AddDiaryImageForm, extra=1)
+    #ImageFormSet = formset_factory(AddDiaryImageForm, extra=1)
     image_size = get_max_size_in_mb()
     if request.method == 'POST':
-        formset = ImageFormSet(request.POST, request.FILES)
-        if formset.is_valid():
+        #formset = ImageFormSet(request.POST, request.FILES)
+        form = AddDiaryImageForm(request.POST, request.FILES)
+        if form.is_valid():
             log.info(log_prefix+'Diary images added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            for form_image in formset:
-                obj = form_image.save(commit=False)
-                if obj.image:  # save only forms with images
-                    obj.diary = diary
-                    obj.uploader = request.user
-                    obj.save()
-                    object = form_image.save(commit=True)
-                    # generate thumbnail
-                    utils_generate_thumbnail(object)
-            return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
-                                                                                  'diary_id': diary.pk}))
+            obj = form.save(commit=False)
+            if obj.image:  # save only forms with images
+                obj.diary = diary
+                obj.uploader = request.user
+                obj.save()
+                object = form.save(commit=True)
+                # generate thumbnail
+                utils_generate_thumbnail(object)
+                return HttpResponseRedirect(reverse('childcare:diary_detail', kwargs={'childcare_slug': childcare.slug,
+                                                                                      'diary_id': diary.pk}))
     else:
-        formset = ImageFormSet()
-    return render(request, 'classroom/add_diary_image.html', {'formset': formset,
+        form = AddDiaryImageForm()
+    return render(request, 'classroom/add_diary_image.html', {'form': form,
                                                               'childcare': childcare,
                                                               'image_size': image_size})
 
