@@ -23,12 +23,12 @@
       </div>
     </div>
     {% else %}
-    <div class="form-group">
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
       <label class="col-md-2 control-label">{{ field.label }}</label>
       <div class="col-md-3">
         {{ field|add_class:'form-control' }}
       </div>
-      <div class="col-md-3">
+      <div class="col-md-7">
         <p class="form-control-static">{{ field.errors.as_text }}</p>
       </div>
     </div>
