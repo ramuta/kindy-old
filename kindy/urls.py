@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^activate/(?P<activation_key>\w+)/$', userena_views.activate, {'success_url': '/'}, name='userena_activate'),
 
     #childcare
-    url(r'^childcare/create/$', childcare_views.childcare_create),
+    url(r'^childcare/create/$', childcare_views.childcare_create, name='childcare_create'),
     url(r'^(?P<childcare_slug>[\w\-]+)/dashboard/', include('childcare.urls', namespace="childcare")),
 
     #website
