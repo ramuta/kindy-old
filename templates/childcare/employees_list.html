@@ -58,6 +58,6 @@
             </span>
         </div>
     {% else %}
-        <p>No employees added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite employee</a></p>
+        <p>No employees added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}?role=Employee" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite employee</a></p>
     {% endif %}
 {% endblock content %}

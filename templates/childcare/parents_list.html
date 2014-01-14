@@ -58,6 +58,6 @@
             </span>
         </div>
     {% else %}
-        <p>No parents added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></p>
+        <p>No parents added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}?role=Parent" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></p>
     {% endif %}
 {% endblock content %}
