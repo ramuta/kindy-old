@@ -13,11 +13,7 @@
 <form method="post" class="form-horizontal">
 	{% csrf_token %}
 	{% if form.non_field_errors %}
-	<div class="form-group">
-		<div class="col-md-12">
-			<p><span class="label label-warning">Warning</span> {{ form.non_field_errors.as_text }}</p>
-		</div>
-	</div>
+	<div class="alert alert-warning"><strong>Warning!</strong> {{ form.non_field_errors.as_text|cut:'* ' }}</div>
 	{% endif %}
 	{% for field in form %}
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
@@ -42,7 +38,7 @@
 	{% endfor %}
 	<div class="form-group">
 		<div class="col-md-2 col-md-offset-1">
-			<input type="submit" value="Create" class="btn btn-default">
+			<input type="submit" value="Create" class="btn btn-success">
 		</div>
 	</div>
 </form>

@@ -61,7 +61,6 @@ hr { border-color:#ddd; }
 	bottom:0;
 	color:#fff;
 	float:left;
-	overflow-y:scroll;
 	position:fixed;
 	top:0;
 	width:18%;
@@ -81,6 +80,8 @@ hr { border-color:#ddd; }
 	color:#9fa8b1;
 	text-decoration:none;
 }
+
+#sidebar ul.nav { padding-bottom:50px; }
 
 #sidebar ul.nav li a {
 	color:#fff;

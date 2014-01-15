@@ -31,6 +31,10 @@ function texteditor(el) {
 
 // SITE WIDE FUNCTIONS
 $(function() {
+	// SCROLLABLE SIDEBAR CONTENT
+	$('#sidebar').jScrollPane();
+	$(window).resize(function() { $('#sidebar').jScrollPane(); });
+
 	// DISABLE SUBMIT BUTTON WHEN FORM IS SUBMITED
 	$('form').submit(function() {
 		$(this).find('input[type="submit"]').val('Loading...').prop('disabled', true);
