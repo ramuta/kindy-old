@@ -19,8 +19,15 @@ class ChildcareViewsTestCase(TestCase):
             return user
         return None
 
-    def test_classroom_create(self):
+    def test_childcare_create(self):
         user = self._log_in()
         childcare = mommy.make(Childcare, slug='jana', pk=1)
         response = self.client.get(reverse('childcare_create'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_invite_users_no_email(self):
+        user = self._log_in()
+        childcare = mommy.make(Childcare, slug='jana', pk=1)
+        #response = self.client.get(reverse('invite_users', kwargs={'childcare_slug': childcare.slug}))
+        response = self.client.post('/%s/dashboard/childcare/users/invite' % childcare.slug)
         self.assertEqual(response.status_code, 200)

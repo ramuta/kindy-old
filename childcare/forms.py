@@ -108,8 +108,11 @@ class InviteUsersForm(Form):
             self.fields['role'] = ChoiceField(choices=ROLE_CHOICES_EMPLOYEE, required=True)
 
     def clean(self):
-        email = self.cleaned_data['email']
-        role = self.cleaned_data['role']
+        try:
+            email = self.cleaned_data['email']
+            role = self.cleaned_data['role']
+        except KeyError:
+            raise ValidationError(u'Fields must not be empty.')
 
         user = None
 
