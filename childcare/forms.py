@@ -123,7 +123,7 @@ class InviteUsersForm(Form):
                     raise ValidationError(u'This user is already an employee in your childcare.')
                 elif user in self.childcare.parents.all() and role == 'Parent':
                     raise ValidationError(u'This user is already a parent in your childcare.')
-                #return self.cleaned_data
+                return self.cleaned_data
 
             except user.DoesNotExist:
                 return self.cleaned_data
