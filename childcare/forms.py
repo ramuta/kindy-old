@@ -111,21 +111,20 @@ class InviteUsersForm(Form):
         try:
             email = self.cleaned_data['email']
             role = self.cleaned_data['role']
+
+            try:
+                user = User.objects.get(email=email)
+
+                if user in self.childcare.managers.all() and role == 'Manager':
+                    raise ValidationError(u'This user is already a manager in your childcare.')
+                elif user in self.childcare.employees.all() and role == 'Employee':
+                    raise ValidationError(u'This user is already an employee in your childcare.')
+                elif user in self.childcare.parents.all() and role == 'Parent':
+                    raise ValidationError(u'This user is already a parent in your childcare.')
+                return self.cleaned_data
+
+            except:
+                    return self.cleaned_data
         except KeyError:
             raise ValidationError(u'Fields must not be empty.')
-
-        user = None
-
-        try:
-            user = User.objects.get(email=email)
-
-            if user in self.childcare.managers.all() and role == 'Manager':
-                raise ValidationError(u'This user is already a manager in your childcare.')
-            elif user in self.childcare.employees.all() and role == 'Employee':
-                raise ValidationError(u'This user is already an employee in your childcare.')
-            elif user in self.childcare.parents.all() and role == 'Parent':
-                raise ValidationError(u'This user is already a parent in your childcare.')
-            return self.cleaned_data
-        except:
-            if user == None:
-                return self.cleaned_data
+        return self.cleaned_data
