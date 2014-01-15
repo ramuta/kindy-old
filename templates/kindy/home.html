@@ -24,7 +24,7 @@
             {% endfor %}
         {% endif %}
         <div class="col-md-4 info-box">
-            <a href="/childcare/create/" class="static"><span class="glyphicon glyphicon-plus"></span><br>Create childcare</a>
+            <a href="/childcare/create/" class="static"{% if all_childcare_list %} style="opacity:0.9;"{% endif %}><span class="glyphicon glyphicon-plus"></span><br>Create childcare</a>
         </div>
     </div>
 {% endblock %}

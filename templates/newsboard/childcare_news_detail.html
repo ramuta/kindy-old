@@ -38,6 +38,7 @@
                 </div>
             {% endif %}
         {% endfor %}
+        <div class="clearfix"></div>
     {% else %}
         {% if user in childcare.employees.all or user in childcare.managers.all %}
         <hr>
@@ -47,7 +48,6 @@
     {% endif %}
 
     {% if news_file_list %}
-    <div class="clearfix"></div>
     <hr>
     <p><strong>Attachments</strong></p>
         Files:<ul>

@@ -10,10 +10,8 @@
   <p>If you need to resize your photo, you can use online services like <a href="http://www.resize-photos.com/" target='_blank'>www.resize-photos.com</a>.</p>
   <form method="post" enctype="multipart/form-data" class="form-horizontal">
     {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset.forms %}
       {% for field in form %}
-      <div class="form-group">
+      <div class="form-group{% if field.errors %} has-error{% endif %}">
         <label class="col-md-1 control-label">{{ field.label }}</label>
         <div class="col-md-3">
           {{ field|add_class:'form-control-static' }}
@@ -23,10 +21,9 @@
         </div>
       </div>
       {% endfor %}
-    {% endfor %}
     <div class="form-group">
       <div class="col-md-2 col-md-offset-1">
-        <input type="submit" value="Upload" class="btn btn-default">
+        <input type="submit" value="Upload" class="btn btn-success">
       </div>
     </div>
   </form>
