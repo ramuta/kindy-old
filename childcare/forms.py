@@ -112,6 +112,7 @@ class InviteUsersForm(Form):
             email = self.cleaned_data['email']
             role = self.cleaned_data['role']
 
+            # empty user object
             user = User()
 
             try:
