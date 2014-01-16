@@ -100,7 +100,7 @@ def add_news_images(request, childcare_slug, news_id):
                 object = form.save(commit=True)
                 # generate thumbnail
                 utils_generate_thumbnail(object)
-            return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+                return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
                                                                                  'news_id': news.pk}))
     else:
         form = AddNewsImageForm()
@@ -129,24 +129,22 @@ def news_image_delete(request, childcare_slug, news_id, image_id):
 def add_news_files(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id)
-    ImageFormSet = formset_factory(AddNewsFileForm, extra=1)
     file_size = get_max_size_in_mb()
     if request.method == 'POST':
-        formset = ImageFormSet(request.POST, request.FILES)
-        if formset.is_valid():
+        form = AddNewsFileForm(request.POST, request.FILES)
+        if form.is_valid():
             log.info(log_prefix+'News files added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            for form_file in formset:
-                obj = form_file.save(commit=False)
-                if obj.file:  # save only forms with files
-                    obj.news = news
-                    obj.uploader = request.user
-                    obj.save()
-                    form_file.save(commit=True)
-            return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
+            obj = form.save(commit=False)
+            if obj.file:  # save only forms with files
+                obj.news = news
+                obj.uploader = request.user
+                obj.save()
+                form.save(commit=True)
+                return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
                                                                                  'news_id': news.pk}))
     else:
-        formset = ImageFormSet()
-    return render(request, 'newsboard/add_news_file.html', {'formset': formset,
+        form = AddNewsFileForm()
+    return render(request, 'newsboard/add_news_file.html', {'form': form,
                                                             'childcare': childcare,
                                                             'file_size': file_size})
 
