@@ -32,7 +32,11 @@
 	</head>
 	<body>
 		<div class="container">
+			<p class="text-center"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></p>
 			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">{% block content-title %}{% endblock %}</h3>
+				</div>
 				<div class="panel-body">
 					{% block content %}{% endblock %}
 				</div>
@@ -43,7 +47,7 @@
 		<script type="text/javascript">
 		// <![CDATA[
 			$(function() {
-				$('input').tooltip({ animation: false, trigger: 'click' });
+				$('input').tooltip({ animation: false, trigger: 'focus' });
 				$('input').tooltip('show');
 			});
 		// ]]>
