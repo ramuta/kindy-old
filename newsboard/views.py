@@ -87,26 +87,24 @@ def childcare_news_delete(request, childcare_slug, news_id):
 def add_news_images(request, childcare_slug, news_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     news = get_object_or_404(News, pk=news_id)
-    ImageFormSet = formset_factory(AddNewsImageForm, extra=1)
     image_size = get_max_size_in_mb()
     if request.method == 'POST':
-        formset = ImageFormSet(request.POST, request.FILES)
-        if formset.is_valid():
+        form = AddNewsImageForm(request.POST, request.FILES)
+        if form.is_valid():
             log.info(log_prefix+'News images added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            for form_image in formset:
-                obj = form_image.save(commit=False)
-                if obj.image:  # save only forms with images
-                    obj.news = news
-                    obj.uploader = request.user
-                    obj.save()
-                    object = form_image.save(commit=True)
-                    # generate thumbnail
-                    utils_generate_thumbnail(object)
+            obj = form.save(commit=False)
+            if obj.image:  # save only forms with images
+                obj.news = news
+                obj.uploader = request.user
+                obj.save()
+                object = form.save(commit=True)
+                # generate thumbnail
+                utils_generate_thumbnail(object)
             return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
                                                                                  'news_id': news.pk}))
     else:
-        formset = ImageFormSet()
-    return render(request, 'newsboard/add_news_image.html', {'formset': formset,
+        form = AddNewsImageForm()
+    return render(request, 'newsboard/add_news_image.html', {'form': form,
                                                              'childcare': childcare,
                                                              'image_size': image_size})
 

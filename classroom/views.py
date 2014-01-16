@@ -130,10 +130,8 @@ def diary_delete(request, childcare_slug, diary_id):
 def add_diary_images(request, childcare_slug, diary_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     diary = get_object_or_404(Diary, pk=diary_id)
-    #ImageFormSet = formset_factory(AddDiaryImageForm, extra=1)
     image_size = get_max_size_in_mb()
     if request.method == 'POST':
-        #formset = ImageFormSet(request.POST, request.FILES)
         form = AddDiaryImageForm(request.POST, request.FILES)
         if form.is_valid():
             log.info(log_prefix+'Diary images added (childcare: %s, user: %s)' % (childcare.name, request.user))
