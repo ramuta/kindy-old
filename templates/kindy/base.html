@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-
 		<meta charset="utf-8">
 		<title>{% block title %}{% endblock %} | Kindy - child care management system</title>
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
@@ -9,7 +8,6 @@
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jscrollpane.css">
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 		{% block header %}{% endblock %}
-
         <script type="text/javascript">
         // <![CDATA[
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -17,9 +15,8 @@
             ga('send', 'pageview');
         // ]]>
         </script>
-
 	</head>
-	<body class="{% block body-class %}{% endblock %}">
+	<body>
 		<div id="header">
 			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
 			{% if childcare %}
