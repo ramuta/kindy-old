@@ -21,7 +21,7 @@
 {% block content-title %}{{ news }}{% endblock %}
 
 {% block content %}
-    <p><strong>{{ news.author.first_name }} {{ news.author.last_name }} | {{ news.created }}</strong></p>
+    <p><strong>{% if news.author.first_name == '' %} {{ news.author }}{% else %} {{ news.author.get_full_name }}{% endif %} | {{ news.created }}</strong></p>
     <p>{{ news.content|safe }}</p>
 
     {% if news_image_list %}
@@ -53,7 +53,7 @@
         Files:<ul>
         {% for file in news_file_list %}
             {% if file.file %}
-                <li><a href="{{ file.file.url }}">{{ file.description }}</a>, {{ file.uploader.get_full_name }} ({{ file.created }})
+                <li><a href="{{ file.file.url }}">{{ file.description }}</a>, {% if file.uploader.first_name == '' %} {{ file.uploader }}{% else %} {{ file.uploader.get_full_name }}{% endif %} ({{ file.created }})
                     {% if user in childcare.employees.all or user in childcare.managers.all %}
                         | <a href="{% url 'childcare:news_file_delete' childcare_slug=childcare.slug news_id=news.pk file_id=file.pk %}">Delete</a></li>
                     {% endif %}

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import Group, User
 from django.db import models
-from django.template.defaultfilters import slugify
 from utils.roles import roles_childcare_init_new
 from utils.slugify import unique_slugify
 from localflavor.us import models as usmodels

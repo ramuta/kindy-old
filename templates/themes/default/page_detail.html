@@ -12,7 +12,7 @@
         Files:
         <ul>
         {% for file in page_file_list %}
-            <li><a href="{{ file.file.url }}">{{ file.description }}</a>, {{ file.uploader }} ({{ file.created }})</li>
+            <li><a href="{{ file.file.url }}">{{ file.description }}</a>, {% if file.uploader.first_name == '' %} {{ file.uploader }}{% else %} {{ file.uploader.get_full_name }}{% endif %} ({{ file.created }})</li>
         {% endfor %}
         </ul>
     {% endif %}

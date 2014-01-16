@@ -20,7 +20,7 @@
 {% block content-title %}A diary for {{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}{% endblock %}
 
 {% block content %}
-    <p><strong>{{ diary.author.get_full_name }} | {{ diary.classroom }}</strong></p>
+    <p><strong>{% if diary.author.first_name == '' %} {{ diary.author }}{% else %} {{ diary.author.get_full_name }}{% endif %} | {{ diary.classroom }}</strong></p>
     <p>{{ diary.content|safe }}</p>
 
     {% if diary_image_list %}

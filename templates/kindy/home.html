@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content-title %}
-    Hello{% if user.first_name == '' %} {{ user }}{% else %} {{ user.first_name }} {{ user.last_name }}{% endif %}!
+    Hello{% if user.first_name == '' %} {{ user }}{% else %} {{ user.get_full_name }}{% endif %}!
 {% endblock %}
 
 {% block content %}

@@ -7,9 +7,21 @@
 {% block content %}
     {% if news.public %}
         <h1>{{ news }}</h1>
-        <p>{{ news.content|linebreaks }}</p>
+        {% autoescape off %}
+            <p>{{ news.content|linebreaks }}</p>
+        {% endautoescape %}
     {% else %}
         <h1>The page you want to reach is not available.</h1>
+    {% endif %}
+
+    {% if news_file_list %}
+        Files:<ul>
+        {% for file in news_file_list %}
+            {% if file.file %}
+                <li><a href="{{ file.file.url }}">{{ file.description }} ({% if file.uploader.first_name == '' %}{{ file.uploader }}{% else %} {{ file.uploader.get_full_name }}{% endif %})</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
     {% endif %}
 
     {% if news_image_list %}
@@ -21,17 +33,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    <br/>
-    <br/>
-    {% if news_file_list %}
-        Files:<ul>
-        {% for file in news_file_list %}
-            {% if file.file %}
-                <li><a href="{{ file.file.url }}">{{ file.description }} ({{ file.file.url }})</a></li>
-            {% endif %}
-        {% endfor %}
-        </ul>
-    {% endif %}
+
 {% endblock content %}
 
 {% block footer %}
