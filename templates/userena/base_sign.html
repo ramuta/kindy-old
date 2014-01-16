@@ -19,7 +19,14 @@
 				vertical-align:middle;
 			}
 
+			.head {
+				color:#fff;
+				padding-bottom:30px;
+				text-align:center;
+			}
+
 			.panel {
+				border:none;
 				margin:0 auto;
 				width:300px;
 			}
@@ -27,17 +34,25 @@
 			.panel .panel-body {
 				padding:20px 20px 10px;
 			}
+
+			.panel .panel-body h3 {
+				border-bottom:1px #ddd solid;
+				margin:0 0 20px;
+				padding-bottom:20px;
+				text-align:center;
+			}
 		</style>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	</head>
 	<body>
 		<div class="container">
-			<p class="text-center"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></p>
+			<div class="head">
+				<p><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></p>
+				<h1>A new way<br>to manage your childcare</h1>
+			</div>
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">{% block content-title %}{% endblock %}</h3>
-				</div>
 				<div class="panel-body">
+					<h3>{% block content-title %}{% endblock %}</h3>
 					{% block content %}{% endblock %}
 				</div>
 			</div>
