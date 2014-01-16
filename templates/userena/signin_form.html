@@ -28,9 +28,8 @@
 		<div class="form-group">
 			<button type="submit" class="btn btn-lg btn-primary btn-block">Login <span class="glyphicon glyphicon-chevron-right"></span></button>
 		</div>
-		<div class="form-group">
-			<p>You don't have an account? <a href="{% url 'userena_signup' %}">Register</a></p>
-			<p><a href="{% url 'userena_password_reset' %}">Forgot your password?</a></p>
+		<div class="form-group text-center">
+			<p>You don't have an account? <a href="{% url 'userena_signup' %}">Register!</a><br>Forgot your password? <a href="{% url 'userena_password_reset' %}">Reset it!</a></p>
 		</div>
 		{% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 	</form>
