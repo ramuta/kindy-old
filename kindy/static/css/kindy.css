@@ -241,3 +241,9 @@ body#sign {
 	font-size:2em;
 }
 /* END CONTENT */
+
+/* MOBILE */
+@media only screen and (max-width:720px) {
+	#sign .panel { width:100%; }
+}
+/* END MOBILE */
