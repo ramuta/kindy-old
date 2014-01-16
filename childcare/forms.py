@@ -73,8 +73,11 @@ class AddPageFileForm(ModelForm):
         cleaned_data = super(AddPageFileForm, self).clean()
         file = cleaned_data.get('file')
 
-        if file._size > get_max_size():
-            raise ValidationError('File is too large ( > %s MB )' % get_max_size_in_mb())
+        if file:
+            if file._size > get_max_size():
+                raise ValidationError('File is too large ( > %s MB )' % get_max_size_in_mb())
+        else:
+            raise ValidationError('File field must not be empty.')
 
         return cleaned_data
 

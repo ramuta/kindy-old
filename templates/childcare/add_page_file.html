@@ -8,8 +8,6 @@
 {% block content %}
   <form method="post" enctype="multipart/form-data" class="form-horizontal">
     {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset.forms %}
       {% for field in form %}
       <div class="form-group{% if field.errors %} has-error{% endif %}">
         <label class="col-md-2 control-label">{{ field.label }}</label>
@@ -25,7 +23,6 @@
         </div>
       </div>
       {% endfor %}
-    {% endfor %}
     <div class="form-group">
       <div class="col-md-2 col-md-offset-2">
         <input type="submit" value="Upload" class="btn btn-success">

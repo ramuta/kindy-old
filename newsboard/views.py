@@ -141,7 +141,7 @@ def add_news_files(request, childcare_slug, news_id):
                 obj.save()
                 form.save(commit=True)
                 return HttpResponseRedirect(reverse('childcare:news_detail', kwargs={'childcare_slug': childcare.slug,
-                                                                                 'news_id': news.pk}))
+                                                                                     'news_id': news.pk}))
     else:
         form = AddNewsFileForm()
     return render(request, 'newsboard/add_news_file.html', {'form': form,

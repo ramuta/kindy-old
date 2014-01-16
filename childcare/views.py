@@ -174,22 +174,20 @@ def website_pages_list(request, childcare_slug):
 def add_page_files(request, childcare_slug, page_id):
     childcare = get_object_or_404(Childcare, slug=childcare_slug)
     page = get_object_or_404(Page, pk=page_id)
-    FileFormSet = formset_factory(AddPageFileForm, extra=1)
     if request.method == 'POST':
-        formset = FileFormSet(request.POST, request.FILES)
-        if formset.is_valid():
+        form = AddPageFileForm(request.POST, request.FILES)
+        if form.is_valid():
             log.info(log_prefix+'Page files added (childcare: %s, user: %s)' % (childcare.name, request.user))
-            for form_file in formset:
-                obj = form_file.save(commit=False)
-                if obj.file:  # save only forms with files
-                    obj.page = page
-                    obj.uploader = request.user
-                    obj.save()
-                    form_file.save(commit=True)
-            return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
+            obj = form.save(commit=False)
+            if obj.file:  # save only forms with files
+                obj.page = page
+                obj.uploader = request.user
+                obj.save()
+                form.save(commit=True)
+                return HttpResponseRedirect(reverse('childcare:page_list', kwargs={'childcare_slug': childcare.slug}))
     else:
-        formset = FileFormSet()
-    return render(request, 'childcare/add_page_file.html', {'formset': formset,
+        form = AddPageFileForm()
+    return render(request, 'childcare/add_page_file.html', {'form': form,
                                                             'childcare': childcare})
 
 

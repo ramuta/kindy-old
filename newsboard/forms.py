@@ -46,7 +46,7 @@ class AddNewsFileForm(ModelForm):
             if news_file._size > get_max_size():
                 raise ValidationError('File is too large ( > %s MB )' % get_max_size_in_mb())
         else:
-            raise ValidationError('Image field must not be empty.')
+            raise ValidationError('File field must not be empty.')
 
         return cleaned_data
 
