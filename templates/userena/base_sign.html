@@ -4,47 +4,10 @@
 		<meta charset="utf-8">
 		<title>{% block title %}{% endblock %} | Kindy - child care management system</title>
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
-		<style type="text/css">
-			html, body { height:100%; }
-
-			body {
-				background:#5bb7e8;
-				display:table;
-				width:100%;
-			}
-
-			.container {
-				display:table-cell;
-				height:100%;
-				vertical-align:middle;
-			}
-
-			.head {
-				color:#fff;
-				padding-bottom:30px;
-				text-align:center;
-			}
-
-			.panel {
-				border:none;
-				margin:0 auto;
-				width:300px;
-			}
-
-			.panel .panel-body {
-				padding:20px 20px 10px;
-			}
-
-			.panel .panel-body h3 {
-				border-bottom:1px #ddd solid;
-				margin:0 0 20px;
-				padding-bottom:20px;
-				text-align:center;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/kindy.css">
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	</head>
-	<body>
+	<body id="sign">
 		<div class="container">
 			<div class="head">
 				<p><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></p>
@@ -62,8 +25,8 @@
 		<script type="text/javascript">
 		// <![CDATA[
 			$(function() {
-				$('input').tooltip({ animation: false, trigger: 'focus' });
-				$('input').tooltip('show');
+				$(':input:enabled:visible:first').focus();
+				$('input').tooltip({ animation: false, trigger: 'focus' }).tooltip('show');
 			});
 		// ]]>
 		</script>

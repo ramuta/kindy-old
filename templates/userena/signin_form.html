@@ -1,5 +1,4 @@
 {% extends 'userena/base_sign.html' %}
-{% load url from future %}
 {% load widget_tweaks %}
 
 {% block title %}Login{% endblock %}
@@ -27,7 +26,7 @@
 		{% endif %}
 		{% endfor %}
 		<div class="form-group">
-			<input type="submit" value="Login" class="btn btn-lg btn-primary btn-block" style="margin-right:10px;">
+			<button type="submit" class="btn btn-lg btn-primary btn-block">Login <span class="glyphicon glyphicon-chevron-right"></span></button>
 		</div>
 		<div class="form-group">
 			<p>You don't have an account? <a href="{% url 'userena_signup' %}">Register</a></p>

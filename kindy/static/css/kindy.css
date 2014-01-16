@@ -21,6 +21,8 @@ body {
 	font-family:Ubuntu, Helvetica, Arial, sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 { font-family:Ubuntu, Helvetica, Arial, sans-serif; }
+
 hr { border-color:#ddd; }
 
 .table > thead > tr > th,
@@ -30,6 +32,43 @@ hr { border-color:#ddd; }
 	color:#fff;
 }
 /* END MAIN DEFINITIONS */
+
+/* LOGIN, REGISTER AND PASSWORD RESET PAGES */
+body#sign {
+	background:#5bb7e8;
+	display:table;
+	width:100%;
+}
+
+#sign .container {
+	display:table-cell;
+	height:100%;
+	vertical-align:middle;
+}
+
+#sign .head {
+	color:#fff;
+	padding:50px 0 30px;
+	text-align:center;
+}
+
+#sign .panel {
+	border:none;
+	margin:0 auto 50px;
+	width:320px;
+}
+
+#sign .panel .panel-body { padding:20px 20px 10px; }
+
+#sign .panel .panel-body h3 {
+	border-bottom:1px #ddd solid;
+	margin:0 0 20px;
+	padding-bottom:15px;
+	text-align:center;
+}
+
+#sign .panel .panel-body button { font-weight:bold; }
+/* END LOGIN, REGISTER AND PASSWORD RESET PAGES */
 
 /* HEADER */
 #header {
