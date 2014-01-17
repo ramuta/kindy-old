@@ -20,20 +20,22 @@
 	<body>
 		<div id="header">
 			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
-			{% if childcare %}
-			<p class="pull-left"><span class="name">{{ childcare }}</span> | <a href="/{{ childcare.slug }}/" target="_blank">Go to website</a></p>
-			{% endif %}
-			<p class="pull-right">
-				<span class="glyphicon glyphicon-home"></span> <a href="/">Home</a> |
-			{% if user.is_authenticated %}
-				<span class="glyphicon glyphicon-user"></span> <a href="/accounts/{{ user }}">{% if user.first_name == '' %}{{ user }}{% else %}{{ user.first_name }} {{ user.last_name }}{% endif %}</a> |
-				<span class="glyphicon glyphicon-log-out"></span> <a href="/accounts/signout/">Logout</a>
-			{% else %}
-				<span class="glyphicon glyphicon-log-in"></span> <a href="/accounts/signin/">Login</a>
-			{% endif %}
-			</p>
+			<div class="hidden-xs">
+				{% if childcare %}
+				<p class="pull-left"><span class="name">{{ childcare }}</span> | <a href="/{{ childcare.slug }}/" target="_blank">Go to website</a></p>
+				{% endif %}
+				<p class="pull-right">
+					<span class="glyphicon glyphicon-home"></span> <a href="/">Home</a> |
+				{% if user.is_authenticated %}
+					<span class="glyphicon glyphicon-user"></span> <a href="/accounts/{{ user }}">{% if user.first_name == '' %}{{ user }}{% else %}{{ user.first_name }} {{ user.last_name }}{% endif %}</a> |
+					<span class="glyphicon glyphicon-log-out"></span> <a href="/accounts/signout/">Logout</a>
+				{% else %}
+					<span class="glyphicon glyphicon-log-in"></span> <a href="/accounts/signin/">Login</a>
+				{% endif %}
+				</p>
+			</div>
 		</div>
-		<div id="sidebar">
+		<div id="sidebar" class="hidden-xs hidden-sm">
 			<p class="name">{% block sidebar-title %}{% endblock %}</p>
 			<ul class="nav">
 				{% block sidebar %}{% endblock %}
@@ -53,6 +55,7 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/retina.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/mousewheel.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/jscrollpane.js"></script>

@@ -252,8 +252,26 @@ body#sign {
 }
 /* END CONTENT */
 
+/* TABLET */
+@media only screen and (max-width:991px) {
+	/* CONTENT */
+	#content { width:100%; }
+	/* END CONTENT */
+}
+/* END TABLET */
+
 /* MOBILE */
-@media only screen and (max-width:720px) {
+@media only screen and (max-width:767px) {
+	/* LOGIN, REGISTER AND PASSWORD RESET PAGES */
 	#sign .panel { width:100%; }
+	/* END LOGIN, REGISTER AND PASSWORD RESET PAGES */
+
+	/* HEADER */
+	#header { padding:15px; }
+	/* END HEADER */
+
+	/* CONTENT */
+	#content .padding { padding:15px; }
+	/* END CONTENT */
 }
 /* END MOBILE */
