@@ -36,7 +36,7 @@
             </span>
         </div>
     {% else %}
-        <p>No photos were uploaded yet. Add some to <a href="{% url 'childcare:diary_list' childcare_slug=childcare.slug %}">diary</a> or <a href="{% url 'childcare:news_list' childcare_slug=childcare.slug %}">news</a>.</p>
+        <p>No photos were uploaded yet.{% if user in childcare.employees.all or user in childcare.managers.all %} Add some to <a href="{% url 'childcare:diary_list' childcare_slug=childcare.slug %}">diary</a> or <a href="{% url 'childcare:news_list' childcare_slug=childcare.slug %}">news</a>.{% endif %}</p>
     {% endif %}
 {% endblock content %}
 
