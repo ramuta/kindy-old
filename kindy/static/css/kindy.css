@@ -31,6 +31,12 @@ hr { border-color:#ddd; }
 	background:#5a6173;
 	color:#fff;
 }
+
+.btn {
+	transition:background 0.2s;
+	-moz-transition:background 0.2s;
+	-webkit-transition:background 0.2s;
+}
 /* END MAIN DEFINITIONS */
 
 /* LOGIN, REGISTER AND PASSWORD RESET PAGES */

@@ -37,6 +37,6 @@ $(function() {
 
 	// DISABLE SUBMIT BUTTON WHEN FORM IS SUBMITED
 	$('form').submit(function() {
-		$(this).find('input[type="submit"]').val('Loading...').prop('disabled', true);
+		$(this).find(':input:submit').val('Loading...').prop('disabled', true);
 	});
 });

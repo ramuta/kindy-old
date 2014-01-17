@@ -38,6 +38,10 @@
 			$(function() {
 				$(':input:enabled:visible:first').focus();
 				$('input').tooltip({ animation: false, trigger: 'focus' }).tooltip('show');
+
+				$('form').submit(function() {
+					$(':input:submit').html('Loading...').prop('disabled', true);
+				});
 			});
 		// ]]>
 		</script>

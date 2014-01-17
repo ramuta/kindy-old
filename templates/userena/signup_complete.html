@@ -5,10 +5,13 @@
 {% block content-title %}You registered successfully{% endblock %}
 
 {% block content %}
-	<p>Thank you for signing up with us!</p>
-	{% if userena_activation_required %}
-	<p>You have been sent an e-mail with an activation link to the supplied email.<br>We will store your signup information for {{ userena_activation_days }} days on our server.</p>
-	{% else  %}
-	<p>You can now use the supplied credentials to signin.</p>
-	{% endif %}
+	<div class="text-center">
+		<p>Thank you for signing up with us!</p>
+		{% if userena_activation_required %}
+		<p>You have been sent an e-mail with an activation link to the supplied email.<br>We will store your signup information for {{ userena_activation_days }} days on our server.</p>
+		{% else  %}
+		<p>You can now use the supplied credentials to signin.</p>
+		{% endif %}
+		<p><a href="{% url 'userena_signin' %}">Login!</a></p>
+	</div>
 {% endblock %}
