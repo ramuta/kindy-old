@@ -8,7 +8,7 @@
 		{% if user in childcare.employees.all or user in childcare.managers.all %}
 		<ul>
 			<li><a href="{% url 'childcare:childcare_update' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-edit"></span>Update childcare</a></li>
-            <li><a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-edit"></span>Invite users</a></li>
+            <li><a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span>Invite users</a></li>
 		</ul>
 		{% endif %}
 		{% endif %}

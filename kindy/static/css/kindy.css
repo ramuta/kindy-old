@@ -87,6 +87,14 @@ body#sign {
 	z-index:1000;
 }
 
+#header .sidebar-button {
+	cursor:pointer;
+	float:left;
+	margin:-3px 15px -3px 0;
+}
+
+#header .sidebar-button span { font-size:1.5em; }
+
 #header p {
 	font-size:1.1em;
 	line-height:20px;
@@ -105,8 +113,9 @@ body#sign {
 	background:#313a4b;
 	bottom:0;
 	color:#fff;
-	float:left;
+	left:0;
 	position:fixed;
+	right:0;
 	top:0;
 	width:18%;
 }
@@ -134,7 +143,7 @@ body#sign {
 	font-size:1.1em;
 	outline:none;
 	padding:20px;
-	padding-left:40px;
+	padding-left:30px;
 	text-decoration:none;
 	transition:background 0.2s;
 	-moz-transition:background 0.2s;
@@ -170,10 +179,12 @@ body#sign {
 
 /* CONTENT */
 #content {
+	background:#efebea;
 	box-shadow:0 0 10px #000;
 	color:#333;
 	float:right;
 	min-height:100%;
+	position:relative;
 	width:82%;
 }
 
@@ -254,8 +265,35 @@ body#sign {
 
 /* TABLET */
 @media only screen and (max-width:991px) {
+	html, body { overflow-x:hidden; }
+
+	/* SIDEBAR */
+	#sidebar {
+		overflow-y:scroll;
+		-webkit-overflow-scrolling:touch;
+		width:100%;
+	}
+
+	#sidebar p.name {
+		padding:20px 30px;
+		text-align:left;
+	}
+	/* END SIDEBAR */
+
 	/* CONTENT */
-	#content { width:100%; }
+	#content {
+		bottom:0;
+		overflow-x:hidden;
+		overflow-y:scroll;
+		-webkit-overflow-scrolling:touch;
+		position:fixed;
+		right:0;
+		top:0;
+		transition:left 0.2s;
+		width:100%;
+	}
+
+	#content.move { left:250px; }
 	/* END CONTENT */
 }
 /* END TABLET */
@@ -269,6 +307,11 @@ body#sign {
 	/* HEADER */
 	#header { padding:15px; }
 	/* END HEADER */
+
+	/* SIDEBAR */
+	#sidebar p.name { padding:20px 15px; }
+	#sidebar ul.nav li a { padding-left:15px; }
+	/* END SIDEBAR */
 
 	/* CONTENT */
 	#content .padding { padding:15px; }

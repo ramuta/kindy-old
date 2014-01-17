@@ -19,6 +19,7 @@
 	</head>
 	<body>
 		<div id="header">
+			<div class="sidebar-button visible-xs visible-sm"><span class="glyphicon glyphicon-align-justify"></span></div>
 			<a href="/" class="logo"><img src="{{ STATIC_URL }}img/logo.png" alt="Kindy"></a>
 			<div class="hidden-xs">
 				{% if childcare %}
@@ -35,7 +36,7 @@
 				</p>
 			</div>
 		</div>
-		<div id="sidebar" class="hidden-xs hidden-sm">
+		<div id="sidebar">
 			<p class="name">{% block sidebar-title %}{% endblock %}</p>
 			<ul class="nav">
 				{% block sidebar %}{% endblock %}

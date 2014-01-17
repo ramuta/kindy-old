@@ -32,8 +32,19 @@ function texteditor(el) {
 // SITE WIDE FUNCTIONS
 $(function() {
 	// SCROLLABLE SIDEBAR CONTENT
-	$('#sidebar').jScrollPane();
-	$(window).resize(function() { $('#sidebar').jScrollPane(); });
+	if($(window).innerWidth() > 991) {
+		$('#sidebar').jScrollPane();
+		$(window).resize(function() { $('#sidebar').jScrollPane(); });
+	}
+
+	// SHOW SIDEBAR ON SMALLER SCREENS
+	$('#header .sidebar-button').click(function() {
+		$('#content').toggleClass('move');
+	});
+
+	$('#content').click(function() {
+		if($(this).hasClass('move')) $('#content').toggleClass('move');
+	});
 
 	// DISABLE SUBMIT BUTTON WHEN FORM IS SUBMITED
 	$('form').submit(function() {
