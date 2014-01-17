@@ -90,7 +90,7 @@ body#sign {
 #header .sidebar-button {
 	cursor:pointer;
 	float:left;
-	margin:-3px 15px -3px 0;
+	margin:-2px 15px -3px 0;
 }
 
 #header .sidebar-button span { font-size:1.5em; }
@@ -125,14 +125,8 @@ body#sign {
 	color:#9fa8b1;
 	font-size:1.6em;
 	margin:50px 0 0;
-	padding:50px 20px;
-	text-align:center;
+	padding:50px 30px;
 	text-transform:uppercase;
-}
-
-#sidebar p.name a {
-	color:#9fa8b1;
-	text-decoration:none;
 }
 
 #sidebar ul.nav { padding-bottom:50px; }
@@ -265,18 +259,19 @@ body#sign {
 
 /* TABLET */
 @media only screen and (max-width:991px) {
+	/* MAIN DEFINITIONS */
 	html, body { overflow-x:hidden; }
+	/* END MAIN DEFINITIONS */
+
+	/* HEADER */
+	#header span.name { margin-left:15px; }
+	/* END HEADER */
 
 	/* SIDEBAR */
 	#sidebar {
 		overflow-y:scroll;
 		-webkit-overflow-scrolling:touch;
 		width:100%;
-	}
-
-	#sidebar p.name {
-		padding:20px 30px;
-		text-align:left;
 	}
 	/* END SIDEBAR */
 
@@ -294,6 +289,9 @@ body#sign {
 	}
 
 	#content.move { left:250px; }
+	#content .padding { padding:20px 30px; }
+	#content .nav { margin-bottom:15px; }
+	#content .cleditorMain { width:100%!important; }
 	/* END CONTENT */
 }
 /* END TABLET */
@@ -310,6 +308,7 @@ body#sign {
 
 	/* SIDEBAR */
 	#sidebar p.name { padding:20px 15px; }
+	#sidebar ul.nav { padding-bottom:30px; }
 	#sidebar ul.nav li a { padding-left:15px; }
 	/* END SIDEBAR */
 
