@@ -224,6 +224,7 @@ body#sign {
 
 #content .info-box a {
 	background:#fff;
+	border-radius:4px;
 	color:#428bca;
 	display:block;
 	font-size:2em;
