@@ -224,16 +224,19 @@ body#sign {
 
 #content .info-box a {
 	background:#fff;
+	color:#428bca;
 	display:block;
 	font-size:2em;
 	padding:20px;
 	text-align:center;
 	text-decoration:none;
 	transition:box-shadow 0.2s;
+	-moz-transition:box-shadow 0.2s;
+	-webkit-transition:box-shadow 0.2s;
 }
 
 #content .info-box a:hover {
-	box-shadow:0 0 10px #2a6496;
+	box-shadow:0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 #content .info-box a.static {
