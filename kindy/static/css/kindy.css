@@ -272,6 +272,7 @@ body#sign {
 
 	/* CONTENT */
 	#content .padding { padding:15px; }
+	#content .nav p.title, #content .nav ul.actions, #content .nav ul.actions li { float:none; }
 	/* END CONTENT */
 }
 /* END MOBILE */
