@@ -15,43 +15,43 @@
 
 {% block content %}
     {% if news_list %}
-    <table class="table table-bordered">
-        <tr>
-            <th>Title</th>
-            <th>Date</th>
-            {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <th>Tools</th>
-            <th>Visibility</th>
-            {% endif %}
-        </tr>
-        {% for news in news_list %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
             <tr>
-                <td>
-                    <a href="{% url 'childcare:news_detail' childcare_slug=childcare.slug news_id=news.pk %}">{{ news }}</a>
-                </td>
-                <td>
-                    {{ news.created }}
-                </td>
+                <th>Title</th>
+                <th>Date</th>
                 {% if user in childcare.employees.all or user in childcare.managers.all %}
-                <td>
-                    <a href="{% url 'childcare:news_add_images' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
-                    <a href="{% url 'childcare:news_add_files' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-cloud-upload"></span> Add files</a>
-                    <a href="{% url 'childcare:news_update' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
-                    <a href="{% url 'childcare:news_delete' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-                </td>
-                <td>
-                    {% if news.public %}
-                        On website.
-                    {% else %}
-                        For registered users only.
-                    {% endif %}
-                </td>
+                <th>Tools</th>
+                <th>Visibility</th>
                 {% endif %}
             </tr>
-        {% endfor %}
-    </table>
-
-    <!-- Pagination -->
+            {% for news in news_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'childcare:news_detail' childcare_slug=childcare.slug news_id=news.pk %}">{{ news }}</a>
+                    </td>
+                    <td>
+                        {{ news.created }}
+                    </td>
+                    {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <td>
+                        <a href="{% url 'childcare:news_add_images' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
+                        <a href="{% url 'childcare:news_add_files' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-cloud-upload"></span> Add files</a>
+                        <a href="{% url 'childcare:news_update' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                        <a href="{% url 'childcare:news_delete' childcare_slug=childcare.slug news_id=news.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    </td>
+                    <td>
+                        {% if news.public %}
+                            On website.
+                        {% else %}
+                            For registered users only.
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
     <div class="pagination">
         <span class="step-links">
             {% if news_list.has_previous %}
@@ -70,9 +70,6 @@
         </span>
     </div>
     {% else %}
-        <p>No news yet.
-        {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <a href="{% url 'childcare:news_create' childcare_slug=childcare.slug %}">Write your first news.</a>
-        {% endif %}</p>
+        <p>No news yet.{% if user in childcare.employees.all or user in childcare.managers.all %} <a href="{% url 'childcare:news_create' childcare_slug=childcare.slug %}">Write your first news.</a>{% endif %}</p>
     {% endif %}
 {% endblock content %}

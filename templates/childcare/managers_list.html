@@ -12,6 +12,7 @@
 
 {% block content %}
     {% if managers_list %}
+    <div class="table-responsive">
         <table class="table table-bordered">
             <tr>
                 <th>Name</th>
@@ -44,24 +45,25 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="pagination">
-            <span class="step-links">
-                {% if managers_list.has_previous %}
-                    <a href="?page={{ managers_list.previous_page_number }}">previous</a>
-                {% endif %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if managers_list.has_previous %}
+                <a href="?page={{ managers_list.previous_page_number }}">previous</a>
+            {% endif %}
 
-                {% if managers_list.has_other_pages %}
-                <span class="current">
-                    Page {{ managers_list.number }} of {{ managers_list.paginator.num_pages }}
-                </span>
-                {% endif %}
-
-                {% if managers_list.has_next %}
-                    <a href="?page={{ managers_list.next_page_number }}"> next</a>
-                {% endif %}
+            {% if managers_list.has_other_pages %}
+            <span class="current">
+                Page {{ managers_list.number }} of {{ managers_list.paginator.num_pages }}
             </span>
-        </div>
+            {% endif %}
+
+            {% if managers_list.has_next %}
+                <a href="?page={{ managers_list.next_page_number }}"> next</a>
+            {% endif %}
+        </span>
+    </div>
     {% else %}
-        <p>No managers.</p>
+    <p>No managers.</p>
     {% endif %}
 {% endblock content %}

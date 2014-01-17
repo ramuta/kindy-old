@@ -16,59 +16,58 @@
 {% block content-title %}Website pages{% endblock %}
 
 {% block content %}
-
-<table class="table table-bordered">
-    <tr>
-        <th>Page</th>
-        <th>Order</th>
-        {% if user in childcare.employees.all or user in childcare.managers.all %}
-        <th>Tools</th>
-        {% endif %}
-    </tr>
-    <tr>
-        <td><a href="/{{ childcare.slug }}/about/" target="_blank">About</a></td>
-        <td>/</td>
-        {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <td><a href="{% url 'childcare:about_edit' childcare_slug=childcare.slug %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a></td>
-        {% endif %}
-    </tr>
-{% if page_list %}
-    {% for page in page_list %}
-        <tr>
-            <td>
-                <a href="/{{ childcare.slug }}/{{ page.slug }}" target="_blank">{{ page }}</a>
-            </td>
-            <td>
-                {{ page.order }}
-            </td>
-            {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <td>
-                <a href="{% url 'childcare:page_update' childcare_slug=childcare.slug page_id=page.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
-                <a href="{% url 'childcare:page_add_files' childcare_slug=childcare.slug page_id=page.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-cloud-upload"></span> Add files</a>
-                <a href="{% url 'childcare:page_delete' childcare_slug=childcare.slug page_id=page.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-            </td>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>Page</th>
+                <th>Order</th>
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                <th>Tools</th>
+                {% endif %}
+            </tr>
+            <tr>
+                <td><a href="/{{ childcare.slug }}/about/" target="_blank">About</a></td>
+                <td>/</td>
+                {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <td><a href="{% url 'childcare:about_edit' childcare_slug=childcare.slug %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a></td>
+                {% endif %}
+            </tr>
+        {% if page_list %}
+            {% for page in page_list %}
+                <tr>
+                    <td>
+                        <a href="/{{ childcare.slug }}/{{ page.slug }}" target="_blank">{{ page }}</a>
+                    </td>
+                    <td>
+                        {{ page.order }}
+                    </td>
+                    {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <td>
+                        <a href="{% url 'childcare:page_update' childcare_slug=childcare.slug page_id=page.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                        <a href="{% url 'childcare:page_add_files' childcare_slug=childcare.slug page_id=page.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-cloud-upload"></span> Add files</a>
+                        <a href="{% url 'childcare:page_delete' childcare_slug=childcare.slug page_id=page.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_list.has_previous %}
+                <a href="?page={{ page_list.previous_page_number }}">previous</a>
             {% endif %}
-        </tr>
-    {% endfor %}
-</table>
 
-<div class="pagination">
-    <span class="step-links">
-        {% if page_list.has_previous %}
-            <a href="?page={{ page_list.previous_page_number }}">previous</a>
-        {% endif %}
+            {% if page_list.has_other_pages %}
+            <span class="current">
+                Page {{ page_list.number }} of {{ page_list.paginator.num_pages }}
+            </span>
+            {% endif %}
 
-        {% if page_list.has_other_pages %}
-        <span class="current">
-            Page {{ page_list.number }} of {{ page_list.paginator.num_pages }}
+            {% if page_list.has_next %}
+                <a href="?page={{ page_list.next_page_number }}"> next</a>
+            {% endif %}
         </span>
-        {% endif %}
-
-        {% if page_list.has_next %}
-            <a href="?page={{ page_list.next_page_number }}"> next</a>
-        {% endif %}
-    </span>
-</div>
-{% endif %}
+    </div>
+    {% endif %}
 {% endblock content %}
-

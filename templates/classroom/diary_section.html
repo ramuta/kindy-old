@@ -12,32 +12,34 @@
 
 {% block content %}
     {% if diary_list %}
-    <table class="table table-bordered">
-        <tr>
-            <th>Diary</th>
-            <th>Classroom</th>
-            {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <th>Tools</th>
-            {% endif %}
-        </tr>
-        {% for diary in diary_list %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
             <tr>
-                <td>
-                    <a href="{% url 'childcare:diary_detail' childcare_slug=childcare.slug diary_id=diary.pk %}">{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</a>
-                </td>
-                <td>
-                    {{ diary.classroom }}
-                </td>
+                <th>Diary</th>
+                <th>Classroom</th>
                 {% if user in childcare.employees.all or user in childcare.managers.all %}
-                <td>
-                    <a href="{% url 'childcare:diary_add_images' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
-                    <a href="{% url 'childcare:diary_update' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
-                    <a href="{% url 'childcare:diary_delete' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-                </td>
+                <th>Tools</th>
                 {% endif %}
             </tr>
-        {% endfor %}
-    </table>
+            {% for diary in diary_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'childcare:diary_detail' childcare_slug=childcare.slug diary_id=diary.pk %}">{{ diary.date.day }} {{ diary.date|date:'M' }} {{ diary.date.year }}</a>
+                    </td>
+                    <td>
+                        {{ diary.classroom }}
+                    </td>
+                    {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <td>
+                        <a href="{% url 'childcare:diary_add_images' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add images</a>
+                        <a href="{% url 'childcare:diary_update' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                        <a href="{% url 'childcare:diary_delete' childcare_slug=childcare.slug diary_id=diary.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
     <div class="pagination">
         <span class="step-links">
             {% if diary_list.has_previous %}

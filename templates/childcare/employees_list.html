@@ -12,6 +12,7 @@
 
 {% block content %}
     {% if employees_list %}
+    <div class="table-responsive">
         <table class="table table-bordered">
             <tr>
                 <th>Name</th>
@@ -44,24 +45,25 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="pagination">
-            <span class="step-links">
-                {% if employees_list.has_previous %}
-                    <a href="?page={{ employees_list.previous_page_number }}">previous</a>
-                {% endif %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if employees_list.has_previous %}
+                <a href="?page={{ employees_list.previous_page_number }}">previous</a>
+            {% endif %}
 
-                {% if employees_list.has_other_pages %}
-                <span class="current">
-                    Page {{ employees_list.number }} of {{ employees_list.paginator.num_pages }}
-                </span>
-                {% endif %}
-
-                {% if employees_list.has_next %}
-                    <a href="?page={{ employees_list.next_page_number }}"> next</a>
-                {% endif %}
+            {% if employees_list.has_other_pages %}
+            <span class="current">
+                Page {{ employees_list.number }} of {{ employees_list.paginator.num_pages }}
             </span>
-        </div>
+            {% endif %}
+
+            {% if employees_list.has_next %}
+                <a href="?page={{ employees_list.next_page_number }}"> next</a>
+            {% endif %}
+        </span>
+    </div>
     {% else %}
-        <p>No employees added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}?role=Employee" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite employee</a></p>
+    <p>No employees added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}?role=Employee" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite employee</a></p>
     {% endif %}
 {% endblock content %}

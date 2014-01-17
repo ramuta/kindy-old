@@ -12,6 +12,7 @@
 
 {% block content %}
     {% if parents_list %}
+    <div class="table-responsive">
         <table class="table table-bordered">
             <tr>
                 <th>Name</th>
@@ -44,24 +45,25 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="pagination">
-            <span class="step-links">
-                {% if parents_list.has_previous %}
-                    <a href="?page={{ parents_list.previous_page_number }}">previous</a>
-                {% endif %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if parents_list.has_previous %}
+                <a href="?page={{ parents_list.previous_page_number }}">previous</a>
+            {% endif %}
 
-                {% if parents_list.has_other_pages %}
-                <span class="current">
-                    Page {{ parents_list.number }} of {{ parents_list.paginator.num_pages }}
-                </span>
-                {% endif %}
-
-                {% if parents_list.has_next %}
-                    <a href="?page={{ parents_list.next_page_number }}"> next</a>
-                {% endif %}
+            {% if parents_list.has_other_pages %}
+            <span class="current">
+                Page {{ parents_list.number }} of {{ parents_list.paginator.num_pages }}
             </span>
-        </div>
+            {% endif %}
+
+            {% if parents_list.has_next %}
+                <a href="?page={{ parents_list.next_page_number }}"> next</a>
+            {% endif %}
+        </span>
+    </div>
     {% else %}
-        <p>No parents added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}?role=Parent" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></p>
+    <p>No parents added yet. <a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}?role=Parent" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span> Invite parent</a></p>
     {% endif %}
 {% endblock content %}

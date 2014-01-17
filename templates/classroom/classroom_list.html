@@ -12,31 +12,33 @@
 
 {% block content %}
     {% if classroom_list %}
-    <table class="table table-bordered">
-        <tr>
-            <th>Classroom</th>
-            <th>Description</th>
-            {% if user in childcare.employees.all or user in childcare.managers.all %}
-            <th>Tools</th>
-            {% endif %}
-        </tr>
-        {% for classroom in classroom_list %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
             <tr>
-                <td>
-                    {{ classroom }}
-                </td>
-                <td>
-                    {{ classroom.description }}
-                </td>
+                <th>Classroom</th>
+                <th>Description</th>
                 {% if user in childcare.employees.all or user in childcare.managers.all %}
-                <td>
-                    <a href="{% url 'childcare:classroom_update' childcare_slug=childcare.slug classroom_id=classroom.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
-                    <a href="{% url 'childcare:classroom_delete' childcare_slug=childcare.slug classroom_id=classroom.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-                </td>
+                <th>Tools</th>
                 {% endif %}
             </tr>
-        {% endfor %}
-    </table>
+            {% for classroom in classroom_list %}
+                <tr>
+                    <td>
+                        {{ classroom }}
+                    </td>
+                    <td>
+                        {{ classroom.description }}
+                    </td>
+                    {% if user in childcare.employees.all or user in childcare.managers.all %}
+                    <td>
+                        <a href="{% url 'childcare:classroom_update' childcare_slug=childcare.slug classroom_id=classroom.pk %}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update</a>
+                        <a href="{% url 'childcare:classroom_delete' childcare_slug=childcare.slug classroom_id=classroom.pk %}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
     <div class="pagination">
         <span class="step-links">
             {% if classroom_list.has_previous %}
