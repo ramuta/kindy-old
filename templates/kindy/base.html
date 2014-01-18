@@ -46,11 +46,9 @@
 			<div class="padding">
 				<div class="nav">
 					<p class="title">{% block content-title %}{% endblock %}</p>
-					{% block action_header %}
 					<ul class="nav navbar-nav actions">
 						{% block action %}{% endblock action %}
 					</ul>
-					{% endblock action_header %}
 				</div>
 				{% block content %}{% endblock %}
 			</div>
