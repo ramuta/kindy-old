@@ -174,12 +174,13 @@ body#sign {
 #content {
 	background:#efebea;
 	box-shadow:0 0 10px #000;
+	bottom:0;
 	color:#333;
-	float:right;
 	left:250px;
-	min-height:100%;
-	position:absolute;
+	position:fixed;
+	overflow-y:scroll;
 	right:0;
+	top:0;
 }
 
 #content .padding {
@@ -229,11 +230,10 @@ body#sign {
 }
 
 #content .info-box a {
-	background:#fff;
-	border-radius:4px;
 	color:#428bca;
 	display:block;
 	font-size:2em;
+	margin:0;
 	padding:20px 10px;
 	text-align:center;
 	text-decoration:none;
@@ -277,7 +277,6 @@ body#sign {
 	#content {
 		left:0;
 		overflow-x:hidden;
-		overflow-y:scroll;
 		-webkit-overflow-scrolling:touch;
 		transition:left 0.3s;
 		width:100%;

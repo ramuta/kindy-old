@@ -19,14 +19,14 @@
         {% if all_childcare_list %}
             {% for childcare in all_childcare_list %}
             <div class="col-xs-12 col-sm-6 col-md-4 info-box">
-                <a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}" class="static">
+                <a href="{% url 'childcare:childcare_info' childcare_slug=childcare.slug %}" class="panel static">
                     <span class="glyphicon glyphicon-home"></span><br>{{ childcare }}
                 </a>
             </div>
             {% endfor %}
         {% endif %}
         <div class="col-xs-12 col-sm-6 col-md-4 info-box">
-            <a href="/childcare/create/" class="static"{% if all_childcare_list %} style="opacity:0.9;"{% endif %}>
+            <a href="/childcare/create/" class="panel static"{% if all_childcare_list %} style="opacity:0.9;"{% endif %}>
                 <span class="glyphicon glyphicon-plus"></span><br>Create childcare
             </a>
         </div>
