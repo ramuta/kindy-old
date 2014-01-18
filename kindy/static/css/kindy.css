@@ -219,7 +219,6 @@ body#sign {
 }
 
 #content .nav ul.actions li a:hover { color:#333; }
-
 #content .nav ul.actions li ul li { float:none; }
 
 #content .info-box {
@@ -241,9 +240,7 @@ body#sign {
 	-webkit-transition:box-shadow 0.2s;
 }
 
-#content .info-box a:hover {
-	box-shadow:0 0 8px rgba(102, 175, 233, 0.6);
-}
+#content .info-box a:hover { box-shadow:0 0 8px rgba(102, 175, 233, 0.6); }
 
 #content .info-box a.static {
 	display:table-cell;
@@ -284,7 +281,7 @@ body#sign {
 		position:fixed;
 		right:0;
 		top:0;
-		transition:left 0.2s;
+		transition:left 0.3s;
 		width:100%;
 	}
 
