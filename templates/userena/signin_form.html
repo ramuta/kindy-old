@@ -30,7 +30,7 @@
 			<button type="submit" class="btn btn-lg btn-primary btn-block">Login <span class="glyphicon glyphicon-log-in"></span></button>
 		</div>
 		<div class="form-group text-center">
-			<p>You don't have an account? <a href="{% url 'userena_signup' %}">Register!</a><br>Forgot your password? <a href="{% url 'userena_password_reset' %}">Reset it!</a></p>
+			<p><a href="{% url 'userena_signup' %}">I don't have an account?</a><br><a href="{% url 'userena_password_reset' %}">I forgot my password?</a></p>
 		</div>
 		{% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 	</form>

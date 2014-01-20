@@ -1,13 +1,6 @@
 {% extends "kindy/base.html" %}
-{% load i18n %}
 
-{% block sidebar-title %}
-	{% if user.username == profile.user.username %}
-    Profile
-	{% else %}
-    Home
-	{% endif %}
-{% endblock %}
+{% block sidebar-title %}Profile{% endblock %}
 
 {% block sidebar %}
     <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>

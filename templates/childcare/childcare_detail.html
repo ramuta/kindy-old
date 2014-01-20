@@ -4,7 +4,6 @@
 
 {% block action %}
     {% if user in childcare.employees.all or user in childcare.managers.all %}
-    <li><a href="{% url 'childcare:classroom_create' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Add classroom</a></li>
     <li><a href="{% url 'childcare:childcare_update' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-edit"></span> Update childcare</a></li>
     <li><a href="{% url 'childcare:invite_users' childcare_slug=childcare.slug %}"><span class="glyphicon glyphicon-plus"></span> Invite users</a></li>
     {% endif %}
