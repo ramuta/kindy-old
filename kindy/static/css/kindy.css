@@ -254,6 +254,24 @@ body#sign {
 	color:#555;
 	font-size:2em;
 }
+
+#content .note-editor {
+	border-color:#ccc;
+	border-radius:4px;
+	width:717px;
+}
+
+#content .has-error .note-editor { border-color:#a94442; }
+
+#content .note-editor .note-toolbar {
+	border-color:#ccc;
+	border-radius:4px 4px 0 0;
+}
+
+#content .note-editor .note-editable {
+	background:#fff;
+	border-radius:0 0 4px 4px;
+}
 /* END CONTENT */
 
 /* TABLET */
@@ -285,7 +303,6 @@ body#sign {
 	#content.move { left:250px; }
 	#content .padding { padding:20px 30px; }
 	#content .nav { margin-bottom:15px; }
-	#content .cleditorMain { width:100%!important; }
 	/* END CONTENT */
 }
 /* END TABLET */

@@ -19,12 +19,7 @@ function texteditor(el) {
 		$.ajaxSetup({ cache: true });
 
 		$.getScript('//getkindy.s3.amazonaws.com/js/texteditor.js', function() {
-			$(el).cleditor({
-				height: '350px',
-				width: '250%',
-				controls: 'bold italic underline style | color removeformat | bullets numbering | alignleft center alignright | undo redo | image link unlink | source',
-				bodyStyle: 'font:normal 14px/1 Ubuntu, Helvetica, Arial, sans-serif; margin:10px;'
-			});
+			$('textarea').summernote({ height: '250px' });
 		});
 	});
 }
